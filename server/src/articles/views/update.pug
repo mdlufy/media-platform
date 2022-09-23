@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title Новая статья
+  style
+  body
+    h1 Редактировать статью
+    form(method="POST" action='')
+      input(type="text" name="title" value=`${article.title}` placeholder="Название")
+      input(type="text" name="content" value=`${article.content}` placeholder="Текст статьи")
+      button(type="submit") Сохранить
+    p 
+    a(href="/articles") Назад

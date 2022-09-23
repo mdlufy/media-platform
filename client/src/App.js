@@ -12,7 +12,7 @@ function App() {
     return (
         <>
             <Header />
-            <Container maxWidth="sm">
+            <Container maxWidth="lg">
                 <Routes>
                     {Object.entries(routes).map(([key, Element]) => {
                         return (

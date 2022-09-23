@@ -1,7 +1,8 @@
-import { Button, Divider } from "@mui/material";
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ArticleService from "../API/ArticleService";
 import ArticleList from "../components/articles/components/ArticlesList/ArticlesList";
+import PageTitle from "../components/lib/PageTitle";
 
 function Articles() {
     const [articles, setArticles] = useState([]);
@@ -25,10 +26,18 @@ function Articles() {
 
     return (
         <>
-            <Button style={{ marginTop: 15 }}>
-                Создать статью
-            </Button>
-            <Divider/>
+            <PageTitle
+                title="Статьи"
+                actionButton={
+                    <Button
+                        variant="contained"
+                        // onClick={toNewsAddPage}
+                        // className={styles.toAddPageBtn}
+                    >
+                        Добавить статью
+                    </Button>
+                }
+            />
             <ArticleList remove={removeArticle} articles={articles} />
         </>
     );

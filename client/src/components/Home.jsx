@@ -1,10 +1,13 @@
 import React from 'react';
+import PageTitle from './lib/PageTitle';
 
 function Home() {
     return (
-        <div>
-           <h1>Главная</h1> 
-        </div>
+        <>
+            <PageTitle
+                title="Главная"
+            />
+        </>
     );
 }
 

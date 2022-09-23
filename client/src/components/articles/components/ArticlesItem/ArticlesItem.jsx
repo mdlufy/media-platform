@@ -8,9 +8,7 @@ function ArticlesItem({ remove, article }) {
                 {article.id}
                 <ListItemText primary={article.title}></ListItemText>
                 <Button>Открыть</Button>
-                <Button onClick={() => remove(article)}>
-                    Удалить
-                </Button>
+                <Button onClick={() => remove(article)}>Удалить</Button>
             </ListItem>
         </>
     );

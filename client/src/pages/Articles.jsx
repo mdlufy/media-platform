@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ArticleService from "../API/ArticleService";
 import ArticleList from "../components/articles/components/ArticlesList/ArticlesList";
@@ -25,7 +25,7 @@ function Articles() {
     }
 
     return (
-        <>
+        <Container maxWidth={false}>
             <PageTitle
                 title="Статьи"
                 actionButton={
@@ -39,7 +39,7 @@ function Articles() {
                 }
             />
             <ArticleList remove={removeArticle} articles={articles} />
-        </>
+        </Container>
     );
 }
 

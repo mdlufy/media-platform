@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 import ArticlesItem from "../ArticlesItem/ArticlesItem";
 
 function ArticlesList({ articles, remove }) {
@@ -7,11 +7,18 @@ function ArticlesList({ articles, remove }) {
     }
 
     return (
-        <Container maxWidth={false}>
-                {articles.map((article) => (
-                    <ArticlesItem remove={remove} article={article} />
-                ))}
-        </Container>
+        <Box
+            sx={{
+                width: "100%",
+                bgcolor: "background.paper",
+                borderRadius: 2,
+                boxShadow: 1,
+            }}
+        >
+            {articles.map((article) => (
+                <ArticlesItem remove={remove} article={article} />
+            ))}
+        </Box>
     );
 }
 

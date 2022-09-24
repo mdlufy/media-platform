@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx';
+import ArticleService from '../../../API/ArticleService';
 
 class ArticlesStore {
     searchField = '';
@@ -26,7 +27,7 @@ class ArticlesStore {
 
     // async fetchArticles() {
     //     const responce = await ArticleService.getAll();
-    //     setArticles(responce.data.articleData);
+    //     this.articles = [...this.articles, ...responce.data.articleData];
     // }
 
     getArticlesItemById(articlesId) {

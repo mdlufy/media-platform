@@ -1,13 +1,14 @@
 import { Button, Container } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import ArticleList from "../components/articles/components/ArticlesList/ArticlesList";
 import ArticlesSearch from "../components/articles/components/ArticlesSearch/ArticlesSearch";
+import articlesStore from "../components/articles/stores/articles.store";
 import PageTitle from "../components/lib/PageTitle";
 
 const Articles = () => {
 
     // useEffect(() => {
-    //     fetchArticles();
+    //     articlesStore.fetchArticles();
     // }, []);
 
     return (

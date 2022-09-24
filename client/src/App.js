@@ -2,6 +2,7 @@ import { CircularProgress, Container, Stack } from "@mui/material";
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
+import NotFound from "./pages/NotFound";
 
 const routes = {
     "/": React.lazy(() => import("./components/Home")),
@@ -42,7 +43,7 @@ function App() {
                             />
                         );
                     })}
-                    <Route path={"*"} element={<h1>404 NOT FOUND</h1>} />
+                    <Route path={"*"} element={<NotFound />} />
                 </Routes>
             </Container>
         </>

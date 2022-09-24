@@ -1,28 +1,14 @@
 import { Button, Container } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import ArticleService from "../API/ArticleService";
+import React from "react";
 import ArticleList from "../components/articles/components/ArticlesList/ArticlesList";
+import ArticlesSearch from "../components/articles/components/ArticlesSearch/ArticlesSearch";
 import PageTitle from "../components/lib/PageTitle";
 
-function Articles() {
-    const [articles, setArticles] = useState([]);
+const Articles = () => {
 
-    useEffect(() => {
-        fetchArticles();
-    }, []);
-
-    async function fetchArticles() {
-        const responce = await ArticleService.getAll();
-        setArticles(responce.data.articleData);
-    }
-
-    function removeArticle(article) {
-        setArticles(articles.filter((item) => item.id !== article.id));
-    }
-
-    function createArticle(newArticle) {
-        setArticles([...articles, newArticle]);
-    }
+    // useEffect(() => {
+    //     fetchArticles();
+    // }, []);
 
     return (
         <Container maxWidth={false}>
@@ -38,9 +24,10 @@ function Articles() {
                     </Button>
                 }
             />
-            <ArticleList remove={removeArticle} articles={articles} />
+            <ArticlesSearch />
+            <ArticleList />
         </Container>
     );
-}
+};
 
 export default Articles;

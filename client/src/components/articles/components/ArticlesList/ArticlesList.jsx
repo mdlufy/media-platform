@@ -1,25 +1,43 @@
-import { Box } from "@mui/material";
+import { Box, List } from "@mui/material";
+import { observer } from "mobx-react-lite";
+import articlesStore from "../../stores/articles.store";
 import ArticlesItem from "../ArticlesItem/ArticlesItem";
 
-function ArticlesList({ articles, remove }) {
+const ArticlesList = observer(() => {
+    const articles = JSON.parse(JSON.stringify(articlesStore.articlesFiltered));
+
     if (!articles.length) {
-        return <h1 style={{ textAlign: "center" }}>Статьи не найдены!</h1>;
+        return (
+            <h1 style={{ textAlign: "center", font: "inherit", fontSize: 24 }}>
+                Статьи не найдены!
+            </h1>
+        );
     }
 
     return (
         <Box
             sx={{
+                display: "flex",
                 width: "100%",
                 bgcolor: "background.paper",
                 borderRadius: 2,
                 boxShadow: 1,
+                mt: 4,
+                p: 0.1,
             }}
         >
-            {articles.map((article) => (
-                <ArticlesItem remove={remove} article={article} />
-            ))}
+            <List
+                sx={{ display: "flex", flexGrow: 1, flexDirection: "column" }}
+            >
+                {articles.map((articleItem) => (
+                    <ArticlesItem
+                        key={articleItem.id}
+                        articlesId={articleItem.id}
+                    />
+                ))}
+            </List>
         </Box>
     );
-}
+});
 
 export default ArticlesList;

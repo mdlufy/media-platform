@@ -18,6 +18,7 @@ function App() {
                     {Object.entries(routes).map(([key, Element]) => {
                         return (
                             <Route
+                                key={key}
                                 path={key}
                                 element={
                                     <Suspense

@@ -9,7 +9,7 @@ function PageTitle(props) {
             container
             spacing={2}
             mt={2}
-            mb={5}
+            mb={1}
             style={{ alignItems: "center" }}
         >
             <Grid item xs={12} md="auto">

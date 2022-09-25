@@ -25,10 +25,17 @@ class ArticlesStore {
         makeAutoObservable(this);
     }
 
-    // async fetchArticles() {
-    //     const responce = await ArticleService.getAll();
-    //     this.articles = [...this.articles, ...responce.data.articleData];
-    // }
+    addArticle(article) {
+        this.articles = [...this.articles, article];
+    }
+
+    async fetchArticles() {
+        const responce = await ArticleService.getAll();
+
+        this.articles = responce.data.articleData;
+
+        return responce;
+    }
 
     getArticlesItemById(articlesId) {
         articlesId = Number(articlesId);

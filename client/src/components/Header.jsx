@@ -12,7 +12,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const navItems = [
     {
@@ -31,7 +31,6 @@ const navItems = [
 const settings = ["Profile", "Logout"];
 
 function Header() {
-    const navigate = useNavigate();
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -122,11 +121,6 @@ function Header() {
                                     >
                                         {item.text}
                                     </Button>
-                                    {/* <NavLink to={page.url}>
-                                        <Typography textAlign="center">
-                                            {page.text}
-                                        </Typography>
-                                    </NavLink> */}
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -167,13 +161,6 @@ function Header() {
                             >
                                 {item.text}
                             </Button>
-                            // <NavLink to={item.url} key={item.text}>
-                            //     <ListItem key={item.url} disablePadding>
-                            //         <ListItemButton>
-                            //             <ListItemText primary={item.text} />
-                            //         </ListItemButton>
-                            //     </ListItem>
-                            // </NavLink>
                         ))}
                     </Box>
 

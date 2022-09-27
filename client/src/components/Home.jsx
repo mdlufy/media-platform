@@ -1,14 +1,11 @@
-import { Container } from '@mui/material';
+import {Container} from '@mui/material';
 import React from 'react';
 import PageTitle from './lib/PageTitle';
 
 function Home() {
     return (
         <Container maxWidth={false}>
-
-            <PageTitle
-                title="Главная"
-            />
+            <PageTitle title="Главная" />
         </Container>
     );
 }

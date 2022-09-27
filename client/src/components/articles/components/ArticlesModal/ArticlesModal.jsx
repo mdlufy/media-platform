@@ -1,21 +1,21 @@
-import { TextField } from "@mui/material";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Typography";
-import axios from "axios";
-import React, { useState } from "react";
-import { API_URL } from "../../constants";
-import articlesStore from "../../stores/articles.store";
+import {TextField} from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+import axios from 'axios';
+import React, {useState} from 'react';
+import {API_URL} from '../../constants';
+import articlesStore from '../../stores/articles.store';
 
 const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
     boxShadow: 24,
     p: 4,
 };
@@ -25,9 +25,8 @@ function ArticlesModal() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
 
     const submitForm = async (e) => {
         e.preventDefault();
@@ -42,7 +41,7 @@ function ArticlesModal() {
 
         await axios.post(API_URL, JSON.stringify(body), {
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
             },
         });
 
@@ -72,7 +71,7 @@ function ArticlesModal() {
                             component="form"
                             onSubmit={submitForm}
                             noValidate
-                            sx={{ mt: 1 }}
+                            sx={{mt: 1}}
                         >
                             <label>Title:</label>
                             <TextField
@@ -98,7 +97,7 @@ function ArticlesModal() {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
+                                sx={{mt: 3, mb: 2}}
                             >
                                 Добавить
                             </Button>

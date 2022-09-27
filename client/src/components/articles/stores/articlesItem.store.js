@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import {makeAutoObservable} from 'mobx';
 
 class ArticlesItemStore {
     articlesItem = {};
@@ -9,8 +9,8 @@ class ArticlesItemStore {
 
     create(item) {
         this.articlesItem = {
-            title: item?.title || "",
-            content: item?.content || "",
+            title: item?.title || '',
+            content: item?.content || '',
         };
     }
 }

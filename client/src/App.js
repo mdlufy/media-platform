@@ -1,12 +1,12 @@
-import { CircularProgress, Container, Stack } from "@mui/material";
-import React, { Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
-import NotFound from "./pages/NotFound";
+import {CircularProgress, Container, Stack} from '@mui/material';
+import React, {Suspense} from 'react';
+import {Route, Routes} from 'react-router-dom';
+import Header from './components/Header';
+import NotFound from './pages/NotFound';
 
 const routes = {
-    "/": React.lazy(() => import("./components/Home")),
-    "/articles": React.lazy(() => import("./pages/Articles")),
+    '/': React.lazy(() => import('./components/Home')),
+    '/articles': React.lazy(() => import('./pages/Articles')),
 };
 
 function App() {
@@ -25,13 +25,13 @@ function App() {
                                         fallback={
                                             <Stack
                                                 sx={{
-                                                    position: "fixed",
-                                                    top: "56px",
-                                                    left: "240px",
+                                                    position: 'fixed',
+                                                    top: '56px',
+                                                    left: '240px',
                                                     right: 0,
                                                     bottom: 0,
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
                                                 }}
                                             >
                                                 <CircularProgress />
@@ -44,7 +44,7 @@ function App() {
                             />
                         );
                     })}
-                    <Route path={"*"} element={<NotFound />} />
+                    <Route path={'*'} element={<NotFound />} />
                 </Routes>
             </Container>
         </>

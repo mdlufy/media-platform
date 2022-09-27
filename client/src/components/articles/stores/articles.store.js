@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import {makeAutoObservable} from 'mobx';
 import ArticleService from '../../../API/ArticleService';
 
 class ArticlesStore {
@@ -7,17 +7,17 @@ class ArticlesStore {
         {
             id: 1,
             title: 'First article',
-            content: 'TestContent'
+            content: 'TestContent',
         },
         {
             id: 2,
             title: 'Second article',
-            content: 'TestContent'
+            content: 'TestContent',
         },
         {
             id: 3,
             title: 'Third article',
-            content: 'TestContent'
+            content: 'TestContent',
         },
     ];
 
@@ -40,19 +40,23 @@ class ArticlesStore {
     getArticlesItemById(articlesId) {
         articlesId = Number(articlesId);
 
-        return this.articles.find(articleItem => articleItem.id === articlesId)
+        return this.articles.find(
+            (articleItem) => articleItem.id === articlesId
+        );
     }
 
     deleteArticleItemById(articlesId) {
         articlesId = Number(articlesId);
 
-        this.articles = this.articles.filter((articleItem) => articleItem.id !== articlesId);
+        this.articles = this.articles.filter(
+            (articleItem) => articleItem.id !== articlesId
+        );
     }
 
     get articlesFiltered() {
-        return this.articles.filter(articlesItem => {
+        return this.articles.filter((articlesItem) => {
             return new RegExp(this.searchField, 'i').test(articlesItem.title);
-        })
+        });
     }
 
     setSearchField(value) {

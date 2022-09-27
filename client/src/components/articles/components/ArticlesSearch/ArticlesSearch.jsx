@@ -1,6 +1,6 @@
-import { TextField } from "@mui/material";
-import React from "react";
-import articlesStore from "../../stores/articles.store";
+import {TextField} from '@mui/material';
+import React from 'react';
+import articlesStore from '../../stores/articles.store';
 
 function ArticlesSearch() {
     const changeSearchField = (e) => {
@@ -14,7 +14,7 @@ function ArticlesSearch() {
             label="Название статьи"
             variant="standard"
             sx={{
-                width: "100%",
+                width: '100%',
             }}
             onChange={changeSearchField}
         />

@@ -1,11 +1,11 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Button, ListItem, ListItemText } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import {Button, ListItem, ListItemText} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import { observer } from "mobx-react-lite";
-import React from "react";
-import articlesStore from "../../stores/articles.store";
+import {observer} from 'mobx-react-lite';
+import React from 'react';
+import articlesStore from '../../stores/articles.store';
 
-const ArticlesItem = observer(({ articlesId }) => {
+const ArticlesItem = observer(({articlesId}) => {
     const articlesItem = articlesStore.getArticlesItemById(articlesId);
 
     return (
@@ -13,11 +13,13 @@ const ArticlesItem = observer(({ articlesId }) => {
             <ListItemText>{articlesItem.id}</ListItemText>
             <ListItemText primary={articlesItem.title}></ListItemText>
             <Button>Открыть</Button>
-            <IconButton 
-                aria-label="delete" 
-                onClick={() => articlesStore.deleteArticleItemById(articlesItem.id)}
+            <IconButton
+                aria-label="delete"
+                onClick={() =>
+                    articlesStore.deleteArticleItemById(articlesItem.id)
+                }
             >
-                <DeleteIcon fontSize="inherit"/>
+                <DeleteIcon fontSize="inherit" />
             </IconButton>
         </ListItem>
     );

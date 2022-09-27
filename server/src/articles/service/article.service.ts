@@ -1,63 +1,69 @@
-import { UpdateArticleDto } from './../dto/update-article.dto';
-import { CreateArticleDto } from './../dto/create-article.dto';
-import { IArticle } from './../interface/article.interface';
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import {UpdateArticleDto} from './../dto/update-article.dto';
+import {CreateArticleDto} from './../dto/create-article.dto';
+import {IArticle} from './../interface/article.interface';
+import {Injectable, NotFoundException} from '@nestjs/common';
+import {InjectModel} from '@nestjs/mongoose';
+import {Model} from 'mongoose';
 
 @Injectable()
 export class ArticleService {
-  constructor(@InjectModel('Article') private articleModel: Model<IArticle>) {}
+    constructor(
+        @InjectModel('Article') private articleModel: Model<IArticle>
+    ) {}
 
-  async createArticle(createArticleDto: CreateArticleDto): Promise<IArticle> {
-    const newArticle = await new this.articleModel(createArticleDto);
-    return newArticle.save();
-  }
-
-  async updateArticle(
-    articleId: number,
-    updateArticleDto: UpdateArticleDto,
-  ): Promise<IArticle> {
-    const existingArticle = await this.articleModel.findByIdAndUpdate(
-      articleId,
-      updateArticleDto,
-      { new: true },
-    );
-
-    if (!existingArticle) {
-      throw new NotFoundException(`Article #${articleId} not found`);
+    async createArticle(createArticleDto: CreateArticleDto): Promise<IArticle> {
+        const newArticle = await new this.articleModel(createArticleDto);
+        return newArticle.save();
     }
 
-    return existingArticle;
-  }
+    async updateArticle(
+        articleId: number,
+        updateArticleDto: UpdateArticleDto
+    ): Promise<IArticle> {
+        const existingArticle = await this.articleModel.findByIdAndUpdate(
+            articleId,
+            updateArticleDto,
+            {new: true}
+        );
 
-  async getAllArticles(): Promise<IArticle[]> {
-    const articleData = await this.articleModel.find();
+        if (!existingArticle) {
+            throw new NotFoundException(`Article #${articleId} not found`);
+        }
 
-    if (!articleData || articleData.length == 0) {
-      throw new NotFoundException('Articles data not found');
+        return existingArticle;
     }
 
-    return articleData;
-  }
+    async getAllArticles(): Promise<IArticle[]> {
+        const articleData = await this.articleModel.find();
 
-  async getArticle(articleId: number): Promise<IArticle> {
-    const existingArticle = await this.articleModel.findById(articleId).exec();
+        if (!articleData || articleData.length == 0) {
+            throw new NotFoundException('Articles data not found');
+        }
 
-    if (!existingArticle) {
-      throw new NotFoundException(`Article #${articleId} not found`);
+        return articleData;
     }
 
-    return existingArticle;
-  }
+    async getArticle(articleId: number): Promise<IArticle> {
+        const existingArticle = await this.articleModel
+            .findById(articleId)
+            .exec();
 
-  async deleteArticle(articleId: number): Promise<IArticle> {
-    const deletedArticle = await this.articleModel.findByIdAndDelete(articleId);
+        if (!existingArticle) {
+            throw new NotFoundException(`Article #${articleId} not found`);
+        }
 
-    if (!deletedArticle) {
-      throw new NotFoundException(`Article #${articleId} not found`);
+        return existingArticle;
     }
 
-    return deletedArticle;
-  }
+    async deleteArticle(articleId: number): Promise<IArticle> {
+        const deletedArticle = await this.articleModel.findByIdAndDelete(
+            articleId
+        );
+
+        if (!deletedArticle) {
+            throw new NotFoundException(`Article #${articleId} not found`);
+        }
+
+        return deletedArticle;
+    }
 }

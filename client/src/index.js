@@ -8,7 +8,7 @@ import theme from "./theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <BrowserRouter basename="/media-platform">
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
         <GlobalStyles />
         <ThemeProvider theme={theme}>
             <App />

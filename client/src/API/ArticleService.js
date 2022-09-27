@@ -1,21 +1,23 @@
 import axios from '../axios.config';
 
 export default class ArticleService {
-    static async getAll() {
-        const responce = await axios.get('/');
-
-        return responce;
+    static getAllRequest() {
+        return axios.get('/');
     }
 
-    static async getById(id) {
-        const responce = await axios.get(`/${id}`);
-
-        return responce;
+    static getByIdRequest(articleId) {
+        return axios.get('/', {data: {id: articleId}});
     }
 
-    static async deleteById(id) {
-        const responce = await axios.delete(`/${id}`);
+    static createRequest(article) {
+        return axios.post('/', {data: article});
+    }
 
-        return responce;
+    static updateRequest(article) {
+        return axios.put('/', {data: article});
+    }
+
+    static deleteByIdRequest(articleId) {
+        return axios.delete('/', {data: {id: articleId}});
     }
 }

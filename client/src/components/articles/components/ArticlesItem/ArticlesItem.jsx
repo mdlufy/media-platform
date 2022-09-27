@@ -5,18 +5,18 @@ import {observer} from 'mobx-react-lite';
 import React from 'react';
 import articlesStore from '../../stores/articles.store';
 
-const ArticlesItem = observer(({articlesId}) => {
-    const articlesItem = articlesStore.getArticlesItemById(articlesId);
+const ArticlesItem = observer(({articleId}) => {
+    const articleItem = articlesStore.getArticleItemById(articleId);
 
     return (
         <ListItem>
-            <ListItemText>{articlesItem.id}</ListItemText>
-            <ListItemText primary={articlesItem.title}></ListItemText>
+            <ListItemText>{articleItem.id}</ListItemText>
+            <ListItemText primary={articleItem.title}></ListItemText>
             <Button>Открыть</Button>
             <IconButton
                 aria-label="delete"
                 onClick={() =>
-                    articlesStore.deleteArticleItemById(articlesItem.id)
+                    articlesStore.deleteArticleById(articleItem.id)
                 }
             >
                 <DeleteIcon fontSize="inherit" />

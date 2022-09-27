@@ -25,31 +25,39 @@ class ArticlesStore {
         makeAutoObservable(this);
     }
 
-    addArticle(article) {
-        this.articles = [...this.articles, article];
-    }
-
     async fetchArticles() {
-        const responce = await ArticleService.getAll();
+        const responce = await ArticleService.getAllRequest();
 
         this.articles = responce.data.articleData;
 
         return responce;
     }
 
-    getArticlesItemById(articlesId) {
-        articlesId = Number(articlesId);
+    async deleteArticleById(articleId) {
+        const response = await ArticleService.deleteByIdRequest(articleId);
+
+        this.deleteArticleItemById();
+
+        return response;
+    }
+
+    addArticle(article) {
+        this.articles = [...this.articles, article];
+    }
+
+    getArticleItemById(articleId) {
+        articleId = Number(articleId);
 
         return this.articles.find(
-            (articleItem) => articleItem.id === articlesId
+            (articleItem) => articleItem.id === articleId
         );
     }
 
-    deleteArticleItemById(articlesId) {
-        articlesId = Number(articlesId);
+    deleteArticleItemById(articleId) {
+        articleId = Number(articleId);
 
         this.articles = this.articles.filter(
-            (articleItem) => articleItem.id !== articlesId
+            (articleItem) => articleItem.id !== articleId
         );
     }
 

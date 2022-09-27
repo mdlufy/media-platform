@@ -30,7 +30,7 @@ const ArticlesList = observer(() => {
                 {articles.map((articleItem) => (
                     <ArticlesItem
                         key={articleItem.id}
-                        articlesId={articleItem.id}
+                        articleId={articleItem.id}
                     />
                 ))}
             </List>

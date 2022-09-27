@@ -1,11 +1,15 @@
-## Media Platform
+# Media Platform
 
-### Server
+Media platform for content consumption
 
-#### `npm start` - to start the server
+## Dev
 
-#
+client:
 
-### Client
+- `npm i`
+- `npm start`
 
-#### `npm start` - to launch the client
+server:
+
+- `npm i`
+- `npm start`

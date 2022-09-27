@@ -6,7 +6,7 @@ test $? -ne 0 && exit
 
 cd media-platform/client
 npm i
-PUBLIC_URL='https://mdlufy.github.io/media-platform' npm run build
+PUBLIC_URL=/media-platform npm run build
 rm -rf /tmp/media-platform-build
 cp -r build /tmp/media-platform-build
 

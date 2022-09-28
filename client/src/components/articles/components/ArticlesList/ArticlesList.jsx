@@ -27,10 +27,11 @@ const ArticlesList = observer(() => {
             }}
         >
             <List sx={{display: 'flex', flexGrow: 1, flexDirection: 'column'}}>
-                {articles.map((articleItem) => (
+                {articles.map((articleItem, index) => (
                     <ArticlesItem
                         key={articleItem.id}
                         articleId={articleItem.id}
+                        number={index + 1}
                     />
                 ))}
             </List>

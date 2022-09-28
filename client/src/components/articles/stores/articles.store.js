@@ -3,23 +3,7 @@ import ArticleService from '../../../API/ArticleService';
 
 class ArticlesStore {
     searchField = '';
-    articles = [
-        {
-            id: 1,
-            title: 'First article',
-            content: 'TestContent',
-        },
-        {
-            id: 2,
-            title: 'Second article',
-            content: 'TestContent',
-        },
-        {
-            id: 3,
-            title: 'Third article',
-            content: 'TestContent',
-        },
-    ];
+    articles = [];
 
     constructor() {
         makeAutoObservable(this);
@@ -41,21 +25,17 @@ class ArticlesStore {
         return response;
     }
 
-    addArticle(article) {
+    createArticle(article) {
         this.articles = [...this.articles, article];
     }
 
     getArticleItemById(articleId) {
-        articleId = Number(articleId);
-
         return this.articles.find(
             (articleItem) => articleItem.id === articleId
         );
     }
 
     deleteArticleItemById(articleId) {
-        articleId = Number(articleId);
-
         this.articles = this.articles.filter(
             (articleItem) => articleItem.id !== articleId
         );

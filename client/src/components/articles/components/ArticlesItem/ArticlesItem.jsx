@@ -5,12 +5,12 @@ import {observer} from 'mobx-react-lite';
 import React from 'react';
 import articlesStore from '../../stores/articles.store';
 
-const ArticlesItem = observer(({articleId}) => {
+const ArticlesItem = observer(({articleId, number}) => {
     const articleItem = articlesStore.getArticleItemById(articleId);
 
     return (
         <ListItem>
-            <ListItemText>{articleItem.id}</ListItemText>
+            <ListItemText>{number}</ListItemText>
             <ListItemText primary={articleItem.title}></ListItemText>
             <Button>Открыть</Button>
             <IconButton

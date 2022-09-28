@@ -1,18 +1,20 @@
 import {makeAutoObservable} from 'mobx';
 
-class ArticlesItemStore {
-    articlesItem = {};
+class ArticleItemStore {
+    articleItem = {};
 
     constructor() {
         makeAutoObservable(this);
     }
 
     create(item) {
-        this.articlesItem = {
+        this.articleItem = {
             title: item?.title || '',
             content: item?.content || '',
         };
+
+        return this.articleItem;
     }
 }
 
-export default new ArticlesItemStore();
+export default new ArticleItemStore();

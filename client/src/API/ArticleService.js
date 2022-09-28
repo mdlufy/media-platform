@@ -10,7 +10,7 @@ export default class ArticleService {
     }
 
     static createRequest(article) {
-        return axios.post('/', {data: article});
+        return axios.post('/', article);
     }
 
     static updateRequest(article) {

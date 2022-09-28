@@ -1,11 +1,13 @@
-import {TextField} from '@mui/material';
+import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
-import React, {useState} from 'react';
-import {API_URL} from '../../constants';
+import { observer } from 'mobx-react-lite';
+import React, { useState } from 'react';
+import ArticleService from '../../../../API/ArticleService';
+import { createArticleWithDefaults } from '../../../../utils/article/thunk';
+import articleItemStore from '../../stores/articleItem.store';
 import articlesStore from '../../stores/articles.store';
 
 const style = {
@@ -20,7 +22,7 @@ const style = {
     p: 4,
 };
 
-function ArticlesModal() {
+const ArticlesModal = observer(() => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -31,21 +33,13 @@ function ArticlesModal() {
     const submitForm = async (e) => {
         e.preventDefault();
 
-        const body = {
-            id: articlesStore.articlesFiltered.length + 1,
-            title: title,
-            content: content,
-        };
+        const articleItem = articleItemStore.create({title: title, content: content});
 
-        console.log(body);
+        const articleItemWithDefaults = createArticleWithDefaults(articleItem);
 
-        await axios.post(API_URL, JSON.stringify(body), {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        await ArticleService.createRequest(articleItemWithDefaults);
 
-        articlesStore.addArticle(body);
+        articlesStore.createArticle(articleItemWithDefaults);
 
         handleClose();
     };
@@ -107,6 +101,6 @@ function ArticlesModal() {
             </Modal>
         </div>
     );
-}
+});
 
 export default ArticlesModal;

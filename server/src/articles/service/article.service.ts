@@ -13,11 +13,12 @@ export class ArticleService {
 
     async createArticle(createArticleDto: CreateArticleDto): Promise<IArticle> {
         const newArticle = await new this.articleModel(createArticleDto);
+
         return newArticle.save();
     }
 
     async updateArticle(
-        articleId: number,
+        articleId: string,
         updateArticleDto: UpdateArticleDto
     ): Promise<IArticle> {
         const existingArticle = await this.articleModel.findByIdAndUpdate(
@@ -43,7 +44,7 @@ export class ArticleService {
         return articleData;
     }
 
-    async getArticle(articleId: number): Promise<IArticle> {
+    async getArticle(articleId: string): Promise<IArticle> {
         const existingArticle = await this.articleModel
             .findById(articleId)
             .exec();
@@ -55,7 +56,7 @@ export class ArticleService {
         return existingArticle;
     }
 
-    async deleteArticle(articleId: number): Promise<IArticle> {
+    async deleteArticle(articleId: string): Promise<IArticle> {
         const deletedArticle = await this.articleModel.findOneAndDelete(
             {id: articleId},
         );

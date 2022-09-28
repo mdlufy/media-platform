@@ -1,6 +1,3 @@
-import {ArticleService} from './../service/article.service';
-import {UpdateArticleDto} from './../dto/update-article.dto';
-import {CreateArticleDto} from './../dto/create-article.dto';
 import {
     Body,
     Controller,
@@ -10,13 +7,44 @@ import {
     Param,
     Post,
     Put,
-    Res,
+    Res
 } from '@nestjs/common';
 import { DeleteArticleDto } from '../dto/delete-article.dto';
+import { CreateArticleDto } from './../dto/create-article.dto';
+import { UpdateArticleDto } from './../dto/update-article.dto';
+import { ArticleService } from './../service/article.service';
 
 @Controller('article')
 export class ArticleController {
     constructor(private articleService: ArticleService) {}
+
+    @Get()
+    async getArticles(@Res() res) {
+        try {
+            const articleData = await this.articleService.getAllArticles();
+
+            return res.status(HttpStatus.OK).json({
+                articleData,
+            });
+        } catch (err) {
+            return res.status(err.status).json(err.response);
+        }
+    }
+
+    @Get(':id')
+    async getArticle(@Res() res, @Param('id') articleId: string) {
+        try {
+            const existingArticle = await this.articleService.getArticle(
+                articleId
+            );
+
+            return res.status(HttpStatus.OK).json({
+                existingArticle,
+            });
+        } catch (err) {
+            return res.status(err.status).json(err.response);
+        }
+    }
 
     @Post()
     async createArticleDto(
@@ -43,7 +71,7 @@ export class ArticleController {
     @Put(':id')
     async updateStudent(
         @Res() res,
-        @Param('id') articleId: number,
+        @Param('id') articleId: string,
         @Body() updateArticleDto: UpdateArticleDto
     ) {
         try {
@@ -54,34 +82,6 @@ export class ArticleController {
 
             return res.status(HttpStatus.OK).json({
                 existingStudent,
-            });
-        } catch (err) {
-            return res.status(err.status).json(err.response);
-        }
-    }
-
-    @Get()
-    async getStudents(@Res() res) {
-        try {
-            const articleData = await this.articleService.getAllArticles();
-
-            return res.status(HttpStatus.OK).json({
-                articleData,
-            });
-        } catch (err) {
-            return res.status(err.status).json(err.response);
-        }
-    }
-
-    @Get(':id')
-    async getArticle(@Res() res, @Param('id') articleId: number) {
-        try {
-            const existingArticle = await this.articleService.getArticle(
-                articleId
-            );
-
-            return res.status(HttpStatus.OK).json({
-                existingArticle,
             });
         } catch (err) {
             return res.status(err.status).json(err.response);

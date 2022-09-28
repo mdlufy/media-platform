@@ -1,9 +1,11 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 
+export type ArticleDocument = Article & Document;
+
 @Schema()
 export class Article {
     @Prop()
-    id: number;
+    id: string;
     @Prop()
     title: string;
     @Prop()

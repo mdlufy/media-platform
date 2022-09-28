@@ -36,7 +36,7 @@ class ArticlesStore {
     async deleteArticleById(articleId) {
         const response = await ArticleService.deleteByIdRequest(articleId);
 
-        this.deleteArticleItemById();
+        this.deleteArticleItemById(articleId);
 
         return response;
     }

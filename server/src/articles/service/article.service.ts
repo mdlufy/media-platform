@@ -56,8 +56,8 @@ export class ArticleService {
     }
 
     async deleteArticle(articleId: number): Promise<IArticle> {
-        const deletedArticle = await this.articleModel.findByIdAndDelete(
-            articleId
+        const deletedArticle = await this.articleModel.findOneAndDelete(
+            {id: articleId},
         );
 
         if (!deletedArticle) {

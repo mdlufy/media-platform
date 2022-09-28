@@ -12,6 +12,7 @@ import {
     Put,
     Res,
 } from '@nestjs/common';
+import { DeleteArticleDto } from '../dto/delete-article.dto';
 
 @Controller('article')
 export class ArticleController {
@@ -87,11 +88,11 @@ export class ArticleController {
         }
     }
 
-    @Delete('/:id')
-    async deleteArticle(@Res() res, @Param('id') articleId: number) {
+    @Delete()
+    async deleteArticle(@Res() res, @Body() deleteArticleDto: DeleteArticleDto) {
         try {
             const deletedArticle = await this.articleService.deleteArticle(
-                articleId
+                deleteArticleDto.id
             );
 
             return res.status(HttpStatus.OK).json({

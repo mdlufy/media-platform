@@ -12,8 +12,6 @@ class ArticleItemStore {
             title: item?.title || '',
             content: item?.content || '',
         };
-
-        return this.articleItem;
     }
 }
 

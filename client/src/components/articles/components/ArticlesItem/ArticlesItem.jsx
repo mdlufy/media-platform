@@ -3,10 +3,22 @@ import {Button, ListItem, ListItemText} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import {observer} from 'mobx-react-lite';
 import React from 'react';
+import ArticleService from '../../../../API/ArticleService';
 import articlesStore from '../../stores/articles.store';
 
 const ArticlesItem = observer(({articleId, number}) => {
     const articleItem = articlesStore.getArticleItemById(articleId);
+
+    async function deleteArticleById(articleId) {
+        try {
+            await ArticleService.deleteByIdRequest(articleId);
+
+            articlesStore.deleteArticleItemById(articleId);
+
+        } catch (e) {
+            throw new Error(`${e.name}: ${e.message}`);
+        }
+    }
 
     return (
         <ListItem>
@@ -15,9 +27,7 @@ const ArticlesItem = observer(({articleId, number}) => {
             <Button>Открыть</Button>
             <IconButton
                 aria-label="delete"
-                onClick={() =>
-                    articlesStore.deleteArticleById(articleItem.id)
-                }
+                onClick={() => deleteArticleById(articleItem.id)}
             >
                 <DeleteIcon fontSize="inherit" />
             </IconButton>

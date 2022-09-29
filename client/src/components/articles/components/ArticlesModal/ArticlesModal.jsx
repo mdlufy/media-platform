@@ -7,7 +7,6 @@ import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import ArticleService from '../../../../API/ArticleService';
 import { createArticleWithDefaults } from '../../../../utils/article/thunk';
-import articleItemStore from '../../stores/articleItem.store';
 import articlesStore from '../../stores/articles.store';
 
 const style = {
@@ -30,19 +29,25 @@ const ArticlesModal = observer(() => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
-    const submitForm = async (e) => {
-        e.preventDefault();
+    async function submitForm(e) {
+        try {
+            e.preventDefault();
 
-        const articleItem = articleItemStore.create({title: title, content: content});
+            const articleItemWithDefaults = createArticleWithDefaults({
+                title: title,
+                content: content,
+            });
 
-        const articleItemWithDefaults = createArticleWithDefaults(articleItem);
+            await ArticleService.createRequest(articleItemWithDefaults);
 
-        await ArticleService.createRequest(articleItemWithDefaults);
+            articlesStore.addArticle(articleItemWithDefaults);
 
-        articlesStore.createArticle(articleItemWithDefaults);
-
-        handleClose();
-    };
+        } catch (e) {
+            throw new Error(e.message);
+        } finally {
+            handleClose();
+        }
+    }
 
     return (
         <div>

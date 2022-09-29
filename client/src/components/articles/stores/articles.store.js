@@ -1,5 +1,4 @@
-import {makeAutoObservable} from 'mobx';
-import ArticleService from '../../../API/ArticleService';
+import { makeAutoObservable } from 'mobx';
 
 class ArticlesStore {
     searchField = '';
@@ -9,23 +8,7 @@ class ArticlesStore {
         makeAutoObservable(this);
     }
 
-    async fetchArticles() {
-        const responce = await ArticleService.getAllRequest();
-
-        this.articles = responce.data.articleData;
-
-        return responce;
-    }
-
-    async deleteArticleById(articleId) {
-        const response = await ArticleService.deleteByIdRequest(articleId);
-
-        this.deleteArticleItemById(articleId);
-
-        return response;
-    }
-
-    createArticle(article) {
+    addArticle(article) {
         this.articles = [...this.articles, article];
     }
 
@@ -45,6 +28,10 @@ class ArticlesStore {
         return this.articles.filter((articlesItem) => {
             return new RegExp(this.searchField, 'i').test(articlesItem.title);
         });
+    }
+
+    setArticles(articles) {
+        this.articles = [...articles];
     }
 
     setSearchField(value) {

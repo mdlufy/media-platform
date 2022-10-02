@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import {makeAutoObservable} from 'mobx';
 
 class ArticlesStore {
     searchField = '';
@@ -15,6 +15,12 @@ class ArticlesStore {
     getArticleItemById(articleId) {
         return this.articles.find(
             (articleItem) => articleItem.id === articleId
+        );
+    }
+
+    updateArticleItem(articleItem) {
+        this.articles = this.articles.map((article) =>
+            article.id === articleItem.id ? articleItem : article
         );
     }
 

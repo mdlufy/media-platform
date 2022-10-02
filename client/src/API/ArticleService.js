@@ -14,7 +14,7 @@ export default class ArticleService {
     }
 
     static updateRequest(article) {
-        return axios.put('/', {data: article});
+        return axios.put('/', article);
     }
 
     static deleteByIdRequest(articleId) {

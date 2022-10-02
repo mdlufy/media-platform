@@ -1,12 +1,14 @@
-import { TextField } from '@mui/material';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
+import EditIcon from '@mui/icons-material/Edit';
+import {
+    Box,
+    Button, IconButton,
+    Modal,
+    TextField,
+    Typography
+} from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import ArticleService from '../../../../API/ArticleService';
-import { createArticleWithDefaults } from '../../../../utils/article/thunk';
 import articlesStore from '../../stores/articles.store';
 
 const style = {
@@ -21,29 +23,30 @@ const style = {
     p: 4,
 };
 
-const ArticlesModal = observer(() => {
+const ArticlesUpdateModal = observer(({articleItem}) => {
     const [open, setOpen] = useState(false);
+    const [title, setTitle] = useState(articleItem.title);
+    const [content, setContent] = useState(articleItem.content);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
 
     async function submitForm(e) {
         try {
             e.preventDefault();
 
-            const articleItemWithDefaults = createArticleWithDefaults({
+            const articleItemWithDefaults = {
+                id: articleItem.id,
                 title: title,
                 content: content,
-            });
+            };
 
-            await ArticleService.createRequest(articleItemWithDefaults);
+            await ArticleService.updateRequest(articleItemWithDefaults);
 
-            articlesStore.addArticle(articleItemWithDefaults);
+            articlesStore.updateArticleItem(articleItemWithDefaults);
 
         } catch (e) {
-            throw new Error(e.message);
+            throw new Error(`${e.name}: ${e.message}`);
         } finally {
             handleClose();
         }
@@ -51,9 +54,9 @@ const ArticlesModal = observer(() => {
 
     return (
         <div>
-            <Button variant="contained" onClick={handleOpen}>
-                Добавить статью
-            </Button>
+            <IconButton aria-label="delete" onClick={handleOpen}>
+                <EditIcon fontSize="inherit" />
+            </IconButton>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -80,6 +83,7 @@ const ArticlesModal = observer(() => {
                                 id="title"
                                 name="title"
                                 autoFocus
+                                defaultValue={title}
                                 onChange={(e) => setTitle(e.target.value)}
                             />
                             <label>Content:</label>
@@ -90,6 +94,7 @@ const ArticlesModal = observer(() => {
                                 id="content"
                                 name="content"
                                 autoFocus
+                                defaultValue={content}
                                 onChange={(e) => setContent(e.target.value)}
                             />
                             <Button
@@ -98,7 +103,7 @@ const ArticlesModal = observer(() => {
                                 variant="contained"
                                 sx={{mt: 3, mb: 2}}
                             >
-                                Добавить
+                                Сохранить
                             </Button>
                         </Box>
                     </Typography>
@@ -108,4 +113,4 @@ const ArticlesModal = observer(() => {
     );
 });
 
-export default ArticlesModal;
+export default ArticlesUpdateModal;

@@ -1,10 +1,11 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import {Button, ListItem, ListItemText} from '@mui/material';
+import { ListItem, ListItemText } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import {observer} from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import ArticleService from '../../../../API/ArticleService';
 import articlesStore from '../../stores/articles.store';
+import ArticlesUpdateModal from '../ArticlesUpdateModal/ArticlesUpdateModal';
 
 const ArticlesItem = observer(({articleId, number}) => {
     const articleItem = articlesStore.getArticleItemById(articleId);
@@ -24,7 +25,7 @@ const ArticlesItem = observer(({articleId, number}) => {
         <ListItem>
             <ListItemText>{number}</ListItemText>
             <ListItemText primary={articleItem.title}></ListItemText>
-            <Button>Открыть</Button>
+            <ArticlesUpdateModal articleItem={articleItem}/>
             <IconButton
                 aria-label="delete"
                 onClick={() => deleteArticleById(articleItem.id)}

@@ -1,9 +1,9 @@
-import {Container} from '@mui/material';
-import {observer} from 'mobx-react-lite';
-import React, {useEffect} from 'react';
+import { Container } from '@mui/material';
+import { observer } from 'mobx-react-lite';
+import React, { useEffect } from 'react';
 import ArticleService from '../API/ArticleService';
+import ArticlesCreateModal from '../components/articles/components/ArticlesCreateModal/ArticlesCreateModal';
 import ArticleList from '../components/articles/components/ArticlesList/ArticlesList';
-import ArticlesModal from '../components/articles/components/ArticlesModal/ArticlesModal';
 import ArticlesSearch from '../components/articles/components/ArticlesSearch/ArticlesSearch';
 import articlesStore from '../components/articles/stores/articles.store';
 import PageTitle from '../components/lib/PageTitle';
@@ -25,7 +25,7 @@ const Articles = observer(() => {
 
     return (
         <Container maxWidth={false}>
-            <PageTitle title="Статьи" actionButton={<ArticlesModal />} />
+            <PageTitle title="Статьи" actionButton={<ArticlesCreateModal />} />
             <ArticlesSearch />
             <ArticleList />
         </Container>

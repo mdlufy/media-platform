@@ -10,6 +10,7 @@ import {
     Res
 } from '@nestjs/common';
 import { DeleteArticleDto } from '../dto/delete-article.dto';
+import { GetArticleDto } from '../dto/get-article.dto';
 import { CreateArticleDto } from './../dto/create-article.dto';
 import { UpdateArticleDto } from './../dto/update-article.dto';
 import { ArticleService } from './../service/article.service';
@@ -32,10 +33,10 @@ export class ArticleController {
     }
 
     @Get(':id')
-    async getArticle(@Res() res, @Param('id') articleId: string) {
+    async getArticle(@Res() res, @Body() getArticleDto: GetArticleDto) {
         try {
-            const existingArticle = await this.articleService.getArticle(
-                articleId
+            const existingArticle = await this.articleService.getArticleById(
+                getArticleDto.id
             );
 
             return res.status(HttpStatus.OK).json({
@@ -68,15 +69,14 @@ export class ArticleController {
         }
     }
 
-    @Put(':id')
+    @Put()
     async updateStudent(
         @Res() res,
-        @Param('id') articleId: string,
         @Body() updateArticleDto: UpdateArticleDto
     ) {
         try {
             const existingStudent = await this.articleService.updateArticle(
-                articleId,
+                updateArticleDto.id,
                 updateArticleDto
             );
 

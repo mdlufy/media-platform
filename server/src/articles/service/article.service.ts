@@ -21,8 +21,8 @@ export class ArticleService {
         articleId: string,
         updateArticleDto: UpdateArticleDto
     ): Promise<IArticle> {
-        const existingArticle = await this.articleModel.findByIdAndUpdate(
-            articleId,
+        const existingArticle = await this.articleModel.findOneAndUpdate(
+            {id: articleId},
             updateArticleDto,
             {new: true}
         );
@@ -44,10 +44,8 @@ export class ArticleService {
         return articleData;
     }
 
-    async getArticle(articleId: string): Promise<IArticle> {
-        const existingArticle = await this.articleModel
-            .findById(articleId)
-            .exec();
+    async getArticleById(articleId: string): Promise<IArticle> {
+        const existingArticle = await this.articleModel.findOne({id: articleId}).exec();
 
         if (!existingArticle) {
             throw new NotFoundException(`Article #${articleId} not found`);

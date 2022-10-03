@@ -1,100 +1,67 @@
-import { ArticleService } from './../service/article.service';
-import { UpdateArticleDto } from './../dto/update-article.dto';
-import { CreateArticleDto } from './../dto/create-article.dto';
 import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-  Res,
+    Body,
+    Controller,
+    Get,
+    Param,
+    ParseIntPipe,
+    Post,
+    Redirect,
+    Render
 } from '@nestjs/common';
+import { Article } from '../models/article.model';
+import { articles } from './../articles';
 
-@Controller('article')
+@Controller('articles')
 export class ArticleController {
-  constructor(private articleService: ArticleService) {}
+    constructor() {}
 
-  @Post()
-  async createArticleDto(
-    @Res() res,
-    @Body() createArticleDto: CreateArticleDto,
-  ) {
-    try {
-      const newArticle = await this.articleService.createArticle(
-        createArticleDto,
-      );
-
-      return res.status(HttpStatus.CREATED).json({
-        newArticle,
-      });
-    } catch (err) {
-      return res.status(HttpStatus.BAD_REQUEST).json({
-        statusCode: 400,
-        message: 'Error: Student not created!',
-        error: 'Bad Request',
-      });
+    @Get('/')
+    @Render('index')
+    index() {
+        return { articles };
     }
-  }
 
-  @Put(':id')
-  async updateStudent(
-    @Res() res,
-    @Param('id') articleId: number,
-    @Body() updateArticleDto: UpdateArticleDto,
-  ) {
-    try {
-      const existingStudent = await this.articleService.updateArticle(
-        articleId,
-        updateArticleDto,
-      );
-
-      return res.status(HttpStatus.OK).json({
-        existingStudent,
-      });
-    } catch (err) {
-      return res.status(err.status).json(err.response);
+    @Get('new')
+    @Render('new-article')
+    getForm(): void {
+        return;
     }
-  }
 
-  @Get()
-  async getStudents(@Res() res) {
-    try {
-      const articleData = await this.articleService.getAllArticles();
-
-      return res.status(HttpStatus.OK).json({
-        articleData,
-      });
-    } catch (err) {
-      return res.status(err.status).json(err.response);
+    @Get(':id')
+    @Render('article')
+    getById(@Param('id', ParseIntPipe) id: number) {
+        return articles.find((article) => article.id === id);
     }
-  }
 
-  @Get(':id')
-  async getArticle(@Res() res, @Param('id') articleId: number) {
-    try {
-      const existingArticle = await this.articleService.getArticle(articleId);
-
-      return res.status(HttpStatus.OK).json({
-        existingArticle,
-      });
-    } catch (err) {
-      return res.status(err.status).json(err.response);
+    @Get(':id/delete')
+    @Redirect('/articles', 301)
+    deleteById(@Param('id', ParseIntPipe) id: number) {
+        const articleIndex = articles.findIndex((article) => article.id === id);
+        articles.splice(articleIndex, 1);
     }
-  }
 
-  @Delete('/:id')
-  async deleteArticle(@Res() res, @Param('id') articleId: number) {
-    try {
-      const deletedArticle = await this.articleService.deleteArticle(articleId);
-
-      return res.status(HttpStatus.OK).json({
-        deletedArticle,
-      });
-    } catch (err) {
-      return res.status(err.status).json(err.response);
+    @Get(':id/update')
+    @Render('update')
+    findToUpdateById(@Param('id', ParseIntPipe) id: number) {
+        return articles.find((article) => article.id === id);
     }
-  }
+
+    @Post(':id/update')
+    @Render('update')
+    updateById(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
+        const articleIndex = articles.findIndex((article) => article.id === id);
+        const newArticle = new Article(body.title, body.content, id);
+
+        articles.splice(articleIndex, 1, newArticle);
+
+        return newArticle;
+    }
+
+    @Post()
+    @Redirect('/articles', 301)
+    create(@Body() body: any): void {
+        const id = articles.length + 1;
+        const article = new Article(body.title, body.content, id);
+        articles.push(article);
+    }
 }

@@ -25,6 +25,8 @@ export class VideoService {
                 .populate('createdBy')
                 .exec();
         }
+
+        return this.videoModel.find().populate("createdBy").exec();
     }
 
     async streamVideo(id: string, res: Response, req: Request) {

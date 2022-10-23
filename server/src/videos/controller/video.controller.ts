@@ -17,7 +17,7 @@ import {
 import {FileFieldsInterceptor} from '@nestjs/platform-express';
 import { VideoService } from '../service/video.service';
 
-@Controller('/api/v1/video')
+@Controller('api/v1/video')
 export class VideoController {
     constructor(private readonly videoService: VideoService) {}
 

@@ -19,7 +19,7 @@ export class UserService {
         const reqBody = {
             fullname: user.fullname,
             email: user.email,
-            password: user.password,
+            password: hash,
         };
 
         const newUser = new this.userModel(reqBody);

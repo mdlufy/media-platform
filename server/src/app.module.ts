@@ -8,7 +8,6 @@ import {diskStorage} from 'multer';
 import {join} from 'path';
 import {v4 as uuidv4} from 'uuid';
 import {AppController} from './app.controller';
-import {AppService} from './app.service';
 import {UserController} from './users/controller/user.controller';
 import { User, UserSchema } from './users/schema/user.schema';
 import {UserService} from './users/service/user.service';
@@ -50,7 +49,7 @@ import { VideoService } from './videos/service/video.service';
         UserController,
         VideoController,
     ],
-    providers: [AppService, UserService, VideoService],
+    providers: [UserService, VideoService],
 })
 export class AppModule {
     configure(consumer: MiddlewareConsumer) {

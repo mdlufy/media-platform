@@ -1,4 +1,4 @@
-import {Video} from './../schema/video.schema';
+import {Video} from '../schema/video.schema';
 import {
     Body,
     Controller,

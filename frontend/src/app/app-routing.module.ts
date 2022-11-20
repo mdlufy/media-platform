@@ -1,16 +1,7 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import { LayoutComponent } from './layout/layout.component';
+import {RouterModule, Routes} from '@angular/router';
 
-const routes: Routes = [
-    {path: '', pathMatch: 'full', redirectTo: '/pages'},
-    {
-        path: 'pages',
-        component: LayoutComponent,
-        loadChildren: () =>
-            import('./pages/pages.module').then((m) => m.PagesModule),
-    },
-];
+const routes: Routes = [];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

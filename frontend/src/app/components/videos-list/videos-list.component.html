@@ -1,0 +1,26 @@
+<h2>Videos list</h2>
+
+<ng-container *ngIf="video$ as video">
+    <app-video [video]="video"></app-video>
+</ng-container>
+
+<input
+    type="file"
+    multiple
+    class="file-input"
+    (change)="onFileSelected($event)"
+    #fileUpload
+/>
+
+<div class="file-upload">
+    {{ fileName || 'No file uploaded yet.' }}
+
+    <button
+        mat-mini-fab
+        color="primary"
+        class="upload-btn"
+        (click)="fileUpload.click()"
+    >
+        <mat-icon>attach_file</mat-icon>
+    </button>
+</div>

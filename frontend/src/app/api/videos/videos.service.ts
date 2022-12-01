@@ -1,6 +1,6 @@
-import { VideoDto } from './../components/video/video.dto';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { VideoDto } from '../../video/video.dto';
 
 @Injectable({
     providedIn: 'root',

@@ -1,6 +1,6 @@
-import { VideosService } from './../../services/videos.service';
 import { Component, OnInit } from '@angular/core';
-import { map, Observable, of, tap } from 'rxjs';
+import { tap } from 'rxjs';
+import { VideosService } from '../api/videos/videos.service';
 import { VideoDto } from '../video/video.dto';
 
 @Component({

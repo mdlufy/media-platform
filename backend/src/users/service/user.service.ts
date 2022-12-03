@@ -27,7 +27,7 @@ export class UserService {
         return newUser.save();
     }
 
-    async signin(user: User, jwtService: JwtService): Promise<any> {
+    async signin(user: {email: string, password: string}, jwtService: JwtService): Promise<any> {
         const foundUser = await this.userModel
             .findOne({email: user.email})
             .exec();

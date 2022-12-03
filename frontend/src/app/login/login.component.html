@@ -2,7 +2,7 @@
 
 <div [hidden]="submitted">
 
-<form #loginForm="ngForm" (ngSubmit)="onSubmit()" action="#">
+<form #loginForm="ngForm" (ngSubmit)="login()" action="#">
     <label for="username">Username</label>
     <input
         type="text"

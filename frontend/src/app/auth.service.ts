@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { User } from './interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -14,7 +15,7 @@ export class AuthService {
         return this.http.post(`${apiUrl}/user/signup`, body);
     }
 
-    public signin$(body: User) {
-        return this.http.post(`${apiUrl}/user/signin`, body);
+    public signin$(body: { email: string; password: string }): Observable<{token: string}> {
+        return this.http.post<{token: string}>(`${apiUrl}/user/signin`, body);
     }
 }

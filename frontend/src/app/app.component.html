@@ -1,18 +1,20 @@
-<nav>
-    <a
-        class="button"
-        routerLink="/videos"
-        routerLinkActive="activebutton"
-        ariaCurrentWhenActive="page"
-        >Videos</a
-    >
-    <a
-        class="button"
-        routerLink="/login"
-        routerLinkActive="activebutton"
-        ariaCurrentWhenActive="page"
-        >Login</a
-    >
-</nav>
+<tui-root>
+    <header>
+            <a
+                class="button"
+                routerLink="/videos"
+                routerLinkActive="activebutton"
+                ariaCurrentWhenActive="page"
+                >Videos</a
+            >
+            <a
+                class="button"
+                routerLink="/login"
+                routerLinkActive="activebutton"
+                ariaCurrentWhenActive="page"
+                >Login</a
+            >
+    </header>
 
-<router-outlet></router-outlet>
+    <router-outlet></router-outlet>
+</tui-root>

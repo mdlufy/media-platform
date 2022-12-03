@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { VideoDto } from '../../video/video.dto';
+import { Observable } from 'rxjs';
+import { Video } from './../../interfaces/video.interface';
+
+const apiUrl = 'http://localhost:3002/api/v1';
 
 @Injectable({
     providedIn: 'root',
@@ -8,12 +11,14 @@ import { VideoDto } from '../../video/video.dto';
 export class VideosService {
     constructor(private readonly http: HttpClient) {}
 
-    public fetchVideo$(id: string = '6387cbaa132d3f742b8274db') {
-        return this.http.get<VideoDto>(`http://localhost:3002/api/v1/video?id=${id}`);
+    public fetchVideo$(id: string = '6387cbaa132d3f742b8274db'): Observable<Video> {
+        const queryParams = { id: id };
+
+        return this.http.get<Video>(`${apiUrl}/video`, { params: queryParams });
     }
 
     public uploadVideo$(body: FormData) {
-        return this.http.post('http://localhost:3002/api/v1/video', body);
+        return this.http.post(`${apiUrl}/video`, body);
     }
 
     public deleteVideo$() {

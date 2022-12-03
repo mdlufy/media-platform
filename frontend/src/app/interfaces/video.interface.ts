@@ -1,4 +1,4 @@
-export interface VideoDto {
+export interface Video {
     _id: string;
     title: string;
     coverImage: string;

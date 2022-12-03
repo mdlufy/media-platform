@@ -1,5 +1,5 @@
+import { Video } from './../interfaces/video.interface';
 import { Component, Input, OnInit } from '@angular/core';
-import { VideoDto } from './video.dto';
 
 @Component({
     selector: 'app-video',
@@ -7,7 +7,7 @@ import { VideoDto } from './video.dto';
     styleUrls: ['./video.component.scss'],
 })
 export class VideoComponent implements OnInit {
-    @Input() video!: VideoDto;
+    @Input() video!: Video;
 
     apiUrl = 'http://localhost:3002/api/v1/video/';
 

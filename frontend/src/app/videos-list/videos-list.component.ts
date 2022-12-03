@@ -1,7 +1,7 @@
+import { Video } from './../interfaces/video.interface';
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs';
 import { VideosService } from '../api/videos/videos.service';
-import { VideoDto } from '../video/video.dto';
 
 @Component({
     selector: 'app-videos-list',
@@ -9,7 +9,7 @@ import { VideoDto } from '../video/video.dto';
     styleUrls: ['./videos-list.component.scss'],
 })
 export class VideosListComponent implements OnInit {
-    public video$!: VideoDto;
+    public video$!: Video;
 
     public fileName = '';
     public cover = ''; 

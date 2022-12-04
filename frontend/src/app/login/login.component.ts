@@ -1,7 +1,6 @@
 import { AuthService } from './../auth.service';
 import { User } from './../interfaces/user.interface';
 import { Component } from '@angular/core';
-import { Observer } from 'rxjs';
 
 @Component({
     selector: 'app-login',
@@ -9,34 +8,17 @@ import { Observer } from 'rxjs';
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-    public user: User = {
-        fullname: '',
-        email: '',
-        password: '',
-    };
+    public email: string = '';
+    public password: string = '';
 
     public submitted = false;
 
     constructor(private authService: AuthService) {}
 
-    public onSubmit() {
-        // this.submitted = true;
-
-        const form = {
-            fullname: this.user.fullname,
-            email: this.user.email,
-            password: this.user.password
-        };
-
-        const auth$ = this.authService.signup$(form);
-
-        auth$.subscribe();
-    }
-
     public login() {
         const form = {
-            email: this.user.email,
-            password: this.user.password
+            email: this.email,
+            password: this.password
         };
 
         const auth$ = this.authService.signin$(form);
@@ -46,11 +28,11 @@ export class LoginComponent {
         );
     }
 
-    public clearForm() {
-        this.user = {
-            fullname: '',
-            email: '',
-            password: '',
-        };
-    }
+    // public clearForm() {
+    //     this.user = {
+    //         fullname: '',
+    //         email: '',
+    //         password: '',
+    //     };
+    // }
 }

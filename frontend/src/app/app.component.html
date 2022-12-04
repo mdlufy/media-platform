@@ -1,5 +1,6 @@
 <tui-root>
     <header>
+        <ng-container *ngIf="!auth; else isAuth">
             <a
                 class="button"
                 routerLink="/videos"
@@ -14,6 +15,25 @@
                 ariaCurrentWhenActive="page"
                 >Login</a
             >
+            <a
+                class="button"
+                routerLink="/registration"
+                routerLinkActive="activebutton"
+                ariaCurrentWhenActive="page"
+                >Registration</a
+            >
+        </ng-container>
+
+        <ng-template #isAuth>
+            <a
+                class="button"
+                routerLink="/videos"
+                routerLinkActive="activebutton"
+                ariaCurrentWhenActive="page"
+                >Videos</a
+            >
+            <button class="button" (click)="logout()">Logout</button>
+        </ng-template>
     </header>
 
     <router-outlet></router-outlet>

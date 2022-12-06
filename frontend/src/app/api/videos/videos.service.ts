@@ -17,6 +17,8 @@ export class VideosService {
         return this.http.get<Video>(`${apiUrl}/video`, { params: queryParams });
     }
 
+    // public fetchVideos$
+
     public uploadVideo$(body: FormData) {
         return this.http.post(`${apiUrl}/video`, body);
     }

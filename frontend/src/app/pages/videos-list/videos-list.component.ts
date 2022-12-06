@@ -1,7 +1,7 @@
-import { Video } from './../interfaces/video.interface';
+import { VideosService } from './../../api/videos/videos.service';
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs';
-import { VideosService } from '../api/videos/videos.service';
+import { Video } from 'src/app/interfaces/video.interface';
 
 @Component({
     selector: 'app-videos-list',

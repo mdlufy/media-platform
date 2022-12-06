@@ -1,5 +1,4 @@
-import { AuthService } from './../auth.service';
-import { User } from './../interfaces/user.interface';
+import { UserService } from '../../api/users/user.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -13,19 +12,17 @@ export class LoginComponent {
 
     public submitted = false;
 
-    constructor(private authService: AuthService) {}
+    constructor(private userService: UserService) {}
 
     public login() {
         const form = {
             email: this.email,
-            password: this.password
+            password: this.password,
         };
 
-        const auth$ = this.authService.signin$(form);
+        const auth$ = this.userService.signin$(form);
 
-        auth$.subscribe(
-            (data) => localStorage.setItem('token', data.token)
-        );
+        auth$.subscribe((data) => localStorage.setItem('token', data.token));
     }
 
     // public clearForm() {

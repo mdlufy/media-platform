@@ -1,4 +1,5 @@
-import { Video } from './../interfaces/video.interface';
+import { apiUrl } from 'src/app/config';
+import { Video } from './../../interfaces/video.interface';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -9,9 +10,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class VideoComponent implements OnInit {
     @Input() video!: Video;
 
-    apiUrl = 'http://localhost:3002/api/v1/video/';
+    public videoUrl = '';
 
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.setVideoUrl();
+    }
+
+    private setVideoUrl() {
+        this.videoUrl = `${apiUrl}/video/${this.video._id}`;
+    }
 }

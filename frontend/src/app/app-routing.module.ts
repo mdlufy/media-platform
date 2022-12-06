@@ -1,10 +1,10 @@
-import { RegistrationComponent } from './registration/registration.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { VideosListComponent } from './pages/videos-list/videos-list.component';
+import { RegistrationComponent } from './pages/registration/registration.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from './layout/layout.component';
-import { LoginComponent } from './login/login.component';
-import { VideosListComponent } from './videos-list/videos-list.component';
+import { LayoutComponent } from './pages/layout/layout.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
     { path: 'layout', component: LayoutComponent },

@@ -1,9 +1,5 @@
-import { Observable } from 'rxjs';
-import { User } from './interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-const apiUrl = 'http://localhost:3002/api/v1';
 
 const TOKEN = 'token';
 
@@ -13,7 +9,7 @@ const TOKEN = 'token';
 export class AuthService {
     private _token: string | null = '';
 
-    constructor(private readonly http: HttpClient) {}
+    constructor() {}
 
     public get isAuth(): boolean {
         return this.checkIsAuth();
@@ -39,18 +35,5 @@ export class AuthService {
         this.token = token ?? null;
 
         return this.token ? true : false;
-    }
-
-    
-
-    public signup$(body: User) {
-        return this.http.post(`${apiUrl}/user/signup`, body);
-    }
-
-    public signin$(body: {
-        email: string;
-        password: string;
-    }): Observable<{ token: string }> {
-        return this.http.post<{ token: string }>(`${apiUrl}/user/signin`, body);
     }
 }

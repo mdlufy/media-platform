@@ -1,6 +1,6 @@
-import { Store } from './interfaces/store.interface';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Store } from '../interfaces/store.interface';
 
 const inittialState: Store = {
     videos: [],

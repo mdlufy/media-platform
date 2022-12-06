@@ -1,7 +1,9 @@
 <h2>Videos list</h2>
 
-<ng-container *ngIf="video$ as video">
-    <app-video [video]="video"></app-video>
+<ng-container *ngIf="videos$ as videos">
+    <ng-container *ngFor="let video of videos">
+        <app-video [video]="video"></app-video>
+    </ng-container>
 </ng-container>
 
 <input

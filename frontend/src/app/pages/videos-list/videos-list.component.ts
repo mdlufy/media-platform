@@ -9,7 +9,8 @@ import { Video } from 'src/app/interfaces/video.interface';
     styleUrls: ['./videos-list.component.scss'],
 })
 export class VideosListComponent implements OnInit {
-    public video$!: Video;
+    // public video$!: Video;
+    public videos$!: Video[];
 
     public fileName = '';
     public cover = ''; 
@@ -21,11 +22,17 @@ export class VideosListComponent implements OnInit {
     }
 
     private loadVideos() {
-        this.videosService.fetchVideo$()
+        // this.videosService.fetchVideo$()
+        //     .pipe(
+        //         tap((result) => console.log(result)),
+        //     )
+        //     .subscribe(result => this.video$ = result);
+
+        this.videosService.fetchVideos$()
             .pipe(
                 tap((result) => console.log(result)),
             )
-            .subscribe(result => this.video$ = result);
+            .subscribe(result => this.videos$ = result);
     }
 
     public onFileSelected(event: any) {

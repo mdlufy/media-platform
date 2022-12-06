@@ -1,5 +1,9 @@
 import {Video, VideoDocument} from '../schema/video.schema';
-import {Injectable, NotFoundException, ServiceUnavailableException} from '@nestjs/common';
+import {
+    Injectable,
+    NotFoundException,
+    ServiceUnavailableException,
+} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {Model} from 'mongoose';
 import {createReadStream, statSync} from 'fs';
@@ -18,15 +22,19 @@ export class VideoService {
         return newVideo.save();
     }
 
-    async readVideo(id): Promise<any> {
-        if (id.id) {
-            return await this.videoModel
-                .findOne({_id: id.id})
-                .populate('createdBy')
-                .exec();
-        }
+    // async readVideo(id): Promise<any> {
+    //     if (id.id) {
+    //         return await this.videoModel
+    //             .findOne({_id: id.id})
+    //             .populate('createdBy')
+    //             .exec();
+    //     }
 
-        return this.videoModel.find().populate("createdBy").exec();
+    //     return this.videoModel.find().populate('createdBy').exec();
+    // }
+
+    async getVideos(): Promise<any> {
+        return this.videoModel.find().populate('createdBy').exec();
     }
 
     async streamVideo(id: string, res: Response, req: Request) {
@@ -60,12 +68,12 @@ export class VideoService {
                     'Content-Type': 'video/mp4',
                 });
 
-                const vidoeStream = createReadStream(
+                const videoStream = createReadStream(
                     join(process.cwd(), `./public/${video}`),
                     {start, end}
                 );
 
-                vidoeStream.pipe(res);
+                videoStream.pipe(res);
             } else {
                 throw new NotFoundException(null, 'range not found');
             }
@@ -76,7 +84,7 @@ export class VideoService {
     }
 
     async update(id, video: Video): Promise<Video> {
-        return await this.videoModel.findByIdAndUpdate(id, video, { new: true })
+        return await this.videoModel.findByIdAndUpdate(id, video, {new: true});
     }
 
     async delete(id): Promise<any> {

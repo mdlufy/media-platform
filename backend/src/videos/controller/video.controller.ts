@@ -47,9 +47,14 @@ export class VideoController {
         return res.status(HttpStatus.CREATED).json({newVideo});
     }
 
+    // @Get()
+    // async read(@Query() id): Promise<Object> {
+    //     return await this.videoService.readVideo(id);
+    // }
+
     @Get()
-    async read(@Query() id): Promise<Object> {
-        return await this.videoService.readVideo(id);
+    async getVideos(): Promise<Object> {
+        return await this.videoService.getVideos();
     }
 
     @Get(':id')

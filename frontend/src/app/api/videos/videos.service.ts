@@ -25,7 +25,7 @@ export class VideosService {
         return this.http.post(`${apiUrl}/video`, body);
     }
 
-    public deleteVideo$() {
-        return this.http.delete('api/v1/video');
+    public deleteVideo$(id: string) {
+        return this.http.delete(`${apiUrl}/video/${id}`);
     }
 }

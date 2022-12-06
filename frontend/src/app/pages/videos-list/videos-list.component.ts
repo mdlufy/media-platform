@@ -1,7 +1,12 @@
+import { User } from './../../interfaces/user.interface';
 import { VideosService } from './../../api/videos/videos.service';
 import { Component, OnInit } from '@angular/core';
-import { tap } from 'rxjs';
+import { tap, Observable, Subscription } from 'rxjs';
 import { Video } from 'src/app/interfaces/video.interface';
+
+interface Data {
+    id: string;
+}
 
 @Component({
     selector: 'app-videos-list',
@@ -13,26 +18,12 @@ export class VideosListComponent implements OnInit {
     public videos$!: Video[];
 
     public fileName = '';
-    public cover = ''; 
+    public cover = '';
 
     constructor(private videosService: VideosService) {}
 
     ngOnInit(): void {
         this.loadVideos();
-    }
-
-    private loadVideos() {
-        // this.videosService.fetchVideo$()
-        //     .pipe(
-        //         tap((result) => console.log(result)),
-        //     )
-        //     .subscribe(result => this.video$ = result);
-
-        this.videosService.fetchVideos$()
-            .pipe(
-                tap((result) => console.log(result)),
-            )
-            .subscribe(result => this.videos$ = result);
     }
 
     public onFileSelected(event: any) {
@@ -54,5 +45,30 @@ export class VideosListComponent implements OnInit {
 
             upload$.subscribe();
         }
+    }
+
+    private loadVideos() {
+        // this.videosService.fetchVideo$()
+        //     .pipe(
+        //         tap((result) => console.log(result)),
+        //     )
+        //     .subscribe(result => this.video$ = result);
+
+        this.videosService
+            .fetchVideos$()
+            .pipe(tap((result) => console.log(result)))
+
+            .subscribe((result) => (this.videos$ = result));
+    }
+
+    public deleteVideo(videoId: string) {
+        this.videosService
+            .deleteVideo$(videoId)
+            .pipe(tap((result) => console.log(result)))
+            .subscribe(data => this.deleteVideoFromArray(data))
+    }
+
+    private deleteVideoFromArray(data: Record<string, any>) {
+        this.videos$ = this.videos$.filter(video => video._id !== data['id']);
     }
 }

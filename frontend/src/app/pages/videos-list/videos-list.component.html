@@ -1,11 +1,5 @@
 <h2>Videos list</h2>
 
-<ng-container *ngIf="videos$ as videos">
-    <ng-container *ngFor="let video of videos">
-        <app-video [video]="video"></app-video>
-    </ng-container>
-</ng-container>
-
 <input
     type="file"
     multiple
@@ -15,9 +9,15 @@
 />
 
 <div class="file-upload">
-    {{ fileName || 'No file uploaded yet.' }}
+    {{ fileName || 'No videos' }}
 
     <button color="primary" class="upload-btn" (click)="fileUpload.click()">
         Upload file
     </button>
 </div>
+
+<ng-container *ngIf="videos$  as videos">
+    <ng-container *ngFor="let video of videos">
+        <app-video (onDeleteVideoEvent)="deleteVideo($event)" [video]="video"></app-video>
+    </ng-container>
+</ng-container>

@@ -74,7 +74,7 @@ export class VideoController {
         await this.videoService.delete(id);
 
         return res.status(HttpStatus.OK).json({
-            user: null,
+            id: id,
         });
     }
 }

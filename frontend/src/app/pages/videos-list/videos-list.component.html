@@ -9,15 +9,15 @@
 />
 
 <div class="file-upload">
-    {{ fileName || 'No videos' }}
+    {{ 'No selected file' }}
 
     <button color="primary" class="upload-btn" (click)="fileUpload.click()">
         Upload file
     </button>
 </div>
 
-<ng-container *ngIf="videos$  as videos">
+<ng-container *ngIf="videos$ | async as videos">
     <ng-container *ngFor="let video of videos">
-        <app-video (onDeleteVideoEvent)="deleteVideo($event)" [video]="video"></app-video>
+        <app-video (onDeleteVideoEvent)="onDeleteVideo($event)" [video]="video"></app-video>
     </ng-container>
 </ng-container>

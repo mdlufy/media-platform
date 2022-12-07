@@ -1,12 +1,7 @@
-import { User } from './../../interfaces/user.interface';
-import { VideosService } from './../../api/videos/videos.service';
 import { Component, OnInit } from '@angular/core';
-import { tap, Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Video } from 'src/app/interfaces/video.interface';
-
-interface Data {
-    id: string;
-}
+import { VideoStore } from './../../video-store.service';
 
 @Component({
     selector: 'app-videos-list',
@@ -14,61 +9,25 @@ interface Data {
     styleUrls: ['./videos-list.component.scss'],
 })
 export class VideosListComponent implements OnInit {
-    // public video$!: Video;
-    public videos$!: Video[];
+    public videos$: Observable<Video[]>;
 
-    public fileName = '';
-    public cover = '';
-
-    constructor(private videosService: VideosService) {}
+    constructor(private videosStore: VideoStore) {
+        this.videos$ = videosStore.videoData.state$;
+    }
 
     ngOnInit(): void {
-        this.loadVideos();
+        this.fetchVideos();
+    }
+
+    private fetchVideos() {
+        this.videosStore.fetchVideos();
     }
 
     public onFileSelected(event: any) {
-        const video = event.target.files[0];
-        const cover = event.target.files[1];
-
-        if (video && cover) {
-            this.fileName = video.name;
-
-            const formData = new FormData();
-
-            formData.append('title', 'test');
-            formData.append('video', video);
-            formData.append('cover', cover);
-
-            console.log(formData);
-
-            const upload$ = this.videosService.uploadVideo$(formData);
-
-            upload$.subscribe();
-        }
+        this.videosStore.uploadFile(event);
     }
 
-    private loadVideos() {
-        // this.videosService.fetchVideo$()
-        //     .pipe(
-        //         tap((result) => console.log(result)),
-        //     )
-        //     .subscribe(result => this.video$ = result);
-
-        this.videosService
-            .fetchVideos$()
-            .pipe(tap((result) => console.log(result)))
-
-            .subscribe((result) => (this.videos$ = result));
-    }
-
-    public deleteVideo(videoId: string) {
-        this.videosService
-            .deleteVideo$(videoId)
-            .pipe(tap((result) => console.log(result)))
-            .subscribe(data => this.deleteVideoFromArray(data))
-    }
-
-    private deleteVideoFromArray(data: Record<string, any>) {
-        this.videos$ = this.videos$.filter(video => video._id !== data['id']);
+    public onDeleteVideo(id: string) {
+        this.videosStore.removeVideo(id);
     }
 }

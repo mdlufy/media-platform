@@ -44,7 +44,7 @@ export class VideoController {
 
         const newVideo = await this.videoService.createVideo(reqBody);
 
-        return res.status(HttpStatus.CREATED).json({newVideo});
+        return res.status(HttpStatus.CREATED).json(newVideo);
     }
 
     // @Get()

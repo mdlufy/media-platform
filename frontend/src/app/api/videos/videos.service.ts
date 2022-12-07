@@ -11,7 +11,7 @@ const apiUrl = 'http://localhost:3002/api/v1';
 export class VideosService {
     constructor(private readonly http: HttpClient) {}
 
-    public fetchVideo$(id: string = '6387cbaa132d3f742b8274db'): Observable<Video> {
+    public fetchVideo$(id: string): Observable<Video> {
         const queryParams = { id: id };
 
         return this.http.get<Video>(`${apiUrl}/video`, { params: queryParams });

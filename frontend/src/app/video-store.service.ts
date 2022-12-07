@@ -36,24 +36,5 @@ export class VideoStore {
                     data as Video,
                 ])
             );
-        // const video = event.target.files[0];
-        // const cover = event.target.files[1];
-
-        // if (video && cover) {
-        //     const formData = new FormData();
-
-        //     formData.append('title', 'test');
-        //     formData.append('video', video);
-        //     formData.append('cover', cover);
-
-        //     this.videosService
-        //         .uploadVideo$(formData)
-        //         .subscribe((data) =>
-        //             this.videoData.setState([
-        //                 ...this.videoData.state,
-        //                 data as Video,
-        //             ])
-        //         );
-        // }
     }
 }

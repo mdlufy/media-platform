@@ -77,6 +77,8 @@ export class VideosListComponent implements OnInit {
 
             this.videosStore.uploadFile(formData);
         }
+
+        this.changeFormVisibility();
     }
 
 

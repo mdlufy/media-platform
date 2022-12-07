@@ -1,23 +1,56 @@
 <h2>Videos list</h2>
 
-<input
-    type="file"
-    multiple
-    class="file-input"
-    (change)="onFileSelected($event)"
-    #fileUpload
-/>
+<button class="upload-btn file-upload" (click)="changeFormVisibility()">New video</button>
 
-<div class="file-upload">
-    {{ 'No selected file' }}
+<ng-container *ngIf="isFormShown; else videos">
+    <form [formGroup]="videoForm" (ngSubmit)="onSubmit()">
+        <label for="video-name">Video name: </label>
+        <input type="text" id="video-name" formControlName="videoName" />
 
-    <button color="primary" class="upload-btn" (click)="fileUpload.click()">
-        Upload file
-    </button>
-</div>
+        <label for="video-file">Video: </label>
+        <input
+            type="file"
+            id="video-file"
+            formControlName="videoFile"
+            (change)="onVideoFileChange($event)"
+        />
 
-<ng-container *ngIf="videos$ | async as videos">
-    <ng-container *ngFor="let video of videos">
-        <app-video (onDeleteVideoEvent)="onDeleteVideo($event)" [video]="video"></app-video>
-    </ng-container>
+        <label for="video-cover">Cover for video: </label>
+        <input
+            type="file"
+            id="video-cover"
+            formControlName="videoCover"
+            (change)="onVideoCoverChange($event)"
+        />
+
+        <button class="upload-btn" type="submit">Create video</button>
+    </form>
 </ng-container>
+
+<!-- <button tuiButton type="button" size="m" (click)="showDialog()">Show</button>
+<ng-template
+    let-observer
+    [tuiDialogOptions]="{ label: 'Declarative directive', size: 's' }"
+    [(tuiDialog)]="open"
+>
+    <form [formGroup]="exampleForm" (ngSubmit)="observer.complete()">
+        <p>This abstracts away service and subscription</p>
+        <tui-input tuiAutoFocus formControlName="exampleControl">
+            Some value
+        </tui-input>
+        <p>
+            <button tuiButton type="submit">Ok</button>
+        </p>
+    </form>
+</ng-template> -->
+
+<ng-template #videos>
+    <ng-container *ngIf="videos$ | async as videos">
+        <ng-container *ngFor="let video of videos">
+            <app-video
+                (onDeleteVideoEvent)="onDeleteVideo($event)"
+                [video]="video"
+            ></app-video>
+        </ng-container>
+    </ng-container>
+</ng-template>

@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VideosListComponent } from './pages/videos-list/videos-list.component';
 import { VideoComponent } from './components/video/video.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
@@ -40,6 +40,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
         TuiDialogModule,
         TuiAlertModule,
         FormsModule,
+        ReactiveFormsModule,
     ],
     providers: [
         { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },

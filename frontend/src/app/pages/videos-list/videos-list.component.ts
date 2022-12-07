@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TuiDialogService } from '@taiga-ui/core';
 import { Observable } from 'rxjs';
 import { Video } from 'src/app/interfaces/video.interface';
 import { VideoStore } from './../../video-store.service';
@@ -11,7 +13,23 @@ import { VideoStore } from './../../video-store.service';
 export class VideosListComponent implements OnInit {
     public videos$: Observable<Video[]>;
 
-    constructor(private videosStore: VideoStore) {
+    public isFormShown = false;
+
+    public videoForm = new FormGroup({
+        videoName: new FormControl('', [Validators.required]),
+
+        videoFile: new FormControl('', [Validators.required]),
+        videoFileSource: new FormControl('', [Validators.required]),
+
+        videoCover: new FormControl('', [Validators.required]),
+        videoCoverSource: new FormControl('', [Validators.required]),
+    });
+
+    constructor(
+        private videosStore: VideoStore,
+        @Inject(TuiDialogService)
+        private readonly dialogService: TuiDialogService
+    ) {
         this.videos$ = videosStore.videoData.state$;
     }
 
@@ -19,15 +37,54 @@ export class VideosListComponent implements OnInit {
         this.fetchVideos();
     }
 
-    private fetchVideos() {
-        this.videosStore.fetchVideos();
+    // public showDialog(): void {
+    //     this.open = true;
+    // }
+
+    public changeFormVisibility() {
+        this.isFormShown = !this.isFormShown;
     }
 
-    public onFileSelected(event: any) {
-        this.videosStore.uploadFile(event);
+    public onVideoFileChange(event: any) {
+        if (event.target?.files?.length > 0) {
+            const file = event.target.files[0];
+
+            this.videoForm.patchValue({ videoFileSource: file });
+        }
     }
+
+    public onVideoCoverChange(event: any) {
+        if (event.target?.files?.length > 0) {
+            const file = event.target.files[0];
+
+            this.videoForm.patchValue({ videoCoverSource: file });
+        }
+    }
+
+    public onSubmit() {
+        console.warn(this.videoForm.value);
+
+        const title = this.videoForm.value.videoName;
+        const video = this.videoForm.value.videoFileSource;
+        const cover = this.videoForm.value.videoCoverSource;
+
+        if (video && cover && title) {
+            const formData = new FormData();
+
+            formData.append('title', title);
+            formData.append('video', video);
+            formData.append('cover', cover);
+
+            this.videosStore.uploadFile(formData);
+        }
+    }
+
 
     public onDeleteVideo(id: string) {
         this.videosStore.removeVideo(id);
+    }
+
+    private fetchVideos() {
+        this.videosStore.fetchVideos();
     }
 }

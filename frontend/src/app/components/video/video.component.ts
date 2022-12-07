@@ -1,13 +1,5 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output
-} from '@angular/core';
-import { tap } from 'rxjs';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { apiUrl } from 'src/app/config';
-import { VideosService } from './../../api/videos/videos.service';
 import { Video } from './../../interfaces/video.interface';
 
 @Component({
@@ -22,9 +14,7 @@ export class VideoComponent implements OnInit {
 
     public videoUrl = '';
 
-    constructor(
-        private videosService: VideosService,
-    ) {}
+    constructor() {}
 
     ngOnInit(): void {
         this.setVideoUrl();
@@ -33,11 +23,4 @@ export class VideoComponent implements OnInit {
     private setVideoUrl() {
         this.videoUrl = `${apiUrl}/video/${this.video._id}`;
     }
-
-    // public deleteVideo(videoId: string) {
-    //     this.videosService
-    //         .deleteVideo$(videoId)
-    //         .pipe(tap((result) => console.log(result)))
-    //         .subscribe();
-    // }
 }

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 const TOKEN = 'token';
@@ -22,7 +21,9 @@ export class AuthService {
     public set token(token: string | null) {
         this._token = token;
 
-        token === null ? localStorage.removeItem(TOKEN) : localStorage.setItem(TOKEN, token);
+        token === null
+            ? localStorage.removeItem(TOKEN)
+            : localStorage.setItem(TOKEN, token);
     }
 
     public logout(): void {

@@ -1,0 +1,15 @@
+<ng-container *ngIf="video">
+    <div class="video-block">
+        <div class="video-info">
+            <span class="title">{{ video.title }}</span>
+            <button class="delete-button" (click)="this.onDeleteVideoEvent.emit(video._id)">
+                Delete video
+            </button>
+        </div>
+        <div class="video">
+            <video controls width="250">
+                <source [src]="videoUrl" type="video/mp4" />
+            </video>
+        </div>
+    </div>
+</ng-container>

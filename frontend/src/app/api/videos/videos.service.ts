@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { apiUrl } from 'src/app/config';
 import { Video } from './../../interfaces/video.interface';
-
-const apiUrl = 'http://localhost:3002/api/v1';
 
 @Injectable({
     providedIn: 'root',
@@ -18,7 +17,7 @@ export class VideosService {
     }
 
     public fetchVideos$(): Observable<Video[]> {
-        return this.http.get<Video[]>(`${apiUrl}/video`)
+        return this.http.get<Video[]>(`${apiUrl}/video`);
     }
 
     public uploadVideo$(body: FormData) {

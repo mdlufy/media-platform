@@ -1,6 +1,7 @@
-import { User } from './../../interfaces/user.interface';
+import { AuthService } from '../../../api/auth/auth.service';
+import { User } from '../../../interfaces/user.interface';
 import { Component } from '@angular/core';
-import { UserService } from 'src/app/api/users/user.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-registration',
@@ -16,7 +17,7 @@ export class RegistrationComponent {
 
     public submitted = false;
 
-    constructor(private userService: UserService) {}
+    constructor(private authService: AuthService, private router: Router) {}
 
     public onSubmit() {
         this.submitted = true;
@@ -27,8 +28,9 @@ export class RegistrationComponent {
             password: this.user.password,
         };
 
-        const auth$ = this.userService.signup$(form);
-
-        auth$.subscribe((data) => console.log(data));
+        this.authService.signup$(form).subscribe((data) => {
+            console.log(data);
+            this.router.navigate(['auth']);
+        });
     }
 }

@@ -5,7 +5,7 @@ const TOKEN = 'token';
 @Injectable({
     providedIn: 'root',
 })
-export class AuthService {
+export class AuthStoreService {
     private _token: string | null = '';
 
     constructor() {}

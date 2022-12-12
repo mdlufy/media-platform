@@ -1,0 +1,11 @@
+<h2>Profile</h2>
+
+<ng-container *ngIf="profile$ | async as profile; else error">
+    <div>
+        <span>{{ profile.email }}</span>
+    </div>
+</ng-container>
+
+<ng-template #error>
+    <p>error</p>
+</ng-template>

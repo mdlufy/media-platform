@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TuiDialogService } from '@taiga-ui/core';
 import { Observable } from 'rxjs';
 import { Video } from 'src/app/interfaces/video.interface';
-import { VideoStore } from './../../video-store.service';
+import { VideoStoreService } from './../../video-store.service';
 
 @Component({
     selector: 'app-videos-list',
@@ -26,7 +26,7 @@ export class VideosListComponent implements OnInit {
     });
 
     constructor(
-        private videosStore: VideoStore,
+        private videosStore: VideoStoreService,
         @Inject(TuiDialogService)
         private readonly dialogService: TuiDialogService
     ) {
@@ -36,10 +36,6 @@ export class VideosListComponent implements OnInit {
     ngOnInit(): void {
         this.fetchVideos();
     }
-
-    // public showDialog(): void {
-    //     this.open = true;
-    // }
 
     public changeFormVisibility() {
         this.isFormShown = !this.isFormShown;
@@ -80,7 +76,6 @@ export class VideosListComponent implements OnInit {
 
         this.changeFormVisibility();
     }
-
 
     public onDeleteVideo(id: string) {
         this.videosStore.removeVideo(id);

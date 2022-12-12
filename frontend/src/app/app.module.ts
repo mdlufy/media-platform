@@ -1,3 +1,4 @@
+import { AuthModule } from './pages/auth/auth.module';
 import { httpInterceptorProviders } from './http-interceptors/index';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import {
@@ -13,23 +14,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginComponent } from './pages/login/login.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VideosListComponent } from './pages/videos-list/videos-list.component';
 import { VideoComponent } from './components/video/video.component';
-import { RegistrationComponent } from './pages/registration/registration.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         VideosListComponent,
         VideoComponent,
-        LoginComponent,
         LayoutComponent,
         PageNotFoundComponent,
-        RegistrationComponent,
+        UserProfileComponent,
     ],
     imports: [
         BrowserModule,

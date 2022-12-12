@@ -1,4 +1,4 @@
-<h2>Registration</h2>
+<h2>Login</h2>
 
 <form #loginForm="ngForm" (ngSubmit)="login()" action="#">
     <label for="email">Email</label>
@@ -26,3 +26,7 @@
         <button type="button" (click)="loginForm.reset()">Clear</button>
     </span>
 </form>
+
+<div>
+    <button type="button" routerLink="./registration">Registration</button>
+</div>

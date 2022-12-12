@@ -10,14 +10,7 @@ import { apiUrl } from 'src/app/config';
 export class UserService {
     constructor(private readonly http: HttpClient) {}
 
-    public signup$(body: User) {
-        return this.http.post(`${apiUrl}/user/signup`, body);
-    }
-
-    public signin$(body: {
-        email: string;
-        password: string;
-    }): Observable<{ token: string }> {
-        return this.http.post<{ token: string }>(`${apiUrl}/user/signin`, body);
+    public fecthUser$(): Observable<User> {
+        return this.http.get<User>(`${apiUrl}/user`);
     }
 }

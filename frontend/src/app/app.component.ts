@@ -1,5 +1,6 @@
+import { Router } from '@angular/router';
 import { Component, DoCheck, OnInit } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthStoreService } from './auth-store.service';
 
 @Component({
     selector: 'app-root',
@@ -7,22 +8,26 @@ import { AuthService } from './auth.service';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, DoCheck {
-    title = 'frontend';
     auth = false;
 
-    constructor(private authService: AuthService) {}
+    constructor(
+        private authStoreService: AuthStoreService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
-        this.auth = this.authService.isAuth;
+        this.auth = this.authStoreService.isAuth;
     }
 
     ngDoCheck(): void {
-        this.auth = this.authService.isAuth;
+        this.auth = this.authStoreService.isAuth;
     }
 
     public logout() {
         this.auth = false;
 
-        this.authService.logout();
+        this.authStoreService.logout();
+
+        this.router.navigate(['auth']);
     }
 }

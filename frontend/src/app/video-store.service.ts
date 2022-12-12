@@ -6,7 +6,7 @@ import { Store } from './api/store-creator';
 @Injectable({
     providedIn: 'root',
 })
-export class VideoStore {
+export class VideoStoreService {
     public videoData: Store<Video[]> = new Store<Video[]>([]);
 
     constructor(private videosService: VideosService) {}

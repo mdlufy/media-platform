@@ -4,7 +4,7 @@ cd /tmp
 git clone git@github.com:mdlufy/media-platform.git
 test $? -ne 0 && exit 
 
-cd media-platform/client
+cd media-platform/frontend
 npm i
 PUBLIC_URL=/media-platform npm run build
 rm -rf /tmp/media-platform-build
@@ -17,8 +17,9 @@ git checkout gh-pages
 rm -rf /tmp/media-platform/*
 mv /tmp/media-platform-build/* /tmp/media-platform
 git add .
-git commit -m deploy
+git commit -m deploy 
 git push
+
 cd /tmp
 rm -rf media-platform
 rm -rf media-platform-build

@@ -1,15 +1,22 @@
-# Media Platform
+# Media platform
 
-Media platform for content consumption
+Platform for content consumption
 
-## Dev
+## Features
 
-client:
+- Authorization
+- Watch, upload videos
 
+## To dev
+
+Frontend:
+
+- `cd frontend`
 - `npm i`
 - `npm start`
 
-server:
+Backend:
 
+- `cd backend`
 - `npm i`
 - `npm start`

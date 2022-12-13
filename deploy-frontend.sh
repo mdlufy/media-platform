@@ -6,7 +6,6 @@ test $? -ne 0 && exit
 
 cd media-platform/frontend
 npm i
-# PUBLIC_URL=/media-platform npm run build
 ng build --output-path docs --base-href /media-platform/
 rm -rf /tmp/media-platform-build
 cp -r docs /tmp/media-platform-build
@@ -18,7 +17,7 @@ git checkout gh-pages
 rm -rf /tmp/media-platform/*
 mv /tmp/media-platform-build/* /tmp/media-platform
 git add .
-git commit -m deploy 
+git commit -m deploy --allow-empty
 git push
 
 cd /tmp

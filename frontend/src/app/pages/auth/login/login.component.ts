@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from '../../../api/auth/auth.service';
 import { Component } from '@angular/core';
 import { ProfileStoreService } from 'src/app/profile-store.service';
@@ -15,7 +16,8 @@ export class LoginComponent {
 
     constructor(
         private authService: AuthService,
-        private profileStore: ProfileStoreService
+        private profileStore: ProfileStoreService,
+        private router: Router,
     ) {}
 
     public login() {
@@ -35,6 +37,8 @@ export class LoginComponent {
                     email: form.email,
                 });
             }
+
+            this.router.navigate(['videos']);
         });
     }
 }

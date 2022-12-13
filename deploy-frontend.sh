@@ -6,9 +6,10 @@ test $? -ne 0 && exit
 
 cd media-platform/frontend
 npm i
-PUBLIC_URL=/media-platform npm run build
+# PUBLIC_URL=/media-platform npm run build
+ng build --output-path docs --base-href /media-platform/
 rm -rf /tmp/media-platform-build
-cp -r build /tmp/media-platform-build
+cp -r docs /tmp/media-platform-build
 
 cd  /tmp/media-platform
 test $? -ne 0 && exit 

@@ -12,6 +12,8 @@ import { LayoutComponent } from './pages/layout/layout.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { VideosListComponent } from './pages/videos-list/videos-list.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
     declarations: [
@@ -29,6 +31,12 @@ import { VideosListComponent } from './pages/videos-list/videos-list.component';
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: environment.production,
+          // Register the ServiceWorker as soon as the application is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        }),
     ],
     providers: [httpInterceptorProviders],
     bootstrap: [AppComponent],

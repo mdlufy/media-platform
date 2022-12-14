@@ -1,25 +1,17 @@
-import { AuthModule } from './pages/auth/auth.module';
-import { httpInterceptorProviders } from './http-interceptors/index';
-import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
-import {
-    TuiRootModule,
-    TuiDialogModule,
-    TuiAlertModule,
-    TUI_SANITIZER,
-} from '@taiga-ui/core';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { httpInterceptorProviders } from './http-interceptors/index';
 
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { VideoComponent } from './components/video/video.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { VideosListComponent } from './pages/videos-list/videos-list.component';
-import { VideoComponent } from './components/video/video.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { VideosListComponent } from './pages/videos-list/videos-list.component';
 
 @NgModule({
     declarations: [
@@ -35,16 +27,10 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
         AppRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        TuiRootModule,
-        TuiDialogModule,
-        TuiAlertModule,
         FormsModule,
         ReactiveFormsModule,
     ],
-    providers: [
-        { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
-        httpInterceptorProviders,
-    ],
+    providers: [httpInterceptorProviders],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

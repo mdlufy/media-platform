@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TuiDialogService } from '@taiga-ui/core';
 import { Observable } from 'rxjs';
 import { Video } from 'src/app/interfaces/video.interface';
 import { VideoStoreService } from './../../video-store.service';
@@ -25,11 +24,7 @@ export class VideosListComponent implements OnInit {
         videoCoverSource: new FormControl('', [Validators.required]),
     });
 
-    constructor(
-        private videosStore: VideoStoreService,
-        @Inject(TuiDialogService)
-        private readonly dialogService: TuiDialogService
-    ) {
+    constructor(private videosStore: VideoStoreService) {
         this.videos$ = videosStore.videoData.state$;
     }
 

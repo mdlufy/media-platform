@@ -1,7 +1,7 @@
-import {JwtService} from '@nestjs/jwt';
-import {UserService} from '../service/user.service';
-import {Body, Controller, HttpStatus, Post, Res} from '@nestjs/common';
-import {User} from '../schema/user.schema';
+import { JwtService } from '@nestjs/jwt';
+import { UserService } from '../service/user.service';
+import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import { User } from '../schema/user.schema';
 
 @Controller('/api/v1/user')
 export class UserController {

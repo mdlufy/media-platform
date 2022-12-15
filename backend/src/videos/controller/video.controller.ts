@@ -1,4 +1,4 @@
-import {Video} from '../schema/video.schema';
+import { Video } from '../schema/video.schema';
 import {
     Body,
     Controller,
@@ -14,7 +14,7 @@ import {
     UploadedFiles,
     UseInterceptors,
 } from '@nestjs/common';
-import {FileFieldsInterceptor} from '@nestjs/platform-express';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { VideoService } from '../service/video.service';
 
 @Controller('api/v1/video')
@@ -24,8 +24,8 @@ export class VideoController {
     @Post()
     @UseInterceptors(
         FileFieldsInterceptor([
-            {name: 'video', maxCount: 1},
-            {name: 'cover', maxCount: 1},
+            { name: 'video', maxCount: 1 },
+            { name: 'cover', maxCount: 1 },
         ])
     )
     async createBook(
@@ -33,7 +33,7 @@ export class VideoController {
         @Req() req,
         @Body() video: Video,
         @UploadedFiles()
-        files: {video?: Express.Multer.File[]; cover?: Express.Multer.File[]}
+        files: { video?: Express.Multer.File[]; cover?: Express.Multer.File[] }
     ) {
         const reqBody = {
             createdBy: req.user,

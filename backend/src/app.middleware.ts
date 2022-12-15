@@ -1,12 +1,12 @@
-import {UserService} from './users/service/user.service';
-import {JwtService} from '@nestjs/jwt';
+import { UserService } from './users/service/user.service';
+import { JwtService } from '@nestjs/jwt';
 import {
     Injectable,
     NestMiddleware,
     HttpException,
     HttpStatus,
 } from '@nestjs/common';
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 interface UserRequest extends Request {
     user: any;
 }

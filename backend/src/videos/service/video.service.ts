@@ -1,14 +1,14 @@
-import {Video, VideoDocument} from '../schema/video.schema';
+import { Video, VideoDocument } from '../schema/video.schema';
 import {
     Injectable,
     NotFoundException,
     ServiceUnavailableException,
 } from '@nestjs/common';
-import {InjectModel} from '@nestjs/mongoose';
-import {Model} from 'mongoose';
-import {createReadStream, statSync} from 'fs';
-import {join} from 'path';
-import {Request, Response} from 'express';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { createReadStream, statSync } from 'fs';
+import { join } from 'path';
+import { Request, Response } from 'express';
 
 @Injectable()
 export class VideoService {
@@ -39,16 +39,16 @@ export class VideoService {
 
     async streamVideo(id: string, res: Response, req: Request) {
         try {
-            const data = await this.videoModel.findOne({_id: id});
+            const data = await this.videoModel.findOne({ _id: id });
 
             if (!data) {
                 throw new NotFoundException(null, 'VideoNotFound');
             }
 
-            const {range} = req.headers;
+            const { range } = req.headers;
 
             if (range) {
-                const {video} = data;
+                const { video } = data;
                 const videoPath = statSync(
                     join(process.cwd(), `./public/${video}`)
                 );
@@ -70,7 +70,7 @@ export class VideoService {
 
                 const videoStream = createReadStream(
                     join(process.cwd(), `./public/${video}`),
-                    {start, end}
+                    { start, end }
                 );
 
                 videoStream.pipe(res);
@@ -84,7 +84,9 @@ export class VideoService {
     }
 
     async update(id, video: Video): Promise<Video> {
-        return await this.videoModel.findByIdAndUpdate(id, video, {new: true});
+        return await this.videoModel.findByIdAndUpdate(id, video, {
+            new: true,
+        });
     }
 
     async delete(id): Promise<any> {

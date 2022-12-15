@@ -1,9 +1,9 @@
-import {HttpException, Injectable, HttpStatus} from '@nestjs/common';
-import {InjectModel} from '@nestjs/mongoose';
-import {Model} from 'mongoose';
-import {User, UserDocument} from '../schema/user.schema';
+import { HttpException, Injectable, HttpStatus } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { User, UserDocument } from '../schema/user.schema';
 import * as bcrypt from 'bcrypt';
-import {JwtService} from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
@@ -27,7 +27,10 @@ export class UserService {
         return newUser.save();
     }
 
-    async signin(user: { email: string, password: string }, jwtService: JwtService): Promise<any> {
+    async signin(
+        user: { email: string; password: string },
+        jwtService: JwtService
+    ): Promise<any> {
         const dbUser = await this.userModel
             .findOne({ email: user.email })
             .exec();
@@ -49,13 +52,10 @@ export class UserService {
             );
         }
 
-        return new HttpException(
-            'Email not found',
-            HttpStatus.UNAUTHORIZED
-        );
+        return new HttpException('Email not found', HttpStatus.UNAUTHORIZED);
     }
 
     async getOne(email): Promise<User> {
-        return await this.userModel.findOne({email}).exec();
+        return await this.userModel.findOne({ email }).exec();
     }
 }

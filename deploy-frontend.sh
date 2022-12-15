@@ -16,6 +16,7 @@ test $? -ne 0 && exit
 git checkout gh-pages
 rm -rf /tmp/media-platform/*
 mv /tmp/media-platform-build/* /tmp/media-platform
+cp /tmp/media-platform/index.html /tmp/media-platform/404.html
 git add .
 git commit -m deploy --allow-empty
 git push

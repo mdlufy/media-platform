@@ -27,16 +27,16 @@ export class UserService {
         return newUser.save();
     }
 
-    async signin(user: {email: string, password: string}, jwtService: JwtService): Promise<any> {
-        const foundUser = await this.userModel
-            .findOne({email: user.email})
+    async signin(user: { email: string, password: string }, jwtService: JwtService): Promise<any> {
+        const dbUser = await this.userModel
+            .findOne({ email: user.email })
             .exec();
 
-        if (foundUser) {
-            const {password} = foundUser;
+        if (dbUser) {
+            const match = await bcrypt.compare(user.password, dbUser.password);
 
-            if (bcrypt.compare(user.password, password)) {
-                const payload = {email: user.email};
+            if (match) {
+                const payload = { email: user.email };
 
                 return {
                     token: jwtService.sign(payload),
@@ -50,7 +50,7 @@ export class UserService {
         }
 
         return new HttpException(
-            'Incorrect username or password',
+            'Email not found',
             HttpStatus.UNAUTHORIZED
         );
     }

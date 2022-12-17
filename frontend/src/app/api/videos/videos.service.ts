@@ -17,7 +17,7 @@ export class VideosService {
     }
 
     public fetchVideos$(): Observable<Video[]> {
-        return this.http.get<Video[]>(`${apiUrl}/video`);
+        return this.http.get<Video[]>(`${apiUrl}/videos`);
     }
 
     public uploadVideo$(body: FormData) {

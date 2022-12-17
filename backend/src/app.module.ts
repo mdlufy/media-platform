@@ -1,4 +1,3 @@
-import { isAuthenticated } from './app.middleware';
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -8,13 +7,16 @@ import { diskStorage } from 'multer';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { AppController } from './app.controller';
-import { UserController } from './users/controller/user.controller';
-import { User, UserSchema } from './users/schema/user.schema';
-import { UserService } from './users/service/user.service';
-import { secret } from './utils/constants';
-import { VideoController } from './videos/controller/video.controller';
-import { Video, VideoSchema } from './videos/schema/video.schema';
-import { VideoService } from './videos/service/video.service';
+import { isAuthenticated } from './app.middleware';
+import { UserController } from './user/controller/user.controller';
+import { User, UserSchema } from './user/schema/user.schema';
+import { UserService } from './user/service/user.service';
+import { secret } from './constants';
+import { VideoController } from './video/controller/video.controller';
+import { Video, VideoSchema } from './video/schema/video.schema';
+import { VideoService } from './video/service/video.service';
+import { VideosController } from './videos/controller/videos.controller';
+import { VideosService } from './videos/service/videos.service';
 
 @Module({
     imports: [
@@ -44,8 +46,13 @@ import { VideoService } from './videos/service/video.service';
             rootPath: join(__dirname, '..', 'public'),
         }),
     ],
-    controllers: [AppController, UserController, VideoController],
-    providers: [UserService, VideoService],
+    controllers: [
+        AppController,
+        UserController,
+        VideoController,
+        VideosController,
+    ],
+    providers: [UserService, VideoService, VideosService],
 })
 export class AppModule {
     configure(consumer: MiddlewareConsumer) {

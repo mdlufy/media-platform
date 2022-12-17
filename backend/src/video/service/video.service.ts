@@ -33,10 +33,6 @@ export class VideoService {
     //     return this.videoModel.find().populate('createdBy').exec();
     // }
 
-    async getVideos(): Promise<any> {
-        return this.videoModel.find().populate('createdBy').exec();
-    }
-
     async streamVideo(id: string, res: Response, req: Request) {
         try {
             const data = await this.videoModel.findOne({ _id: id });

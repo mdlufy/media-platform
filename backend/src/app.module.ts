@@ -9,7 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { AppController } from './app.controller';
 import { isAuthenticated } from './app.middleware';
 import { UserController } from './user/controller/user.controller';
-import { User, UserSchema } from './user/schema/user.schema';
 import { UserService } from './user/service/user.service';
 import { secret } from './constants';
 import { VideoController } from './video/controller/video.controller';
@@ -17,6 +16,28 @@ import { Video, VideoSchema } from './video/schema/video.schema';
 import { VideoService } from './video/service/video.service';
 import { VideosController } from './videos/controller/videos.controller';
 import { VideosService } from './videos/service/videos.service';
+import { AdminModule } from '@adminjs/nestjs';
+import * as AdminJSMongoose from '@adminjs/mongoose';
+import AdminJS from 'adminjs';
+import { User, UserSchema } from './user/schema/user.entity';
+
+const DEFAULT_ADMIN = {
+    email: '1',
+    password: '1',
+};
+
+const authenticate = async (email: string, password: string) => {
+    if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) {
+        return Promise.resolve(DEFAULT_ADMIN);
+    }
+
+    return null;
+};
+
+AdminJS.registerAdapter({
+    Resource: AdminJSMongoose.Resource,
+    Database: AdminJSMongoose.Database,
+});
 
 @Module({
     imports: [
@@ -34,7 +55,7 @@ import { VideosService } from './videos/service/videos.service';
             }),
         }),
 
-        MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+        MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
         MongooseModule.forFeature([{ name: Video.name, schema: VideoSchema }]),
 
         JwtModule.register({
@@ -44,6 +65,22 @@ import { VideosService } from './videos/service/videos.service';
 
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', 'public'),
+        }),
+
+        AdminModule.createAdminAsync({
+            useFactory: () => ({
+                adminJsOptions: {
+                    rootPath: '/admin',
+                    resources: [
+                        {
+                            resource: User,
+                            options: {
+                                navigation: { name: null, icon: 'Person' },
+                            },
+                        },
+                    ],
+                },
+            }),
         }),
     ],
     controllers: [

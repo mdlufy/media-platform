@@ -1,4 +1,4 @@
-import { Video } from './../../video/schema/video.schema';
+import { Video } from '../../video/schema/video.schema';
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { VideosService } from '../service/videos.service';

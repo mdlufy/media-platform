@@ -1,6 +1,7 @@
 <h2>Videos list</h2>
 
 <button class="upload-btn file-upload" (click)="changeFormVisibility()">New video</button>
+<button class="delete-button" (click)="onDeleteVideos()">Delete all</button>
 
 <ng-container *ngIf="isFormShown; else videos">
     <form [formGroup]="videoForm" (ngSubmit)="onSubmit()">

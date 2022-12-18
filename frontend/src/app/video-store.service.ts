@@ -1,4 +1,5 @@
 import { VideosService } from './api/videos/videos.service';
+import { VideoService } from './api/video/video.service';
 import { Video } from './interfaces/video.interface';
 import { Injectable } from '@angular/core';
 import { Store } from './api/store-creator';
@@ -9,16 +10,25 @@ import { Store } from './api/store-creator';
 export class VideoStoreService {
     public videoData: Store<Video[]> = new Store<Video[]>([]);
 
-    constructor(private videosService: VideosService) {}
+    constructor(
+        private videoService: VideoService,
+        private videosService: VideosService
+    ) {}
 
     public fetchVideos() {
-        this.videosService
+        this.videoService
             .fetchVideos$()
             .subscribe((data) => this.videoData.setState(data));
     }
 
-    public removeVideo(id: string) {
+    public deleteVideos() {
         this.videosService
+            .deleteVideos$()
+            .subscribe(() => this.videoData.setState([]));
+    }
+
+    public removeVideo(id: string) {
+        this.videoService
             .deleteVideo$(id)
             .subscribe(() =>
                 this.videoData.setState(
@@ -28,7 +38,7 @@ export class VideoStoreService {
     }
 
     public uploadFile(event: any) {
-        this.videosService
+        this.videoService
             .uploadVideo$(event)
             .subscribe((data) =>
                 this.videoData.setState([

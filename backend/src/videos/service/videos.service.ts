@@ -12,4 +12,8 @@ export class VideosService {
     async getVideos(): Promise<any> {
         return this.videoModel.find().populate('createdBy').exec();
     }
+
+    async deleteVideos(): Promise<any> {
+        return this.videoModel.deleteMany().exec();
+    }
 }

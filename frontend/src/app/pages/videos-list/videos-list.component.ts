@@ -79,4 +79,8 @@ export class VideosListComponent implements OnInit {
     private fetchVideos() {
         this.videosStore.fetchVideos();
     }
+
+    public onDeleteVideos() {
+        this.videosStore.deleteVideos();
+    }
 }

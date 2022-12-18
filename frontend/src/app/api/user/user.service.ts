@@ -1,4 +1,4 @@
-import { User } from './../../interfaces/user.interface';
+import { User } from '../../interfaces/user.interface';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

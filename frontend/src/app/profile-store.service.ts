@@ -1,7 +1,6 @@
-import { User } from './interfaces/user.interface';
 import { Injectable } from '@angular/core';
 import { Store } from './api/store-creator';
-import { UserService } from './api/users/user.service';
+import { UserService } from './api/user/user.service';
 
 const initialState = {
     fullname: '',
@@ -22,6 +21,6 @@ export class ProfileStoreService {
     constructor(private userService: UserService) {}
 
     public fetchUser() {
-        this.userService.fecthUser$()
+        this.userService.fecthUser$();
     }
 }

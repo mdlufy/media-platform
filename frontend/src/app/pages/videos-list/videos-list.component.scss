@@ -33,3 +33,12 @@ form button[disabled] {
     display: flex;
     justify-content: space-between;
 }
+
+.delete-button {
+    margin-left: 10px;
+
+    border-radius: 5px;
+    background-color: red;
+
+    cursor: pointer;
+}

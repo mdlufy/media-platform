@@ -16,12 +16,16 @@
             border-radius: 3px;
         }
 
-        .delete-button {
-            cursor: pointer;
+        .delete-btn {
+            margin-left: 10px;
 
             border-radius: 5px;
+            background-color: rgb(225, 66, 66);
+
+            cursor: pointer;
         }
     }
 
-    .video {}
+    .video {
+    }
 }

@@ -1,16 +1,21 @@
-.file-input {
-    display: none;
-}
-
 .upload-btn {
+    margin-bottom: 15px;
+
     border: 1px solid black;
     border-radius: 3px;
 
     background-color: greenyellow;
+
+    cursor: pointer;
 }
 
-.file-upload {
-    margin-bottom: 15px;
+.delete-btn {
+    margin-left: 10px;
+
+    border-radius: 5px;
+    background-color: rgb(225, 66, 66);
+
+    cursor: pointer;
 }
 
 form {
@@ -27,18 +32,4 @@ form input:not(:last-child) {
 
 form button[disabled] {
     border-left: 5px solid #a94442;
-}
-
-.buttons {
-    display: flex;
-    justify-content: space-between;
-}
-
-.delete-button {
-    margin-left: 10px;
-
-    border-radius: 5px;
-    background-color: red;
-
-    cursor: pointer;
 }

@@ -1,3 +1,5 @@
+import { LayoutComponent } from './layout/layout.component';
+import { RouterModule } from '@angular/router';
 import { VideoComponent } from './../components/video/video.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -8,7 +10,12 @@ import { CommonModule } from '@angular/common';
 import { PagesRoutingModule } from './pages-routing.module';
 
 @NgModule({
-    declarations: [VideosListComponent, UserProfileComponent, VideoComponent],
+    declarations: [
+        VideosListComponent,
+        UserProfileComponent,
+        VideoComponent,
+        LayoutComponent,
+    ],
     imports: [
         CommonModule,
         PagesRoutingModule,

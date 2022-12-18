@@ -37,7 +37,7 @@ export class LoginComponent {
                     email: form.email,
                 });
 
-                this.router.navigate(['videos']);
+                this.router.navigate(['pages']);
             }
 
         });

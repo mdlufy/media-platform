@@ -1,7 +1,6 @@
-import { ProfileStoreService } from 'src/app/profile-store.service';
-import { Profile } from '../../../profile-store.service';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Profile, ProfileStoreService } from 'src/app/profile-store.service';
 
 @Component({
     selector: 'app-profile',

@@ -13,6 +13,14 @@ export class VideosService {
         return this.videoModel.find().populate('createdBy').exec();
     }
 
+    async getVideosByCourseId(courseId: string): Promise<any> {
+        return this.videoModel
+            .find({ course: courseId })
+            .populate('course')
+            .populate('createdBy')
+            .exec();
+    }
+
     async deleteVideos(): Promise<any> {
         return this.videoModel.deleteMany().exec();
     }

@@ -1,7 +1,14 @@
-import { Video } from './../../video/schema/video.schema';
-import { Controller, Delete, Get, Res, HttpStatus } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+    Controller,
+    Delete,
+    Get,
+    HttpStatus,
+    Param,
+    Res
+} from '@nestjs/common';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { VideosService } from '../service/videos.service';
+import { Video } from './../../video/schema/video.schema';
 
 @ApiTags('videos')
 @Controller('api/v1/videos')
@@ -19,6 +26,20 @@ export class VideosController {
         return await this.videosService.getVideos();
     }
 
+    @ApiOperation({ summary: 'Get videos by course id' })
+    @ApiParam({ name: 'courseId', type: String })
+    @Get(':courseId')
+    @ApiResponse({
+        status: 200,
+        description: 'Return course videos',
+        type: [Video],
+    })
+    async getVideosByCourseId(@Param('courseId') courseId: string, @Res() res) {
+        const videos = await this.videosService.getVideosByCourseId(courseId);
+
+        return res.status(HttpStatus.OK).json(videos);
+    }
+
     @ApiOperation({ summary: 'Delete all videos' })
     @Delete()
     @ApiResponse({
@@ -26,7 +47,7 @@ export class VideosController {
         description: 'Return count of deleted videos',
         type: Number,
     })
-    async deleteVideos(@Res() res,) {
+    async deleteVideos(@Res() res) {
         const { deletedCount } = await this.videosService.deleteVideos();
 
         return res.status(HttpStatus.OK).json({

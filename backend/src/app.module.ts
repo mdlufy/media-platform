@@ -8,10 +8,15 @@ import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { AppController } from './app.controller';
 import { isAuthenticated } from './app.middleware';
+import { secret } from './constants';
+import { CourseController } from './course/controller/course.controller';
+import { Course, CourseSchema } from './course/schema/course.schema';
+import { CourseService } from './course/service/course.service';
+import { CoursesController } from './courses/controller/courses.controller';
+import { CoursesService } from './courses/service/courses.service';
 import { UserController } from './user/controller/user.controller';
 import { User, UserSchema } from './user/schema/user.schema';
 import { UserService } from './user/service/user.service';
-import { secret } from './constants';
 import { VideoController } from './video/controller/video.controller';
 import { Video, VideoSchema } from './video/schema/video.schema';
 import { VideoService } from './video/service/video.service';
@@ -36,6 +41,9 @@ import { VideosService } from './videos/service/videos.service';
 
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
         MongooseModule.forFeature([{ name: Video.name, schema: VideoSchema }]),
+        MongooseModule.forFeature([
+            { name: Course.name, schema: CourseSchema },
+        ]),
 
         JwtModule.register({
             secret: secret,
@@ -51,8 +59,16 @@ import { VideosService } from './videos/service/videos.service';
         UserController,
         VideoController,
         VideosController,
+        CoursesController,
+        CourseController,
     ],
-    providers: [UserService, VideoService, VideosService],
+    providers: [
+        UserService,
+        VideoService,
+        VideosService,
+        CoursesService,
+        CourseService,
+    ],
 })
 export class AppModule {
     configure(consumer: MiddlewareConsumer) {

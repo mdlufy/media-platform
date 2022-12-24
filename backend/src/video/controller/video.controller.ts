@@ -1,3 +1,4 @@
+import { CourseService } from './../../course/service/course.service';
 import {
     Body,
     Controller,
@@ -10,17 +11,16 @@ import {
     Req,
     Res,
     UploadedFiles,
-    UseInterceptors,
+    UseInterceptors
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import {
     ApiBody,
     ApiConsumes,
-    ApiHeader,
     ApiOperation,
     ApiParam,
     ApiResponse,
-    ApiTags,
+    ApiTags
 } from '@nestjs/swagger';
 import { Video } from '../schema/video.schema';
 import { VideoService } from '../service/video.service';
@@ -28,7 +28,7 @@ import { VideoService } from '../service/video.service';
 @ApiTags('video')
 @Controller('api/v1/video')
 export class VideoController {
-    constructor(private readonly videoService: VideoService) {}
+    constructor(private readonly videoService: VideoService, private courseService: CourseService) {}
 
     @UseInterceptors(
         FileFieldsInterceptor([
@@ -51,26 +51,24 @@ export class VideoController {
     async createBook(
         @Res() res,
         @Req() req,
-        @Body() video: Video,
+        @Body() video,
         @UploadedFiles()
         files: { video?: Express.Multer.File[]; cover?: Express.Multer.File[] }
     ) {
+        const course = await this.courseService.getCourseByName(video.course);
+
         const reqBody = {
-            createdBy: req.user,
             title: video.title,
             video: files.video[0].filename,
             coverImage: files.cover[0].filename,
+            createdBy: req.user,
+            course: course,
         };
 
         const newVideo = await this.videoService.createVideo(reqBody);
 
         return res.status(HttpStatus.CREATED).json(newVideo);
     }
-
-    // @Get()
-    // async read(@Query() id): Promise<Object> {
-    //     return await this.videoService.readVideo(id);
-    // }
 
     @ApiOperation({ summary: 'Get video by id' })
     @ApiParam({ name: 'id', type: String })

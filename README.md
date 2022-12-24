@@ -7,6 +7,8 @@ Platform for content consumption
 - Authorization
 - Сreating courses and upload videos to them
 - Managing courses
+- Swagger API docs
+- PWA support
 
 ## To dev
 

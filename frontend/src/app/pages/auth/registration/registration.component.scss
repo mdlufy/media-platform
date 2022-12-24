@@ -26,3 +26,10 @@ form button[disabled] {
 button {
     cursor: pointer;
 }
+
+.registration-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

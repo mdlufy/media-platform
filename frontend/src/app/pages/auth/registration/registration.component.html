@@ -1,40 +1,44 @@
-<h2>Registration</h2>
+<div class="registration-block">
+    <h2>Registration</h2>
 
-<form #registrationForm="ngForm" (ngSubmit)="onSubmit()" action="#">
-    <label for="username">Username</label>
-    <input
-        type="text"
-        [(ngModel)]="user.fullname"
-        id="username"
-        name="username"
-        placeholder="Login.."
-        required
-    />
+    <form #registrationForm="ngForm" (ngSubmit)="onSubmit()" action="#">
+        <label for="username">Username</label>
+        <input
+            type="text"
+            [(ngModel)]="user.fullname"
+            id="username"
+            name="username"
+            placeholder="Login.."
+            required
+        />
 
-    <label for="email">Email</label>
-    <input
-        type="text"
-        [(ngModel)]="user.email"
-        id="email"
-        name="email"
-        placeholder="Email.."
-        required
-    />
+        <label for="email">Email</label>
+        <input
+            type="text"
+            [(ngModel)]="user.email"
+            id="email"
+            name="email"
+            placeholder="Email.."
+            required
+        />
 
-    <label for="password">Password</label>
-    <input
-        type="password"
-        [(ngModel)]="user.password"
-        id="password"
-        name="password"
-        placeholder="Password.."
-        required
-    />
+        <label for="password">Password</label>
+        <input
+            type="password"
+            [(ngModel)]="user.password"
+            id="password"
+            name="password"
+            placeholder="Password.."
+            required
+        />
 
-    <span class="buttons">
-        <button type="submit" [disabled]="!registrationForm.form.valid">
-            Registration
-        </button>
-        <button type="button" (click)="registrationForm.reset()">Clear</button>
-    </span>
-</form>
+        <span class="buttons">
+            <button type="submit" [disabled]="!registrationForm.form.valid">
+                Registration
+            </button>
+            <button type="button" (click)="registrationForm.reset()">
+                Clear
+            </button>
+        </span>
+    </form>
+</div>

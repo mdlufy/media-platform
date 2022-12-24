@@ -5,7 +5,8 @@ Platform for content consumption
 ## Features
 
 - Authorization
-- Watch, upload videos
+- Сreating courses and upload videos to them
+- Managing courses
 
 ## To dev
 

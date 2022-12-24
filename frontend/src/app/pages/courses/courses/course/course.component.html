@@ -1,0 +1,15 @@
+<ng-container *ngIf="course">
+    <div class="course-block">
+        <div class="course-info">
+            <a class="name" (click)="goToCourse(course._id)">{{
+                course.name
+            }}</a>
+            <button
+                class="delete-btn"
+                (click)="this.onDeleteCourseEvent.emit(course._id)"
+            >
+                Delete course
+            </button>
+        </div>
+    </div>
+</ng-container>

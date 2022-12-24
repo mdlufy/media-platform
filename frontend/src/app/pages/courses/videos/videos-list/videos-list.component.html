@@ -1,0 +1,50 @@
+<h2>Videos</h2>
+
+<button class="upload-btn" (click)="changeFormVisibility()">New video</button>
+<button class="delete-btn" (click)="onDeleteVideos()">Delete all</button>
+
+<ng-container *ngIf="isFormShown; else videos">
+    <form [formGroup]="videoForm" (ngSubmit)="onSubmit()">
+        <label for="video-name">Video name: </label>
+        <input type="text" id="video-name" formControlName="videoName" />
+
+        <label for="video-file">Video: </label>
+        <input
+            type="file"
+            id="video-file"
+            formControlName="videoFile"
+            (change)="onVideoFileChange($event)"
+        />
+
+        <label for="video-cover">Cover for video: </label>
+        <input
+            type="file"
+            id="video-cover"
+            formControlName="videoCover"
+            (change)="onVideoCoverChange($event)"
+        />
+
+        <label for="video-course">Course: </label>
+        <select
+          formControlName="courseName"
+        >
+          <option value="">Select course</option>
+          <option *ngFor="let course of courses$ | async" [ngValue]="course.name">
+            {{ course.name }}
+          </option>
+        </select>
+
+        <button class="upload-btn" type="submit">Create video</button>
+    </form>
+</ng-container>
+
+<ng-template #videos>
+    <ng-container *ngIf="videos$ | async as videos">
+        <ng-container *ngFor="let video of videos">
+            <app-video
+                (onDeleteVideoEvent)="onDeleteVideo($event)"
+                [video]="video"
+            ></app-video>
+        </ng-container>
+    </ng-container>
+</ng-template>

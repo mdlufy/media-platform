@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { apiUrl } from 'src/app/config';
-import { Video } from './../../interfaces/video.interface';
+import { Video } from '../../../../interfaces/video.interface';
 
 @Component({
     selector: 'app-video',

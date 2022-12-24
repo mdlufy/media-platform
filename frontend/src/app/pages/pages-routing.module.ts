@@ -1,11 +1,17 @@
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { VideosListComponent } from './videos-list/videos-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-    { path: 'videos', component: VideosListComponent },
-    { path: 'profile', component: UserProfileComponent },
+    {
+        path: 'courses',
+        loadChildren: () =>
+            import('./courses/courses.module').then((m) => m.CoursesModule),
+    },
+    {
+        path: 'profile',
+        loadChildren: () =>
+            import('./profile/profile.module').then((m) => m.ProfileModule),
+    },
 ];
 
 @NgModule({

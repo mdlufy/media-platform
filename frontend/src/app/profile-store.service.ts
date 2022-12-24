@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store } from './api/store-creator';
 import { UserService } from './api/user/user.service';
+import { Store } from './store-creator';
 
 const initialState = {
     fullname: '',

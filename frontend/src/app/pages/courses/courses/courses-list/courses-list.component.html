@@ -1,9 +1,18 @@
-<h2>Videos list</h2>
+<h2>Courses</h2>
 
-<button class="upload-btn" (click)="changeFormVisibility()">New video</button>
-<button class="delete-btn" (click)="onDeleteVideos()">Delete all</button>
+<ng-container *ngIf="courses$ | async as courses">
+    <ng-container *ngFor="let course of courses">
+        <app-course
+                [course]="course"
+                (onDeleteCourseEvent)="onDeleteCourse($event)"
+        ></app-course>
+    </ng-container>
+</ng-container>
 
-<ng-container *ngIf="isFormShown; else videos">
+<!-- <button class="upload-btn" (click)="changeFormVisibility()">New course</button>
+<button class="delete-btn" (click)="onDeleteVideos()">Delete all courses</button> -->
+
+<!-- <ng-container *ngIf="isFormShown; else videos">
     <form [formGroup]="videoForm" (ngSubmit)="onSubmit()">
         <label for="video-name">Video name: </label>
         <input type="text" id="video-name" formControlName="videoName" />
@@ -38,3 +47,4 @@
         </ng-container>
     </ng-container>
 </ng-template>
+ -->

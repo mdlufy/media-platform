@@ -1,8 +1,8 @@
-import { apiUrl } from './../../config';
-import { Video } from './../../interfaces/video.interface';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { apiUrl } from './../../config';
+import { Video } from './../../interfaces/video.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -12,6 +12,20 @@ export class VideosService {
 
     public fetchVideos$(): Observable<Video[]> {
         return this.http.get<Video[]>(`${apiUrl}/videos`);
+    }
+
+    // public fetchVideosByCourseId$(courseId: string): Observable<Video[]> {
+    //     const options = {
+    //         params: {
+    //             courseId,
+    //         },
+    //     };
+
+    //     return this.http.get<Video[]>(`${apiUrl}/videos`, options);
+    // }
+
+    public fetchVideosByCourseId$(courseId: string): Observable<Video[]> {
+        return this.http.get<Video[]>(`${apiUrl}/videos/${courseId}`);
     }
 
     public deleteVideos$(): Observable<{ deletedCount: number }> {

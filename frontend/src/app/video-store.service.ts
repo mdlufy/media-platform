@@ -1,8 +1,8 @@
-import { VideosService } from './api/videos/videos.service';
-import { VideoService } from './api/video/video.service';
-import { Video } from './interfaces/video.interface';
 import { Injectable } from '@angular/core';
-import { Store } from './api/store-creator';
+import { VideoService } from './api/video/video.service';
+import { VideosService } from './api/videos/videos.service';
+import { Video } from './interfaces/video.interface';
+import { Store } from './store-creator';
 
 @Injectable({
     providedIn: 'root',
@@ -15,9 +15,15 @@ export class VideoStoreService {
         private videosService: VideosService
     ) {}
 
-    public fetchVideos() {
-        this.videoService
-            .fetchVideos$()
+    // public fetchVideos() {
+    //     this.videosService
+    //         .fetchVideos$()
+    //         .subscribe((data) => this.videoData.setState(data));
+    // }
+
+    public fetchVideosByCourseId(courseId: string) {
+        this.videosService
+            .fetchVideosByCourseId$(courseId)
             .subscribe((data) => this.videoData.setState(data));
     }
 
@@ -27,12 +33,14 @@ export class VideoStoreService {
             .subscribe(() => this.videoData.setState([]));
     }
 
-    public removeVideo(id: string) {
+    public removeVideo(videoId: string) {
         this.videoService
-            .deleteVideo$(id)
+            .deleteVideo$(videoId)
             .subscribe(() =>
                 this.videoData.setState(
-                    this.videoData.state.filter((video) => video._id !== id)
+                    this.videoData.state.filter(
+                        (video) => video._id !== videoId
+                    )
                 )
             );
     }

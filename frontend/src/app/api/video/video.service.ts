@@ -10,21 +10,21 @@ import { Video } from '../../interfaces/video.interface';
 export class VideoService {
     constructor(private readonly http: HttpClient) {}
 
-    public fetchVideo$(id: string): Observable<Video> {
-        const queryParams = { id: id };
+    public fetchVideo$(videoId: string): Observable<Video> {
+        const options = {
+            params: {
+                videoId,
+            },
+        };
 
-        return this.http.get<Video>(`${apiUrl}/video`, { params: queryParams });
-    }
-
-    public fetchVideos$(): Observable<Video[]> {
-        return this.http.get<Video[]>(`${apiUrl}/videos`);
+        return this.http.get<Video>(`${apiUrl}/video`, options);
     }
 
     public uploadVideo$(body: FormData) {
         return this.http.post(`${apiUrl}/video`, body);
     }
 
-    public deleteVideo$(id: string) {
-        return this.http.delete(`${apiUrl}/video/${id}`);
+    public deleteVideo$(videoId: string) {
+        return this.http.delete(`${apiUrl}/video/${videoId}`);
     }
 }

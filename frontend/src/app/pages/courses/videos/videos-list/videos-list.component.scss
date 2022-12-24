@@ -25,7 +25,8 @@ form {
     width: 150px;
 }
 
-form input:not(:last-child) {
+form input,
+select:not(:last-child) {
     border-radius: 4px;
     margin-bottom: 10px;
 }

@@ -3,5 +3,6 @@ export interface Video {
     title: string;
     coverImage: string;
     video: string;
+    course: string;
     __v: number;
 }

@@ -1,26 +1,14 @@
-import { LayoutComponent } from './layout/layout.component';
-import { RouterModule } from '@angular/router';
-import { VideoComponent } from './../components/video/video.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { VideosListComponent } from './videos-list/videos-list.component';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { LayoutComponent } from './layout/layout.component';
 
 import { PagesRoutingModule } from './pages-routing.module';
 
 @NgModule({
-    declarations: [
-        VideosListComponent,
-        UserProfileComponent,
-        VideoComponent,
-        LayoutComponent,
-    ],
+    declarations: [LayoutComponent],
     imports: [
         CommonModule,
         PagesRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
     ],
 })
 export class PagesModule {}

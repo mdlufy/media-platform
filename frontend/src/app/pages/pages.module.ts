@@ -1,14 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { LayoutComponent } from './layout/layout.component';
 
+import { LayoutModule } from './layout/layout.module';
 import { PagesRoutingModule } from './pages-routing.module';
 
 @NgModule({
-    declarations: [LayoutComponent],
-    imports: [
-        CommonModule,
-        PagesRoutingModule,
-    ],
+    declarations: [],
+    imports: [CommonModule, PagesRoutingModule, LayoutModule],
 })
 export class PagesModule {}

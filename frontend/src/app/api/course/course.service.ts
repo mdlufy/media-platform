@@ -19,4 +19,8 @@ export class CourseService {
     public deleteCourse$(courseId: string) {
         return this.http.delete(`${apiUrl}/course/${courseId}`);
     }
+
+    // public createCourse$(body: FormData) {
+    //     return this.http.post(`${apiUrl}/course`, body);
+    // }
 }

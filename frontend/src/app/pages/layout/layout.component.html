@@ -1,21 +1,6 @@
-<header>
-    <ng-container>
-        <a
-            class="button"
-            routerLink="./courses"
-            routerLinkActive="activebutton"
-            ariaCurrentWhenActive="page"
-            >Courses</a
-        >
-        <a
-            class="button"
-            routerLink="./profile"
-            routerLinkActive="activebutton"
-            ariaCurrentWhenActive="page"
-            >Profile</a
-        >
-        <button class="button" (click)="logout()">Logout</button>
-    </ng-container>
+<header class="header">
+    <app-navbar (onLogout)="logout()"></app-navbar>
 </header>
-
-<router-outlet></router-outlet>
+<section class="content">
+    <router-outlet></router-outlet>
+</section>

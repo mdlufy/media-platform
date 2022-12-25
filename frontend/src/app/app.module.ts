@@ -1,3 +1,4 @@
+import { TuiRootModule, TuiDialogModule, TuiAlertModule } from "@taiga-ui/core";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { httpInterceptorProviders } from './http-interceptors/index';
@@ -22,6 +23,9 @@ import { AppComponent } from './app.component';
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000',
         }),
+        TuiRootModule,
+        TuiDialogModule,
+        TuiAlertModule
     ],
     providers: [httpInterceptorProviders],
     bootstrap: [AppComponent],

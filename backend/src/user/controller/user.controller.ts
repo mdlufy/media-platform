@@ -1,6 +1,6 @@
-import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Post, Req, Res } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from '../schema/user.schema';
 import { UserService } from '../service/user.service';
 
@@ -40,5 +40,19 @@ export class UserController {
         const token = await this.userService.signin(user, this.jwtService);
 
         return res.status(HttpStatus.OK).json(token);
+    }
+
+    @ApiOperation({ summary: 'Get user by email' })
+    @ApiParam({ name: 'email', type: String })
+    @Get(':email')
+    @ApiResponse({
+        status: 200,
+        description: 'Return user by email',
+    })
+    async getUser(@Param('email') email, @Req() req, @Res() res) {
+        // const user = req.user;
+        const user = await this.userService.getOne(email);
+
+        return res.status(HttpStatus.OK).json(user);
     }
 }

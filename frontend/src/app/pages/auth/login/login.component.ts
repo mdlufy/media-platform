@@ -30,12 +30,15 @@ export class LoginComponent {
             console.log(data);
 
             if (data.token) {
+                const payload = JSON.parse(atob(data.token.split('.')[1]));
+                console.log(payload);
+
                 localStorage.setItem('token', data.token);
 
-                this.profileStore.profileData.setState({
-                    fullname: '',
-                    email: form.email,
-                });
+                // this.profileStore.profileData.setState({
+                //     fullname: '',
+                //     email: payload.email,
+                // });
 
                 this.router.navigate(['pages']);
             }

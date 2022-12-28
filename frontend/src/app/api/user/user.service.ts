@@ -10,7 +10,7 @@ import { apiUrl } from 'src/app/config';
 export class UserService {
     constructor(private readonly http: HttpClient) {}
 
-    public fecthUser$(): Observable<User> {
-        return this.http.get<User>(`${apiUrl}/user`);
+    public fecthUser$(userEmail: string): Observable<User> {
+        return this.http.get<User>(`${apiUrl}/user/${userEmail}`);
     }
 }

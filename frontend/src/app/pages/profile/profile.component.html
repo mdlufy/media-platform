@@ -1,8 +1,9 @@
 <h2>Profile</h2>
 
 <ng-container *ngIf="profile$ | async as profile; else error">
-    <div>
-        <span>{{ profile.email }}</span>
+    <div class="info-block">
+        <span>Name: {{ profile.fullname }}</span>
+        <span>Email: {{ profile.email }}</span>
     </div>
 </ng-container>
 

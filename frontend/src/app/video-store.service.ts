@@ -15,12 +15,6 @@ export class VideoStoreService {
         private videosService: VideosService
     ) {}
 
-    // public fetchVideos() {
-    //     this.videosService
-    //         .fetchVideos$()
-    //         .subscribe((data) => this.videoData.setState(data));
-    // }
-
     public fetchVideosByCourseId(courseId: string) {
         this.videosService
             .fetchVideosByCourseId$(courseId)

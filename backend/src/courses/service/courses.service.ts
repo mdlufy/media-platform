@@ -13,6 +13,12 @@ export class CoursesService {
         return this.courseModel.find().exec();
     }
 
+    async getCoursesByName(courseName: string): Promise<any> {
+        return this.courseModel
+            .find({ name: new RegExp(courseName, 'i') })
+            .exec();
+    }
+
     async deleteCourses(): Promise<any> {
         return this.courseModel.deleteMany().exec();
     }

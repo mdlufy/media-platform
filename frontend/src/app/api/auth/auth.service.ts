@@ -11,13 +11,13 @@ export class AuthService {
     constructor(private readonly http: HttpClient) {}
 
     public signup$(body: User) {
-        return this.http.post(`${apiUrl}/user/signup`, body);
+        return this.http.post(`${apiUrl}/auth/signup`, body);
     }
 
     public signin$(body: {
         email: string;
         password: string;
     }): Observable<{ token: string }> {
-        return this.http.post<{ token: string }>(`${apiUrl}/user/signin`, body);
+        return this.http.post<{ token: string }>(`${apiUrl}/auth/signin`, body);
     }
 }

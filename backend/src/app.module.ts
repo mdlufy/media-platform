@@ -22,6 +22,8 @@ import { Video, VideoSchema } from './video/schema/video.schema';
 import { VideoService } from './video/service/video.service';
 import { VideosController } from './videos/controller/videos.controller';
 import { VideosService } from './videos/service/videos.service';
+import { AuthService } from './auth/service/auth.service';
+import { AuthController } from './auth/controller/auth.controller';
 
 @Module({
     imports: [
@@ -61,6 +63,7 @@ import { VideosService } from './videos/service/videos.service';
         VideosController,
         CoursesController,
         CourseController,
+        AuthController,
     ],
     providers: [
         UserService,
@@ -68,6 +71,7 @@ import { VideosService } from './videos/service/videos.service';
         VideosService,
         CoursesService,
         CourseService,
+        AuthService,
     ],
 })
 export class AppModule {

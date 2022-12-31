@@ -8,7 +8,6 @@ import { CoursesService } from '../service/courses.service';
 export class CoursesController {
     constructor(private coursesService: CoursesService) {}
 
-
     @ApiOperation({ summary: 'Get all courses' })
     @Get()
     @ApiResponse({
@@ -21,12 +20,6 @@ export class CoursesController {
     }
 
     @ApiOperation({ summary: 'Get courses by name' })
-    // @ApiQuery({
-    //     name: "myParam",
-    //     type: String,
-    //     description: "A parameter. Optional",
-    //     required: false
-    // })
     @Get('search')
     @ApiResponse({
         status: 200,

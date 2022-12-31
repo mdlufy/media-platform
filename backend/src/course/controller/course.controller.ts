@@ -26,7 +26,7 @@ export class CourseController {
 
     @ApiOperation({ summary: 'Create new course' })
     @ApiBody({
-        description: 'Upload course',
+        description: 'Create course',
         type: Course,
     })
     @Post()

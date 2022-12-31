@@ -15,7 +15,7 @@ export class CoursesStoreService {
         private courseService: CourseService
     ) {}
 
-    public fetchCourses() {
+    public getCourses() {
         this.coursesService
             .fetchCourses$()
             .subscribe((data) => this.coursesData.setState(data));
@@ -39,5 +39,12 @@ export class CoursesStoreService {
                     this.coursesData.state.filter((course) => course._id !== id)
                 )
             );
+    }
+
+    public getCoursesByName(courseName: string) {
+        this.coursesService
+            .fetchCoursesByName$(courseName)
+            .pipe()
+            .subscribe((data) => this.coursesData.setState(data));
     }
 }

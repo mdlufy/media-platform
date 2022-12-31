@@ -17,4 +17,13 @@ export class CoursesService {
     public deleteCourses$(): Observable<{ deletedCount: number }> {
         return this.http.delete<{ deletedCount: number }>(`${apiUrl}/courses`);
     }
+
+    public fetchCoursesByName$(courseName: string): Observable<Course[]> {
+        const options = {
+            params: {
+                courseName,
+            },
+        };
+        return this.http.get<Course[]>(`${apiUrl}/courses/search`, options);
+    }
 }

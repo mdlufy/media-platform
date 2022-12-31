@@ -6,6 +6,9 @@ import { VideosModule } from './videos/videos.module';
 
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CourseDetailComponent } from './courses/course-detail/course-detail.component';
+import { TuiInputModule } from '@taiga-ui/kit';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TuiLetModule } from '@taiga-ui/cdk';
 
 @NgModule({
     declarations: [
@@ -13,6 +16,13 @@ import { CourseDetailComponent } from './courses/course-detail/course-detail.com
         CourseComponent,
         CourseDetailComponent,
     ],
-    imports: [CommonModule, CoursesRoutingModule, VideosModule],
+    imports: [
+        CommonModule,
+        CoursesRoutingModule,
+        VideosModule,
+        TuiInputModule,
+        ReactiveFormsModule,
+        TuiLetModule,
+    ],
 })
 export class CoursesModule {}

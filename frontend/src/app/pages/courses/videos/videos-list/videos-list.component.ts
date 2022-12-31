@@ -42,7 +42,7 @@ export class VideosListComponent implements OnInit {
 
     ngOnInit(): void {
         this.fetchVideosByCourseId(this.courseId);
-        this.fetchCourses();
+        this.getCourses();
     }
 
     public changeFormVisibility() {
@@ -105,8 +105,8 @@ export class VideosListComponent implements OnInit {
         this.videosStore.fetchVideosByCourseId(courseId);
     }
 
-    private fetchCourses() {
-        this.coursesStore.fetchCourses();
+    private getCourses() {
+        this.coursesStore.getCourses();
     }
 
     public onDeleteVideos() {

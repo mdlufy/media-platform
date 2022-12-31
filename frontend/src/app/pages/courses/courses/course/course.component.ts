@@ -11,6 +11,7 @@ export class CourseComponent implements OnInit {
     @Input() course!: Course;
 
     @Output() onDeleteCourseEvent = new EventEmitter<string>();
+    @Output() openCourse = new EventEmitter<string>();
 
     constructor(private router: Router, private route: ActivatedRoute) {}
 

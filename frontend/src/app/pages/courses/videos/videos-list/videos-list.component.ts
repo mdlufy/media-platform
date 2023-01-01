@@ -41,7 +41,7 @@ export class VideosListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.fetchVideosByCourseId(this.courseId);
+        this.getVideosByCourseId(this.courseId);
         this.getCourses();
     }
 
@@ -97,19 +97,21 @@ export class VideosListComponent implements OnInit {
         this.changeFormVisibility();
     }
 
+    public onDeleteVideos() {
+        this.videosStore.deleteVideos();
+    }
+
     public onDeleteVideo(id: string) {
         this.videosStore.removeVideo(id);
     }
 
-    private fetchVideosByCourseId(courseId: string) {
-        this.videosStore.fetchVideosByCourseId(courseId);
+
+    private getVideosByCourseId(courseId: string) {
+        this.videosStore.getVideosByCourseId(courseId);
     }
 
     private getCourses() {
         this.coursesStore.getCourses();
     }
 
-    public onDeleteVideos() {
-        this.videosStore.deleteVideos();
-    }
 }

@@ -1,12 +1,36 @@
 <h2>Courses</h2>
 
+<div class="edit-block">
+    <span class="edit">
+        <button
+            tuiButton
+            type="button"
+            icon="tuiIconPlusLarge"
+            appearance="secondary"
+            shape="rounded"
+            size="s"
+            (click)="showCreateDialog()"
+        >
+            Create course
+        </button>
+        <button
+            tuiButton
+            type="button"
+            icon="tuiIconRemoveLarge"
+            appearance="accent"
+            shape="rounded"
+            size="s"
+            (click)="showRemoveDialog()"
+        >
+            Delete all courses
+        </button>
+    </span>
+</div>
+
 <form class="search-form">
     <div>
-        <tui-input
-            tuiTextfieldSize="s"
-            [formControl]="searchForm"
-        >
-            Enter a course
+        <tui-input tuiTextfieldSize="s" [formControl]="searchForm">
+            Find a course
         </tui-input>
     </div>
 </form>
@@ -20,43 +44,3 @@
         ></app-course>
     </ng-container>
 </ng-container>
-
-<!-- <button class="upload-btn" (click)="changeFormVisibility()">New course</button>
-<button class="delete-btn" (click)="onDeleteVideos()">Delete all courses</button> -->
-
-<!-- <ng-container *ngIf="isFormShown; else videos">
-    <form [formGroup]="videoForm" (ngSubmit)="onSubmit()">
-        <label for="video-name">Video name: </label>
-        <input type="text" id="video-name" formControlName="videoName" />
-
-        <label for="video-file">Video: </label>
-        <input
-            type="file"
-            id="video-file"
-            formControlName="videoFile"
-            (change)="onVideoFileChange($event)"
-        />
-
-        <label for="video-cover">Cover for video: </label>
-        <input
-            type="file"
-            id="video-cover"
-            formControlName="videoCover"
-            (change)="onVideoCoverChange($event)"
-        />
-
-        <button class="upload-btn" type="submit">Create video</button>
-    </form>
-</ng-container>
-
-<ng-template #videos>
-    <ng-container *ngIf="videos$ | async as videos">
-        <ng-container *ngFor="let video of videos">
-            <app-video
-                (onDeleteVideoEvent)="onDeleteVideo($event)"
-                [video]="video"
-            ></app-video>
-        </ng-container>
-    </ng-container>
-</ng-template>
- -->

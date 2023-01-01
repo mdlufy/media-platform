@@ -25,7 +25,13 @@ export class CoursesStoreService {
         return this.courseService.fetchCourse$(id);
     }
 
-    public deleteCourses() {
+    public createCourse(form: { name: string }) {
+        this.courseService
+            .createCourse$(form)
+            .subscribe();
+    }
+
+    public removeCourses() {
         this.coursesService
             .deleteCourses$()
             .subscribe(() => this.coursesData.setState([]));

@@ -16,8 +16,4 @@ export class CourseComponent implements OnInit {
     constructor(private router: Router, private route: ActivatedRoute) {}
 
     ngOnInit(): void {}
-
-    public goToCourse(id: string) {
-        this.router.navigate(['./', id], { relativeTo: this.route });
-    }
 }

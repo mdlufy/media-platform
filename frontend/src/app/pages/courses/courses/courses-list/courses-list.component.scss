@@ -5,3 +5,11 @@
 app-course {
     margin-bottom: 15px;
 }
+
+.edit-block {
+    margin-bottom: 15px;
+}
+
+.edit button:not(:last-child) {
+    margin-right: 10px;
+}

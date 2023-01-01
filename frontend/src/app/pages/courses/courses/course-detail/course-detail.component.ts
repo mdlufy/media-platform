@@ -11,11 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 export class CourseDetailComponent implements OnInit {
     public courseId: string;
 
-    // public course$!: Observable<Course>;
-
     constructor(private route: ActivatedRoute, private coursesStore: CoursesStoreService, private courseService: CourseService) {
         this.courseId = this.route.snapshot.paramMap.get('id') ?? '';
-        // this.course$ = this.courseService.fetchCourse$('63a36008f11cf52f142f0261');
     }
 
     ngOnInit(): void {

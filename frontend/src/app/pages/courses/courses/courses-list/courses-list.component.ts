@@ -1,18 +1,13 @@
+import { Component, Inject, Injector, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import {
-    BehaviorSubject,
-    debounceTime,
-    distinctUntilChanged,
-    filter,
-    map,
-    Observable,
-    takeUntil,
-    tap,
-} from 'rxjs';
+import { TuiDialogService } from '@taiga-ui/core';
+import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
+import { debounceTime, distinctUntilChanged, Observable, tap } from 'rxjs';
 import { CoursesStoreService } from 'src/app/courses-store.service';
 import { Course } from 'src/app/interfaces/course.interface';
+import { RemoveDialogComponent } from 'src/app/pages/courses/courses/dialogs/remove-dialog/remove-dialog.component';
+import { CreateDialogComponent } from '../dialogs/create-dialog/create-dialog.component';
 
 @Component({
     selector: 'app-courses-list',
@@ -22,13 +17,28 @@ import { Course } from 'src/app/interfaces/course.interface';
 export class CoursesListComponent implements OnInit {
     public courses$: Observable<Course[]>;
 
-    // public courses$ = new BehaviorSubject<Course[]>([]);
-
     public readonly searchForm = new FormControl();
 
-    private searchValue: string | null = null;
+    private readonly createDialog = this.dialogService.open<string>(
+        new PolymorpheusComponent(CreateDialogComponent, this.injector),
+        {
+            dismissible: true,
+            label: `New course`,
+        }
+    );
+
+    private readonly removeDialog = this.dialogService.open<boolean>(
+        new PolymorpheusComponent(RemoveDialogComponent, this.injector),
+        {
+            dismissible: true,
+            label: 'Deleting courses',
+        }
+    );
 
     constructor(
+        @Inject(TuiDialogService)
+        private readonly dialogService: TuiDialogService,
+        @Inject(Injector) private readonly injector: Injector,
         private coursesStore: CoursesStoreService,
         private router: Router,
         private route: ActivatedRoute
@@ -41,6 +51,10 @@ export class CoursesListComponent implements OnInit {
         this.subscribeOnSearchForm();
     }
 
+    public openCourse(id: string) {
+        this.router.navigate(['./', id], { relativeTo: this.route });
+    }
+
     public onDeleteCourse(id: string) {
         this.coursesStore.removeCourse(id);
     }
@@ -48,12 +62,48 @@ export class CoursesListComponent implements OnInit {
     public handleSearchForm(value: string): void {
         const searchValue = value ? value.trim() : value;
 
-        this.searchValue = searchValue;
-
         if (searchValue?.length) {
             this.getCoursesByName(searchValue);
         } else {
             this.getCourses();
+        }
+    }
+
+    public showCreateDialog(): void {
+        this.createDialog.subscribe({
+            next: (data) => {
+                this.handleCreateCourse(data);
+                console.info(`Dialog emitted data = ${data}`);
+            },
+            complete: () => {
+                console.info(`Dialog closed`);
+            },
+        });
+    }
+
+    public showRemoveDialog(): void {
+        this.removeDialog.subscribe({
+            next: (data) => {
+                this.handleRemoveCourses(data);
+                console.info(`Dialog emitted data = ${data}`);
+            },
+            complete: () => {
+                console.info(`Dialog closed`);
+            },
+        });
+    }
+
+    private handleCreateCourse(courseName: string) {
+        const form = {
+            name: courseName,
+        };
+
+        this.coursesStore.createCourse(form);
+    }
+
+    private handleRemoveCourses(isRemove: boolean) {
+        if (isRemove) {
+            this.coursesStore.removeCourses();
         }
     }
 
@@ -73,9 +123,5 @@ export class CoursesListComponent implements OnInit {
 
     private getCourses(): void {
         this.coursesStore.getCourses();
-    }
-
-    public openCourse(id: string) {
-        this.router.navigate(['./', id], { relativeTo: this.route });
     }
 }

@@ -6,8 +6,8 @@ import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { debounceTime, distinctUntilChanged, Observable, tap } from 'rxjs';
 import { CoursesStoreService } from 'src/app/courses-store.service';
 import { Course } from 'src/app/interfaces/course.interface';
-import { RemoveDialogComponent } from 'src/app/pages/courses/courses/dialogs/remove-dialog/remove-dialog.component';
-import { CreateDialogComponent } from '../dialogs/create-dialog/create-dialog.component';
+import { CreateDialogComponent } from '../courses-dialogs/create-dialog/create-dialog.component';
+import { RemoveDialogComponent } from '../courses-dialogs/remove-dialog/remove-dialog.component';
 
 @Component({
     selector: 'app-courses-list',

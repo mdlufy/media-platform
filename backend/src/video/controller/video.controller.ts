@@ -55,7 +55,7 @@ export class VideoController {
         @UploadedFiles()
         files: { video?: Express.Multer.File[]; cover?: Express.Multer.File[] }
     ) {
-        const course = await this.courseService.getCourseByName(video.course);
+        const course = await this.courseService.getCourseById(video.courseId);
 
         const reqBody = {
             title: video.title,

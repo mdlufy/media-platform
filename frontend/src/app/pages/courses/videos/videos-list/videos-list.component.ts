@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, Injector, Input, OnInit } from '@angular/core';
+import { TuiDialogService } from '@taiga-ui/core';
+import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { Observable } from 'rxjs';
-import { CoursesStoreService } from 'src/app/courses-store.service';
-import { Course } from 'src/app/interfaces/course.interface';
 import { Video } from 'src/app/interfaces/video.interface';
 import { VideoStoreService } from '../../../../video-store.service';
+import { CreateDialogComponent } from '../videos-dialogs/create-dialog/create-dialog.component';
+import { RemoveDialogComponent } from '../videos-dialogs/remove-dialog/remove-dialog.component';
 
 @Component({
     selector: 'app-videos-list',
@@ -12,106 +13,78 @@ import { VideoStoreService } from '../../../../video-store.service';
     styleUrls: ['./videos-list.component.scss'],
 })
 export class VideosListComponent implements OnInit {
-    @Input() public courseId!: string;
+    @Input() public courseId = '';
 
     public videos$: Observable<Video[]>;
 
-    public courses$: Observable<Course[]>;
+    private readonly createDialog = this.dialogService.open<FormData>(
+        new PolymorpheusComponent(CreateDialogComponent, this.injector),
+        {
+            dismissible: true,
+            label: `New video`,
+        }
+    );
 
-    public isFormShown = false;
-
-    public videoForm = new FormGroup({
-        videoName: new FormControl('', [Validators.required]),
-
-        videoFile: new FormControl('', [Validators.required]),
-        videoFileSource: new FormControl('', [Validators.required]),
-
-        videoCover: new FormControl('', [Validators.required]),
-        videoCoverSource: new FormControl('', [Validators.required]),
-
-        courseName: new FormControl('', [Validators.required]),
-    });
+    private readonly removeDialog = this.dialogService.open<boolean>(
+        new PolymorpheusComponent(RemoveDialogComponent, this.injector),
+        {
+            dismissible: true,
+            label: 'Deleting videos',
+        }
+    );
 
     constructor(
-        private videosStore: VideoStoreService,
-        private coursesStore: CoursesStoreService
+        @Inject(TuiDialogService)
+        private readonly dialogService: TuiDialogService,
+        @Inject(Injector) private readonly injector: Injector,
+        private videosStore: VideoStoreService
     ) {
         this.videos$ = videosStore.videoData.state$;
-        this.courses$ = coursesStore.coursesData.state$;
     }
 
     ngOnInit(): void {
         this.getVideosByCourseId(this.courseId);
-        this.getCourses();
-    }
-
-    public changeFormVisibility() {
-        this.isFormShown = !this.isFormShown;
-    }
-
-    public onVideoFileChange(event: any) {
-        if (event.target?.files?.length > 0) {
-            const file = event.target.files[0];
-
-            this.videoForm.patchValue({ videoFileSource: file });
-        }
-    }
-
-    public onVideoCoverChange(event: any) {
-        if (event.target?.files?.length > 0) {
-            const file = event.target.files[0];
-
-            this.videoForm.patchValue({ videoCoverSource: file });
-        }
-    }
-
-    // public onCourseChange(event: any) {
-    //     console.log(event.target.value);
-
-    //     if (event.target.value) {
-    //         const course = event.target.value;
-
-    //         this.videoForm.patchValue({ courseName: course });
-    //     }
-    // }
-
-    public onSubmit() {
-        console.warn(this.videoForm.value);
-
-        const title = this.videoForm.value.videoName;
-        const video = this.videoForm.value.videoFileSource;
-        const cover = this.videoForm.value.videoCoverSource;
-        const course = this.videoForm.value.courseName;
-
-        if (video && cover && title && course) {
-            const formData = new FormData();
-
-            formData.append('title', title);
-            formData.append('video', video);
-            formData.append('cover', cover);
-            formData.append('course', course);
-
-            this.videosStore.uploadFile(formData);
-        }
-
-        this.changeFormVisibility();
-    }
-
-    public onDeleteVideos() {
-        this.videosStore.deleteVideos();
     }
 
     public onDeleteVideo(id: string) {
         this.videosStore.removeVideo(id);
     }
 
+    public showCreateDialog(): void {
+        this.createDialog.subscribe({
+            next: (data) => {
+                this.handleCreateVideo(data);
+                console.info(`Dialog emitted data = ${data}`);
+            },
+            complete: () => {
+                console.info(`Dialog closed`);
+            },
+        });
+    }
 
-    private getVideosByCourseId(courseId: string) {
+    public showRemoveDialog(): void {
+        this.removeDialog.subscribe({
+            next: (data) => {
+                this.handleRemoveVideos(data);
+                console.info(`Dialog emitted data = ${data}`);
+            },
+            complete: () => {
+                console.info(`Dialog closed`);
+            },
+        });
+    }
+
+    private handleCreateVideo(formData: FormData): void {
+        this.videosStore.uploadFile(formData);
+    }
+
+    private handleRemoveVideos(isRemove: boolean): void {
+        if (isRemove) {
+            this.videosStore.removeVideos();
+        }
+    }
+
+    private getVideosByCourseId(courseId: string): void {
         this.videosStore.getVideosByCourseId(courseId);
     }
-
-    private getCourses() {
-        this.coursesStore.getCourses();
-    }
-
 }

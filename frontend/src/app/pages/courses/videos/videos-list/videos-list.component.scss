@@ -1,36 +1,7 @@
-.upload-btn {
+.edit-block {
     margin-bottom: 15px;
-
-    border: 1px solid black;
-    border-radius: 3px;
-
-    background-color: greenyellow;
-
-    cursor: pointer;
 }
 
-.delete-btn {
-    margin-left: 10px;
-
-    border-radius: 5px;
-    background-color: rgb(225, 66, 66);
-
-    cursor: pointer;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-
-    width: 150px;
-}
-
-form input,
-select:not(:last-child) {
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-form button[disabled] {
-    border-left: 5px solid #a94442;
+.edit button:not(:last-child) {
+    margin-right: 10px;
 }

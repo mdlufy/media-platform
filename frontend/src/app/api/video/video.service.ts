@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { apiUrl } from 'src/app/config';
+import { CreateVideoInterface } from 'src/app/interfaces/create-video.interface';
 import { Video } from '../../interfaces/video.interface';
 
 @Injectable({

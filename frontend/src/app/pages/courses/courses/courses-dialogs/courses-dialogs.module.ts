@@ -4,9 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { TuiAutoFocusModule } from '@taiga-ui/cdk';
 import { TuiButtonModule, TuiTextfieldControllerModule } from '@taiga-ui/core';
 import { TuiInputModule, TuiSliderModule } from '@taiga-ui/kit';
-import { RemoveDialogComponent } from 'src/app/pages/courses/courses/dialogs/remove-dialog/remove-dialog.component';
-
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
+import { RemoveDialogComponent } from './remove-dialog/remove-dialog.component';
 
 @NgModule({
     imports: [
@@ -21,4 +20,4 @@ import { CreateDialogComponent } from './create-dialog/create-dialog.component';
     declarations: [CreateDialogComponent, RemoveDialogComponent],
     exports: [CreateDialogComponent, RemoveDialogComponent],
 })
-export class DialogsModule {}
+export class CoursesDialogsModule {}

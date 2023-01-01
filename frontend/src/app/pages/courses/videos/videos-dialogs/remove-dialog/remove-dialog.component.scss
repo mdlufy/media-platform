@@ -1,0 +1,10 @@
+.control {
+    padding: 10px 0px;
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.control button:not(:last-child) {
+    margin-right: 15px;
+}

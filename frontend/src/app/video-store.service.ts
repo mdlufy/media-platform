@@ -21,7 +21,7 @@ export class VideoStoreService {
             .subscribe((data) => this.videoData.setState(data));
     }
 
-    public deleteVideos() {
+    public removeVideos() {
         this.videosService
             .deleteVideos$()
             .subscribe(() => this.videoData.setState([]));

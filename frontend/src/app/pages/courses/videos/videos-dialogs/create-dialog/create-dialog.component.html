@@ -1,0 +1,78 @@
+<form class="create-form" (submit)="onSubmit()">
+    <div class="video">
+        <label tuiLabel="Type a name">
+            <tui-input
+                tuiTextfieldSize="s"
+                class="tui-space_bottom-5"
+                tuiAutoFocus
+                [formControl]="videoName"
+            >
+            </tui-input>
+        </label>
+
+        <label tuiLabel="Select a video">
+            <tui-input-files
+                *ngIf="!videoFile.value"
+                [formControl]="videoFile"
+                [multiple]="false"
+                (reject)="onRejectVideoFile($event)"
+            ></tui-input-files>
+
+            <tui-files class="tui-space_top-1">
+                <tui-file
+                    *ngIf="loadedVideoFile$ | async as file"
+                    [file]="file"
+                    size="m"
+                    (removed)="removeVideoFile()"
+                ></tui-file>
+
+                <tui-file
+                    *ngIf="rejectedVideoFile$ | async as file"
+                    state="error"
+                    [file]="file"
+                    (removed)="clearRejectedVideoFile()"
+                ></tui-file>
+
+                <tui-file
+                    *ngIf="loadingVideoFile$ | async as file"
+                    state="loading"
+                    [file]="file"
+                ></tui-file>
+            </tui-files>
+        </label>
+    </div>
+
+    <div class="cover">
+        <label tuiLabel="Select a video cover">
+            <tui-input-files
+                *ngIf="!coverFile.value"
+                [formControl]="coverFile"
+                [multiple]="false"
+                (reject)="onRejectCoverFile($event)"
+            ></tui-input-files>
+
+            <tui-files class="tui-space_top-1">
+                <tui-file
+                    *ngIf="loadedCoverFile$ | async as file"
+                    [file]="file"
+                    size="m"
+                    (removed)="removeCoverFile()"
+                ></tui-file>
+
+                <tui-file
+                    *ngIf="rejectedCoverFile$ | async as file"
+                    state="error"
+                    [file]="file"
+                    (removed)="clearRejectedCoverFile()"
+                ></tui-file>
+
+                <tui-file
+                    *ngIf="loadingCoverFile$ | async as file"
+                    state="loading"
+                    [file]="file"
+                ></tui-file>
+            </tui-files>
+        </label>
+    </div>
+    <button tuiButton type="submit" size="m">Create</button>
+</form>

@@ -9,7 +9,7 @@ import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateDialogComponent {
-    name = '';
+    public name = '';
 
     constructor(
         @Inject(POLYMORPHEUS_CONTEXT)

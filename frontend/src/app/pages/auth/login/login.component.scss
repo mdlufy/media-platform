@@ -1,33 +1,31 @@
-form {
+.login {
+    margin-top: 150px;
+
     display: flex;
     flex-direction: column;
-
-    width: 200px;
-
-    margin-bottom: 15px;
-}
-
-form input:not(:last-child) {
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-form button[disabled] {
-    border-left: 5px solid #a94442;
-}
-
-.buttons {
-    display: flex;
-    justify-content: space-between;
-}
-
-button {
-    cursor: pointer;
-}
-
-.auth-block {
-    display: flex;
-    align-items: center;
     justify-content: center;
-    flex-direction: column;
+    align-items: center;
+
+    // border: 1px solid var(--tui-base-03);
+    // border-radius: 5px;
+
+    &-title {
+
+        font: var(--tui-font-heading-6);
+    }
+
+    &-form {
+        min-width: 300px;
+        min-height: 300px;
+
+        max-width: 300px;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-btns {
+        display: flex;
+        justify-content: space-between;
+    }
 }

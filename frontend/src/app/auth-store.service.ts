@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './api/auth/auth.service';
 
 const TOKEN = 'token';
 
@@ -8,7 +10,10 @@ const TOKEN = 'token';
 export class AuthStoreService {
     private _token: string | null = '';
 
-    constructor() {}
+    constructor(
+        private readonly authService: AuthService,
+        private readonly router: Router
+    ) {}
 
     public get isAuth(): boolean {
         return this.checkIsAuth();
@@ -36,5 +41,21 @@ export class AuthStoreService {
         this.token = token ?? null;
 
         return this.token ? true : false;
+    }
+
+    public signin(form: { email: string; password: string }): void {
+        this.authService.signin$(form).subscribe((data) => {
+            console.log(data);
+
+            if (data.token) {
+                const payload = JSON.parse(atob(data.token.split('.')[1]));
+
+                console.log(payload);
+
+                localStorage.setItem('token', data.token);
+
+                this.router.navigate(['pages']);
+            }
+        });
     }
 }

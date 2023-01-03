@@ -1,7 +1,7 @@
-import { Router } from '@angular/router';
-import { AuthService } from '../../../api/auth/auth.service';
 import { Component } from '@angular/core';
-import { ProfileStoreService } from 'src/app/profile-store.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthStoreService } from './../../../auth-store.service';
 
 @Component({
     selector: 'app-login',
@@ -9,40 +9,19 @@ import { ProfileStoreService } from 'src/app/profile-store.service';
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-    public email: string = '';
-    public password: string = '';
+    public loginForm = new FormGroup({
+        email: new FormControl(''),
+        password: new FormControl(''),
+    });
 
-    public submitted = false;
+    constructor(private authStore: AuthStoreService, private router: Router) {}
 
-    constructor(
-        private authService: AuthService,
-        private profileStore: ProfileStoreService,
-        private router: Router,
-    ) {}
-
-    public login() {
+    public onSubmit() {
         const form = {
-            email: this.email,
-            password: this.password,
+            email: this.loginForm.value.email ?? '',
+            password: this.loginForm.value.password ?? '',
         };
 
-        this.authService.signin$(form).subscribe((data) => {
-            console.log(data);
-
-            if (data.token) {
-                const payload = JSON.parse(atob(data.token.split('.')[1]));
-                console.log(payload);
-
-                localStorage.setItem('token', data.token);
-
-                // this.profileStore.profileData.setState({
-                //     fullname: '',
-                //     email: payload.email,
-                // });
-
-                this.router.navigate(['pages']);
-            }
-
-        });
+        this.authStore.signin(form);
     }
 }

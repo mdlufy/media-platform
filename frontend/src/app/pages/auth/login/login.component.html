@@ -1,36 +1,44 @@
-<div class="auth-block">
-    <h2>Login</h2>
+<div class="login">
+    <span class="login-title tui-space_bottom-5">Авторизация</span>
 
-    <form #loginForm="ngForm" (ngSubmit)="login()" action="#">
-        <label for="email">Email</label>
-        <input
-            type="text"
-            [(ngModel)]="email"
-            id="email"
-            name="email"
-            placeholder="Email.."
-            required
-        />
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <label tuiLabel="Логин">
+            <tui-input
+                tuiTextfieldSize="s"
+                class="tui-space_bottom-5"
+                tuiAutoFocus
+                formControlName="email"
+                >Почта аккаунта
+            </tui-input>
+        </label>
 
-        <label for="password">Password</label>
-        <input
-            type="password"
-            [(ngModel)]="password"
-            id="password"
-            name="password"
-            placeholder="Password.."
-            required
-        />
+        <label tuiLabel="Пароль">
+            <tui-input-password
+                tuiTextfieldSize="s"
+                class="tui-space_bottom-5"
+                tuiAutoFocus
+                formControlName="password"
+                >Пароль
+            </tui-input-password>
+        </label>
 
-        <span class="buttons">
-            <button type="submit" [disabled]="!loginForm.form.valid">
-                Login
+        <div class="login-btns tui-space_top-3">
+            <button
+                tuiButton
+                type="button"
+                size="s"
+                routerLink="./registration"
+            >
+                Создать аккаунт
             </button>
-            <button type="button" (click)="loginForm.reset()">Clear</button>
-        </span>
+            <button
+                tuiButton
+                type="submit"
+                size="s"
+                [disabled]="!loginForm.valid"
+            >
+                Войти
+            </button>
+        </div>
     </form>
-
-    <div>
-        <button type="button" routerLink="./registration">Registration</button>
-    </div>
 </div>

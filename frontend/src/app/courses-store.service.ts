@@ -21,7 +21,7 @@ export class CoursesStoreService {
             .subscribe((data) => this.coursesData.setState(data));
     }
 
-    public fetchCourse(id: string) {
+    public getCourse(id: string) {
         return this.courseService.fetchCourse$(id);
     }
 

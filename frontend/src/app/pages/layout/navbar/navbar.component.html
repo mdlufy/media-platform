@@ -1,10 +1,12 @@
 <div tuiMode="onLight" class="wrapper">
-    <h1 class="tui-text_h4 title">
-        <a tuiTab routerLink="./" routerLinkActive> Media Platform </a>
-    </h1>
+    <div class="title">
+        <a tuiTab routerLink="./" routerLinkActive>
+            Образовательная платформа
+        </a>
+    </div>
     <tui-tabs class="tabs">
-        <a tuiTab routerLink="./courses" routerLinkActive> Courses </a>
-        <a tuiTab routerLink="./profile" routerLinkActive> Profile </a>
+        <a tuiTab routerLink="./courses" routerLinkActive> Курсы </a>
+        <a tuiTab routerLink="./profile" routerLinkActive> Мой профиль </a>
         <button
             tuiButton
             type="button"
@@ -12,7 +14,7 @@
             size="s"
             (click)="onLogout.emit()"
         >
-            Logout
+            Выход
         </button>
     </tui-tabs>
 </div>

@@ -1,31 +1,26 @@
 .video-block {
-    margin-bottom: 20px;
+    .video-cover {
 
-    .video-info {
-        display: flex;
-        max-width: 250px;
-        justify-content: space-between;
-
-        margin-bottom: 8px;
-
-        .title {
-            margin-right: 10px;
-            padding: 2px 5px;
-
-            border: 1px solid teal;
-            border-radius: 3px;
-        }
-
-        .delete-btn {
-            margin-left: 10px;
-
-            border-radius: 5px;
-            background-color: rgb(225, 66, 66);
-
-            cursor: pointer;
-        }
     }
 
-    .video {
+    .video-info {
+        padding: 16px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .text {
+            font: var(--tui-font-text-l);
+        }
+
+        // .delete-btn {
+        //     margin-left: 10px;
+
+        //     border-radius: 5px;
+        //     background-color: rgb(225, 66, 66);
+
+        //     cursor: pointer;
+        // }
     }
 }

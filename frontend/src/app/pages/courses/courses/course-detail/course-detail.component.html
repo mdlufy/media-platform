@@ -1,3 +1,11 @@
-<div class="videos">
-    <app-videos-list [courseId]="courseId!"></app-videos-list>
-</div>
+<ng-container *ngIf="course$ | async as course">
+    <div class="course">
+        <div class="course-info">
+            <span class="text">Курс: {{ course.name }}</span>
+        </div>
+
+        <div class="course-videos">
+            <app-videos-list [courseId]="courseId"></app-videos-list>
+        </div>
+    </div>
+</ng-container>

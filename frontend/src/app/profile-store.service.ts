@@ -21,7 +21,7 @@ export class ProfileStoreService {
 
     constructor(private userService: UserService) {}
 
-    public fetchUser() {
+    public getUser() {
         const token = localStorage.getItem('token') ?? '';
 
         const payload = JSON.parse(atob(token.split('.')[1]));

@@ -11,9 +11,7 @@ export class CourseService {
     constructor(private readonly http: HttpClient) {}
 
     public fetchCourse$(courseId: string): Observable<Course> {
-        const queryParams = { courseId: courseId };
-
-        return this.http.get<Course>(`${apiUrl}/course`, { params: queryParams });
+        return this.http.get<Course>(`${apiUrl}/course/${courseId}`);
     }
 
     public deleteCourse$(courseId: string) {

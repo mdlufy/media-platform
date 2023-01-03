@@ -12,7 +12,12 @@ export class VideoComponent implements OnInit {
 
     @Output() onDeleteVideoEvent = new EventEmitter<string>();
 
-    public videoUrl = '';
+    public coverUrl = '';
+    // public videoUrl = '';
+
+    // public currentTime = 0;
+    // public volume = 1;
+    // public paused = true;
 
     constructor() {}
 
@@ -21,6 +26,7 @@ export class VideoComponent implements OnInit {
     }
 
     private setVideoUrl() {
-        this.videoUrl = `${apiUrl}/video/${this.video._id}`;
+        // this.videoUrl = `${apiUrl}/video/${this.video._id}`;
+        this.coverUrl = `${apiUrl}/video/${this.video._id}/cover`;
     }
 }

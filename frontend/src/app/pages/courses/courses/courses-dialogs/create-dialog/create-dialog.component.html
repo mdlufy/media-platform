@@ -1,11 +1,12 @@
-<tui-input
-    tuiTextfieldSize="m"
-    class="tui-space_bottom-5"
-    tuiAutoFocus
-    [(ngModel)]="name"
->
-    Type a name
-</tui-input>
+<label tuiLabel="Название">
+    <tui-input
+        tuiTextfieldSize="s"
+        class="tui-space_bottom-5"
+        tuiAutoFocus
+        [(ngModel)]="name"
+    >
+    </tui-input>
+</label>
 
 <button
     tuiButton
@@ -14,5 +15,5 @@
     [disabled]="!hasValue"
     (click)="submit()"
 >
-    Submit
+    Добавить
 </button>

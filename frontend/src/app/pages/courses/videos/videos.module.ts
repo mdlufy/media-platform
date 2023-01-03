@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TuiButtonModule, TuiLabelModule } from '@taiga-ui/core';
+import { TuiMediaModule } from '@taiga-ui/cdk';
+import { TuiButtonModule } from '@taiga-ui/core';
 import { VideoComponent } from './video/video.component';
 import { VideosDialogsModule } from './videos-dialogs/videos-dialogs.module';
 import { VideosListComponent } from './videos-list/videos-list.component';
+import { VideosRoutingModule } from './videos-routing.module';
 
 @NgModule({
     declarations: [VideosListComponent, VideoComponent],
@@ -13,6 +15,8 @@ import { VideosListComponent } from './videos-list/videos-list.component';
         ReactiveFormsModule,
         VideosDialogsModule,
         TuiButtonModule,
+        TuiMediaModule,
+        VideosRoutingModule,
     ],
     exports: [VideosListComponent, VideoComponent],
 })

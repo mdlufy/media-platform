@@ -1,39 +1,45 @@
-<h2>Videos</h2>
-
-<div class="edit-block">
-    <span class="edit">
-        <button
-            tuiButton
-            type="button"
-            icon="tuiIconPlusLarge"
-            appearance="secondary"
-            shape="rounded"
-            size="s"
-            (click)="showCreateDialog()"
-        >
-            Create video
-        </button>
-        <button
-            tuiButton
-            type="button"
-            icon="tuiIconRemoveLarge"
-            appearance="accent"
-            shape="rounded"
-            size="s"
-            (click)="showRemoveDialog()"
-        >
-            Delete all videos
-        </button>
-    </span>
-</div>
-
-<ng-container *ngIf="videos$ | async as videos">
-    <div class="videos">
-        <ng-container *ngFor="let video of videos">
-            <app-video
-                (onDeleteVideoEvent)="onDeleteVideo($event)"
-                [video]="video"
-            ></app-video>
-        </ng-container>
+<div class="videos">
+    <div class="header">
+        <span>Материалы курса</span>
     </div>
-</ng-container>
+
+    <div class="edit-block">
+        <span class="edit">
+            <button
+                tuiButton
+                type="button"
+                icon="tuiIconPlusLarge"
+                appearance="secondary"
+                shape="rounded"
+                size="s"
+                (click)="showCreateDialog()"
+            >
+                Загрузить видео
+            </button>
+            <button
+                tuiButton
+                type="button"
+                icon="tuiIconRemoveLarge"
+                appearance="accent"
+                shape="rounded"
+                size="s"
+                (click)="showRemoveDialog()"
+            >
+                Удалить все видео
+            </button>
+        </span>
+    </div>
+
+    <ng-container *ngIf="videos$ | async as videos">
+        <div class="videos-list">
+            <ng-container *ngFor="let video of videos">
+                <app-video
+                    class="video"
+                    [video]="video"
+                    (click)="openVideo(video._id)"
+                    (onDeleteVideoEvent)="onDeleteVideo($event)"
+                ></app-video>
+            </ng-container>
+        </div>
+    </ng-container>
+</div>

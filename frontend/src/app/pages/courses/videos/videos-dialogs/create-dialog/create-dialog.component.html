@@ -1,6 +1,6 @@
-<form class="create-form" (submit)="onSubmit()">
+<form class="create-form" (ngSubmit)="onSubmit()">
     <div class="video">
-        <label tuiLabel="Type a name">
+        <label tuiLabel="Название">
             <tui-input
                 tuiTextfieldSize="s"
                 class="tui-space_bottom-5"
@@ -10,7 +10,7 @@
             </tui-input>
         </label>
 
-        <label tuiLabel="Select a video">
+        <label tuiLabel="Видео">
             <tui-input-files
                 *ngIf="!videoFile.value"
                 [formControl]="videoFile"
@@ -22,7 +22,6 @@
                 <tui-file
                     *ngIf="loadedVideoFile$ | async as file"
                     [file]="file"
-                    size="m"
                     (removed)="removeVideoFile()"
                 ></tui-file>
 
@@ -43,7 +42,7 @@
     </div>
 
     <div class="cover">
-        <label tuiLabel="Select a video cover">
+        <label tuiLabel="Обложка для видео">
             <tui-input-files
                 *ngIf="!coverFile.value"
                 [formControl]="coverFile"
@@ -74,5 +73,5 @@
             </tui-files>
         </label>
     </div>
-    <button tuiButton type="submit" size="m">Create</button>
+    <button tuiButton type="submit" size="m">Загрузить</button>
 </form>

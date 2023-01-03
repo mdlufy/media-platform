@@ -23,7 +23,7 @@ export class CoursesListComponent implements OnInit {
         new PolymorpheusComponent(CreateDialogComponent, this.injector),
         {
             dismissible: true,
-            label: `New course`,
+            label: `Новый курс`,
         }
     );
 
@@ -31,7 +31,7 @@ export class CoursesListComponent implements OnInit {
         new PolymorpheusComponent(RemoveDialogComponent, this.injector),
         {
             dismissible: true,
-            label: 'Deleting courses',
+            label: 'Удалить курсы?',
         }
     );
 

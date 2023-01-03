@@ -1,0 +1,11 @@
+.course {
+    margin-top: 20px;
+
+    &-info {
+        margin-bottom: 20px;
+
+        .text {
+            font: var(--tui-font-heading-5);
+        }
+    }
+}

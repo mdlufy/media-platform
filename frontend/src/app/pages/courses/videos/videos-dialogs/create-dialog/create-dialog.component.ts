@@ -46,8 +46,6 @@ export class CreateDialogComponent implements OnInit {
     ngOnInit(): void {}
 
     public onSubmit() {
-        event?.preventDefault();
-
         const title = this.videoName.value;
         const video = this.videoFile.value;
         const cover = this.coverFile.value;

@@ -1,7 +1,8 @@
-import { CoursesStoreService } from '../../../../courses-store.service';
-import { CourseService } from '../../../../api/course/course.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Course } from 'src/app/interfaces/course.interface';
+import { CoursesStoreService } from '../../../../courses-store.service';
 
 @Component({
     selector: 'app-course-detail',
@@ -11,10 +12,20 @@ import { ActivatedRoute } from '@angular/router';
 export class CourseDetailComponent implements OnInit {
     public courseId: string;
 
-    constructor(private route: ActivatedRoute, private coursesStore: CoursesStoreService, private courseService: CourseService) {
+    public course$!: Observable<Course>;
+
+    constructor(
+        private route: ActivatedRoute,
+        private coursesStore: CoursesStoreService
+    ) {
         this.courseId = this.route.snapshot.paramMap.get('id') ?? '';
     }
 
     ngOnInit(): void {
+        this.getCourse();
+    }
+
+    private getCourse(): void {
+        this.course$ = this.coursesStore.getCourse(this.courseId);
     }
 }

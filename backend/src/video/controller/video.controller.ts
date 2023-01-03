@@ -11,7 +11,7 @@ import {
     Req,
     Res,
     UploadedFiles,
-    UseInterceptors
+    UseInterceptors,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import {
@@ -20,7 +20,7 @@ import {
     ApiOperation,
     ApiParam,
     ApiResponse,
-    ApiTags
+    ApiTags,
 } from '@nestjs/swagger';
 import { Video } from '../schema/video.schema';
 import { VideoService } from '../service/video.service';
@@ -28,7 +28,10 @@ import { VideoService } from '../service/video.service';
 @ApiTags('video')
 @Controller('api/v1/video')
 export class VideoController {
-    constructor(private readonly videoService: VideoService, private courseService: CourseService) {}
+    constructor(
+        private readonly videoService: VideoService,
+        private courseService: CourseService
+    ) {}
 
     @UseInterceptors(
         FileFieldsInterceptor([
@@ -48,7 +51,7 @@ export class VideoController {
         description: 'The video has been successfully created.',
         type: Video,
     })
-    async createBook(
+    async createVideo(
         @Res() res,
         @Req() req,
         @Body() video,
@@ -70,6 +73,17 @@ export class VideoController {
         return res.status(HttpStatus.CREATED).json(newVideo);
     }
 
+    @ApiOperation({ summary: 'Get cover for video by video id' })
+    @ApiParam({ name: 'id', type: String })
+    @Get(':id/cover')
+    @ApiResponse({
+        status: 206,
+        description: 'Return cover for video based on particular id',
+    })
+    async getCover(@Param('id') id, @Res() res, @Req() req) {
+        return this.videoService.streamCover(id, res, req);
+    }
+
     @ApiOperation({ summary: 'Get video by id' })
     @ApiParam({ name: 'id', type: String })
     @Get(':id')
@@ -77,7 +91,7 @@ export class VideoController {
         status: 206,
         description: 'Return video to stream based on particular id',
     })
-    async stream(@Param('id') id, @Res() res, @Req() req) {
+    async getVideo(@Param('id') id, @Res() res, @Req() req) {
         return this.videoService.streamVideo(id, res, req);
     }
 

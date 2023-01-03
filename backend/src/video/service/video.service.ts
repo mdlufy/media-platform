@@ -79,6 +79,47 @@ export class VideoService {
         }
     }
 
+    async streamCover(id: string, res: Response, req: Request) {
+        try {
+            const data = await this.videoModel.findOne({ _id: id });
+
+            if (!data) {
+                throw new NotFoundException(null, 'VideoNotFound');
+            }
+
+            const { coverImage } = data;
+
+            // const coverPath = statSync(
+            //     join(process.cwd(), `./public/${coverImage}`)
+            // );
+
+            // const CHUNK_SIZE = 1 * 1e6;
+
+            // const start = Number(range.replace(/\D/g, ''));
+            // const end = Math.min(start + CHUNK_SIZE, coverPath.size - 1);
+
+            // const coverLength = end - start + 1;
+
+            res.status(206);
+            res.header({
+                // 'Content-Range': `bytes ${start}-${end}/${coverPath.size}`,
+                // 'Accept-Ranges': 'bytes',
+                // 'Content-length': coverLength,
+                'Content-Type': 'image/jpeg',
+            });
+
+            const coverStream = createReadStream(
+                join(process.cwd(), `./public/${coverImage}`)
+                // { start, end }
+            );
+
+            coverStream.pipe(res);
+        } catch (e) {
+            console.error(e);
+            throw new ServiceUnavailableException();
+        }
+    }
+
     async update(id, video: Video): Promise<Video> {
         return await this.videoModel.findByIdAndUpdate(id, video, {
             new: true,

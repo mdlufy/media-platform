@@ -53,9 +53,9 @@ export class CourseController {
     async getCourseById(@Param('id') id: string, @Res() res) {
         const course = await this.courseService.getCourseById(id);
 
-        return res.status(HttpStatus.PARTIAL_CONTENT).json({
+        return res.status(HttpStatus.PARTIAL_CONTENT).json(
             course,
-        });
+        );
     }
 
     @ApiOperation({ summary: 'Delete course by id' })

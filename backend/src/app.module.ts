@@ -8,6 +8,8 @@ import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { AppController } from './app.controller';
 import { isAuthenticated } from './app.middleware';
+import { AuthController } from './auth/controller/auth.controller';
+import { AuthService } from './auth/service/auth.service';
 import { secret } from './constants';
 import { CourseController } from './course/controller/course.controller';
 import { Course, CourseSchema } from './course/schema/course.schema';
@@ -22,8 +24,6 @@ import { Video, VideoSchema } from './video/schema/video.schema';
 import { VideoService } from './video/service/video.service';
 import { VideosController } from './videos/controller/videos.controller';
 import { VideosService } from './videos/service/videos.service';
-import { AuthService } from './auth/service/auth.service';
-import { AuthController } from './auth/controller/auth.controller';
 
 @Module({
     imports: [
@@ -78,7 +78,13 @@ export class AppModule {
     configure(consumer: MiddlewareConsumer) {
         consumer
             .apply(isAuthenticated)
-            .exclude({ path: 'api/v1/video/:id', method: RequestMethod.GET })
+            .exclude(
+                {
+                    path: 'api/v1/video/:id/cover',
+                    method: RequestMethod.GET,
+                },
+                { path: 'api/v1/video/:id', method: RequestMethod.GET }
+            )
             .forRoutes(VideoController);
     }
 }

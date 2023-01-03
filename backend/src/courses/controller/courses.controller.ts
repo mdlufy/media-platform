@@ -1,5 +1,12 @@
-import { Controller, Delete, Get, HttpStatus, Optional, Query, Res } from '@nestjs/common';
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+    Controller,
+    Delete,
+    Get,
+    HttpStatus,
+    Query,
+    Res,
+} from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Course } from 'src/course/schema/course.schema';
 import { CoursesService } from '../service/courses.service';
 
@@ -26,10 +33,11 @@ export class CoursesController {
         description: 'Return all courses by name',
         type: [Course],
     })
-    async getCoursesByName(@Query('courseName') courseName: string): Promise<Course[]> {
+    async getCoursesByName(
+        @Query('courseName') courseName: string
+    ): Promise<Course[]> {
         return await this.coursesService.getCoursesByName(courseName);
     }
-
 
     @ApiOperation({ summary: 'Delete all courses' })
     @Delete()

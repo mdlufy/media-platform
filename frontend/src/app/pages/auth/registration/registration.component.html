@@ -1,44 +1,50 @@
-<div class="registration-block">
-    <h2>Registration</h2>
+<div class="registration">
+    <span class="registration-title tui-space_bottom-5">Регистрация</span>
 
-    <form #registrationForm="ngForm" (ngSubmit)="onSubmit()" action="#">
-        <label for="username">Username</label>
-        <input
-            type="text"
-            [(ngModel)]="user.fullname"
-            id="username"
-            name="username"
-            placeholder="Login.."
-            required
-        />
+    <form
+        class="registration-form"
+        [formGroup]="registrationForm"
+        (ngSubmit)="onSubmit()"
+    >
+        <label tuiLabel="Имя пользователя">
+            <tui-input
+                tuiTextfieldSize="s"
+                class="tui-space_bottom-5"
+                formControlName="fullname"
+                >Имя
+            </tui-input>
+        </label>
 
-        <label for="email">Email</label>
-        <input
-            type="text"
-            [(ngModel)]="user.email"
-            id="email"
-            name="email"
-            placeholder="Email.."
-            required
-        />
+        <label tuiLabel="Логин">
+            <tui-input
+                tuiTextfieldSize="s"
+                class="tui-space_bottom-5"
+                formControlName="email"
+                >Почта аккаунта
+            </tui-input>
+        </label>
 
-        <label for="password">Password</label>
-        <input
-            type="password"
-            [(ngModel)]="user.password"
-            id="password"
-            name="password"
-            placeholder="Password.."
-            required
-        />
+        <label tuiLabel="Пароль">
+            <tui-input-password
+                tuiTextfieldSize="s"
+                class="tui-space_bottom-5"
+                formControlName="password"
+                >Пароль
+            </tui-input-password>
+        </label>
 
-        <span class="buttons">
-            <button type="submit" [disabled]="!registrationForm.form.valid">
-                Registration
+        <div class="registration-btns tui-space_top-3">
+            <button tuiButton type="button" size="s" routerLink="../">
+                Назад
             </button>
-            <button type="button" (click)="registrationForm.reset()">
-                Clear
+            <button
+                tuiButton
+                type="submit"
+                size="s"
+                [disabled]="!registrationForm.valid"
+            >
+                Зарегистрироваться
             </button>
-        </span>
+        </div>
     </form>
 </div>

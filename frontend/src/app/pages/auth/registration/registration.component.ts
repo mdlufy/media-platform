@@ -1,7 +1,7 @@
-import { AuthService } from '../../../api/auth/auth.service';
-import { User } from '../../../interfaces/user.interface';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
+import { User } from '../../../interfaces/user.interface';
+import { AuthStoreService } from './../../../auth-store.service';
 
 @Component({
     selector: 'app-registration',
@@ -9,28 +9,21 @@ import { Router } from '@angular/router';
     styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent {
-    public user: User = {
-        fullname: '',
-        email: '',
-        password: '',
-    };
+    public registrationForm = new FormGroup({
+        fullname: new FormControl(''),
+        email: new FormControl(''),
+        password: new FormControl(''),
+    });
 
-    public submitted = false;
-
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(private readonly authStore: AuthStoreService) {}
 
     public onSubmit() {
-        this.submitted = true;
-
-        const form = {
-            fullname: this.user.fullname,
-            email: this.user.email,
-            password: this.user.password,
+        const form: User = {
+            fullname: this.registrationForm.value.fullname ?? '',
+            email: this.registrationForm.value.email ?? '',
+            password: this.registrationForm.value.password ?? '',
         };
 
-        this.authService.signup$(form).subscribe((data) => {
-            console.log(data);
-            this.router.navigate(['auth']);
-        });
+        this.authStore.signup(form);
     }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './api/auth/auth.service';
+import { User } from './interfaces/user.interface';
 
 const TOKEN = 'token';
 
@@ -56,6 +57,14 @@ export class AuthStoreService {
 
                 this.router.navigate(['pages']);
             }
+        });
+    }
+
+    public signup(form: User): void {
+        this.authService.signup$(form).subscribe((data) => {
+            console.log(data);
+
+            this.router.navigate(['auth']);
         });
     }
 }

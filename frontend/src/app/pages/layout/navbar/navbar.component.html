@@ -1,20 +1,26 @@
 <div tuiMode="onLight" class="wrapper">
     <div class="title">
         <a tuiTab routerLink="./" routerLinkActive>
+            <tui-svg src="tuiIconSoundLarge" class="tui-space_right-3"></tui-svg>
             Образовательная платформа
         </a>
     </div>
-    <tui-tabs class="tabs">
-        <a tuiTab routerLink="./courses" routerLinkActive> Курсы </a>
-        <a tuiTab routerLink="./profile" routerLinkActive> Мой профиль </a>
-        <button
-            tuiButton
-            type="button"
-            appearance="outline"
-            size="s"
-            (click)="onLogout.emit()"
-        >
+    <tui-tabs-with-more [itemsLimit]="2" [moreContent]="more" class="tabs">
+        <a *tuiItem tuiTab routerLink="./courses" routerLinkActive>
+            <tui-svg src="tuiIconCheckList" class="tui-space_right-2"></tui-svg>
+            Курсы
+        </a>
+        <a *tuiItem tuiTab routerLink="./profile" routerLinkActive>
+            <tui-svg src="tuiIconUser" class="tui-space_right-2"></tui-svg>
+            Мой профиль
+        </a>
+        <button *tuiItem tuiTab (click)="onLogout.emit()">
             Выход
         </button>
-    </tui-tabs>
+    </tui-tabs-with-more>
+
+    <ng-template #more>
+        Дополнительно
+        <tui-svg src="tuiIconChevronDown" class="tui-space_left-0.5"></tui-svg>
+    </ng-template>
 </div>

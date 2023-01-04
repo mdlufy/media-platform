@@ -6,25 +6,28 @@
 }
 
 .wrapper {
+    border-bottom: 1px solid var(--tui-base-04);
+
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 1.5rem 2rem 0.5rem;
+    padding: 1rem 2rem 0;
 
     background-color: var(--tui-base-02);
 }
 
 .title {
-    font: var(--tui-font-heading-5);
+    float: left;
 
-    min-width: 15.625rem;
     margin: 0;
+    min-width: 26rem;
+
+    font: var(--tui-font-heading-5);
 }
 
 .tabs {
-    width: calc(100% - 15.625rem);
-    justify-content: space-around;
-    align-items: center;
+    width: calc(100% - 26rem);
+    justify-content: flex-end;
+
     box-shadow: none;
 }
 

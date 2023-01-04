@@ -1,9 +1,17 @@
-.search-form {
-    margin-bottom: 20px;
-}
+.courses-list {
+    .header {
+        margin: 1rem 0 1rem;
 
-app-course {
-    margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        font: var(--tui-font-heading-6);
+    }
+
+    .search-form {
+        margin: 0 0 2.5rem;
+    }
 }
 
 .edit-block {
@@ -11,5 +19,5 @@ app-course {
 }
 
 .edit button:not(:last-child) {
-    margin-right: 10px;
+    margin-right: 15px;
 }

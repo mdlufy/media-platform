@@ -21,6 +21,12 @@ export class VideosService {
             .exec();
     }
 
+    async deleteVideosByCourseId(courseId: string): Promise<any> {
+        const videos = this.videoModel.find({ course: courseId });
+
+        return videos.deleteMany().exec();
+    }
+
     async deleteVideos(): Promise<any> {
         return this.videoModel.deleteMany().exec();
     }

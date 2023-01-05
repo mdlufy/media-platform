@@ -31,4 +31,12 @@ export class VideosService {
     public deleteVideos$(): Observable<{ deletedCount: number }> {
         return this.http.delete<{ deletedCount: number }>(`${apiUrl}/videos`);
     }
+
+    public deleteVideosByCourseId$(
+        courseId: string
+    ): Observable<{ deletedCount: number }> {
+        return this.http.delete<{ deletedCount: number }>(
+            `${apiUrl}/videos/${courseId}`
+        );
+    }
 }

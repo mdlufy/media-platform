@@ -93,27 +93,13 @@ export class VideosListComponent implements OnInit {
         });
     }
 
-    // public showStreamVideoDialog(): void {
-    //     console.log('yes');
-
-    //     this.streamVideoDialog.subscribe({
-    //         next: (data) => {
-    //             // this.handleCreateVideo(data);
-    //             console.info(`Dialog emitted data = ${data}`);
-    //         },
-    //         complete: () => {
-    //             console.info(`Dialog closed`);
-    //         },
-    //     });
-    // }
-
     private handleCreateVideo(formData: FormData): void {
         this.videosStore.uploadFile(formData);
     }
 
     private handleRemoveVideos(isRemove: boolean): void {
         if (isRemove) {
-            this.videosStore.removeVideos();
+            this.videosStore.removeVideosFromCourse(this.courseId);
         }
     }
 

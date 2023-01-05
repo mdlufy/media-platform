@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs';
 import { VideoService } from './api/video/video.service';
 import { VideosService } from './api/videos/videos.service';
 import { Video } from './interfaces/video.interface';
@@ -18,6 +19,7 @@ export class VideoStoreService {
     public getVideosByCourseId(courseId: string) {
         this.videosService
             .fetchVideosByCourseId$(courseId)
+            .pipe(tap((data) => console.log(data)))
             .subscribe((data) => this.videoData.setState(data));
     }
 
@@ -25,6 +27,18 @@ export class VideoStoreService {
         this.videosService
             .deleteVideos$()
             .subscribe(() => this.videoData.setState([]));
+    }
+
+    public removeVideosFromCourse(courseId: string) {
+        this.videosService
+            .deleteVideosByCourseId$(courseId)
+            .subscribe(() =>
+                this.videoData.setState(
+                    this.videoData.state.filter(
+                        (video) => video.course._id !== courseId
+                    )
+                )
+            );
     }
 
     public removeVideo(videoId: string) {

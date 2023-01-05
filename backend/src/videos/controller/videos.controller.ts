@@ -41,6 +41,21 @@ export class VideosController {
     }
 
     @ApiOperation({ summary: 'Delete all videos' })
+    @Delete(':courseId')
+    @ApiResponse({
+        status: 200,
+        description: 'Return count of deleted videos',
+        type: Number,
+    })
+    async deleteVideosFromCourse(@Param('courseId') courseId: string, @Res() res) {
+        const { deletedCount } = await this.videosService.deleteVideosByCourseId(courseId);
+
+        return res.status(HttpStatus.OK).json({
+            deletedCount,
+        });
+    }
+
+    @ApiOperation({ summary: 'Delete all videos' })
     @Delete()
     @ApiResponse({
         status: 200,

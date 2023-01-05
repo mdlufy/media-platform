@@ -1,5 +1,5 @@
-import { Router, ActivatedRoute } from '@angular/router';
 import { Component, Inject, Injector, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TuiDialogService } from '@taiga-ui/core';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { Observable } from 'rxjs';
@@ -7,7 +7,6 @@ import { Video } from 'src/app/interfaces/video.interface';
 import { VideoStoreService } from '../../../../video-store.service';
 import { CreateDialogComponent } from '../videos-dialogs/create-dialog/create-dialog.component';
 import { RemoveDialogComponent } from '../videos-dialogs/remove-dialog/remove-dialog.component';
-import { StreamVideoDialogComponent } from '../videos-dialogs/stream-video-dialog/stream-video-dialog.component';
 
 @Component({
     selector: 'app-videos-list',
@@ -50,7 +49,7 @@ export class VideosListComponent implements OnInit {
         @Inject(Injector) private readonly injector: Injector,
         private videosStore: VideoStoreService,
         private readonly router: Router,
-        private readonly route: ActivatedRoute,
+        private readonly route: ActivatedRoute
     ) {
         this.videos$ = videosStore.videoData.state$;
     }
@@ -60,7 +59,10 @@ export class VideosListComponent implements OnInit {
     }
 
     public openVideo(id: string) {
-        this.router.navigate(['./video', id], { relativeTo: this.route, replaceUrl: true });
+        this.router.navigate(['./video', id], {
+            relativeTo: this.route,
+            replaceUrl: true,
+        });
     }
 
     public onDeleteVideo(id: string) {

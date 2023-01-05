@@ -1,11 +1,15 @@
 <ng-container *ngIf="course$ | async as course">
     <div class="course">
         <div class="course-info">
-            <span class="text">Курс: {{ course.name }}</span>
+            <p class="course-name">{{ course.name }}</p>
         </div>
 
-        <div class="course-videos">
-            <app-videos-list [courseId]="courseId"></app-videos-list>
+        <div class="course-content">
+            <p class="header">Материалы</p>
+
+            <div class="course-videos">
+                <app-videos-list [courseId]="courseId"></app-videos-list>
+            </div>
         </div>
     </div>
 </ng-container>

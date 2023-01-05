@@ -1,11 +1,19 @@
 .course {
-    margin-top: 20px;
-
     &-info {
-        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
 
-        .text {
-            font: var(--tui-font-heading-5);
+        .course-name {
+            margin: 1rem 0;
+
+            font: var(--tui-font-heading-3);
+        }
+    }
+
+    &-content {
+        .header {
+            margin: 3rem 0 1rem;
+            font: var(--tui-font-text-xl);
         }
     }
 }

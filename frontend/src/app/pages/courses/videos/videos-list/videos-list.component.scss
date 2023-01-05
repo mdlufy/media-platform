@@ -1,8 +1,12 @@
 .videos {
     .header {
-        margin-bottom: 10px;
+        margin: 2.5rem 0 0.5rem;
 
-        font: var(--tui-font-text-xl);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        font: var(--tui-font-text-l);
     }
 
     .edit-block {

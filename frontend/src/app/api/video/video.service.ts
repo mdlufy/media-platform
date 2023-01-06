@@ -11,6 +11,10 @@ import { Video } from '../../interfaces/video.interface';
 export class VideoService {
     constructor(private readonly http: HttpClient) {}
 
+    public uploadVideo$(body: FormData) {
+        return this.http.post(`${apiUrl}/video`, body);
+    }
+
     public fetchVideo$(videoId: string): Observable<Video> {
         const options = {
             params: {
@@ -19,10 +23,6 @@ export class VideoService {
         };
 
         return this.http.get<Video>(`${apiUrl}/video`, options);
-    }
-
-    public uploadVideo$(body: FormData) {
-        return this.http.post(`${apiUrl}/video`, body);
     }
 
     public deleteVideo$(videoId: string) {

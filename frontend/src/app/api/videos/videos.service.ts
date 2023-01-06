@@ -14,16 +14,6 @@ export class VideosService {
         return this.http.get<Video[]>(`${apiUrl}/videos`);
     }
 
-    // public fetchVideosByCourseId$(courseId: string): Observable<Video[]> {
-    //     const options = {
-    //         params: {
-    //             courseId,
-    //         },
-    //     };
-
-    //     return this.http.get<Video[]>(`${apiUrl}/videos`, options);
-    // }
-
     public fetchVideosByCourseId$(courseId: string): Observable<Video[]> {
         return this.http.get<Video[]>(`${apiUrl}/videos/${courseId}`);
     }

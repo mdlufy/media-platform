@@ -34,15 +34,6 @@ export class VideosListComponent implements OnInit {
         }
     );
 
-    // private readonly streamVideoDialog = this.dialogService.open<void>(
-    //     new PolymorpheusComponent(StreamVideoDialogComponent, this.injector),
-    //     {
-    //         dismissible: true,
-    //         label: `Video`,
-    //         size: 'l',
-    //     }
-    // );
-
     constructor(
         @Inject(TuiDialogService)
         private readonly dialogService: TuiDialogService,
@@ -69,7 +60,7 @@ export class VideosListComponent implements OnInit {
         this.videosStore.removeVideo(id);
     }
 
-    public showCreateDialog(): void {
+    public showCreateVideoDialog(): void {
         this.createDialog.subscribe({
             next: (data) => {
                 this.handleCreateVideo(data);
@@ -81,7 +72,7 @@ export class VideosListComponent implements OnInit {
         });
     }
 
-    public showRemoveDialog(): void {
+    public showRemoveVideosDialog(): void {
         this.removeDialog.subscribe({
             next: (data) => {
                 this.handleRemoveVideos(data);

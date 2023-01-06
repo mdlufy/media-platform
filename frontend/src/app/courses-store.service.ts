@@ -37,12 +37,12 @@ export class CoursesStoreService {
             .subscribe(() => this.coursesData.setState([]));
     }
 
-    public removeCourse(id: string) {
+    public removeCourse(courseId: string) {
         this.courseService
-            .deleteCourse$(id)
+            .deleteCourse$(courseId)
             .subscribe(() =>
                 this.coursesData.setState(
-                    this.coursesData.state.filter((course) => course._id !== id)
+                    this.coursesData.state.filter((course) => course._id !== courseId)
                 )
             );
     }

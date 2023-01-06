@@ -11,12 +11,14 @@ import { TuiLetModule } from '@taiga-ui/cdk';
 import { TuiInputModule } from '@taiga-ui/kit';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CourseDetailComponent } from './courses/course-detail/course-detail.component';
+import { RemoveCourseDialogComponent } from './courses/courses-dialogs/remove-course-dialog/remove-course-dialog.component';
 
 @NgModule({
     declarations: [
         CoursesListComponent,
         CourseComponent,
         CourseDetailComponent,
+        RemoveCourseDialogComponent,
     ],
     imports: [
         CommonModule,

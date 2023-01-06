@@ -4,7 +4,7 @@ import {
     Get,
     HttpStatus,
     Param,
-    Res
+    Res,
 } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { VideosService } from '../service/videos.service';
@@ -22,7 +22,7 @@ export class VideosController {
         description: 'Return all videos',
         type: [Video],
     })
-    async getVideos(): Promise<Object> {
+    async getVideos(): Promise<Video[]> {
         return await this.videosService.getVideos();
     }
 
@@ -34,21 +34,28 @@ export class VideosController {
         description: 'Return course videos',
         type: [Video],
     })
-    async getVideosByCourseId(@Param('courseId') courseId: string, @Res() res) {
+    async getVideosByCourseId(
+        @Param('courseId') courseId: string,
+        @Res() res
+    ): Promise<Video[]> {
         const videos = await this.videosService.getVideosByCourseId(courseId);
 
         return res.status(HttpStatus.OK).json(videos);
     }
 
-    @ApiOperation({ summary: 'Delete all videos' })
+    @ApiOperation({ summary: 'Delete all videos from course' })
     @Delete(':courseId')
     @ApiResponse({
         status: 200,
         description: 'Return count of deleted videos',
         type: Number,
     })
-    async deleteVideosFromCourse(@Param('courseId') courseId: string, @Res() res) {
-        const { deletedCount } = await this.videosService.deleteVideosByCourseId(courseId);
+    async deleteVideosFromCourse(
+        @Param('courseId') courseId: string,
+        @Res() res
+    ): Promise<{ deletedCount: number }> {
+        const { deletedCount } =
+            await this.videosService.deleteVideosByCourseId(courseId);
 
         return res.status(HttpStatus.OK).json({
             deletedCount,
@@ -62,7 +69,7 @@ export class VideosController {
         description: 'Return count of deleted videos',
         type: Number,
     })
-    async deleteVideos(@Res() res) {
+    async deleteVideos(@Res() res): Promise<{ deletedCount: number }> {
         const { deletedCount } = await this.videosService.deleteVideos();
 
         return res.status(HttpStatus.OK).json({

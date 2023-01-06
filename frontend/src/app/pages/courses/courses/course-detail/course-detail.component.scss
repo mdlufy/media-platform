@@ -1,7 +1,8 @@
 .course {
     &-info {
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
 
         .course-name {
             margin: 1rem 0;

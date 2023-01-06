@@ -2,6 +2,19 @@
     <div class="course">
         <div class="course-info">
             <p class="course-name">{{ course.name }}</p>
+            <span class="edit">
+                <button
+                    tuiButton
+                    type="button"
+                    icon="tuiIconRemoveLarge"
+                    appearance="accent"
+                    shape="rounded"
+                    size="s"
+                    (click)="showRemoveCourseDialog()"
+                >
+                    Удалить курс
+                </button>
+            </span>
         </div>
 
         <div class="course-content">

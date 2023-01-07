@@ -10,6 +10,18 @@ import { Profile, ProfileStoreService } from 'src/app/profile-store.service';
 export class ProfileComponent implements OnInit {
     public profile$: Observable<Profile>;
 
+    public readonly breadcrumbItems = [
+        {
+            caption: `Главная`,
+            routerLink: `../`,
+        },
+        {
+            caption: `Профиль`,
+            routerLink: `./`,
+            // routerLinkActiveOptions: { exact: true },
+        },
+    ];
+
     constructor(private profileStore: ProfileStoreService) {
         this.profile$ = profileStore.profileData.state$;
     }

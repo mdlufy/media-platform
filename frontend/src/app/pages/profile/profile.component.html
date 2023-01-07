@@ -1,6 +1,15 @@
-<h2>Мой аккаунт</h2>
+<tui-breadcrumbs size="l">
+    <ng-container *ngFor="let item of breadcrumbItems">
+        <a *tuiItem tuiLink [routerLink]="item.routerLink">
+            {{ item.caption }}
+        </a>
+    </ng-container>
+</tui-breadcrumbs>
 
 <ng-container *ngIf="profile$ | async as profile; else error">
+    <div class="header">
+        <span>Мой аккаунт</span>
+    </div>
     <div class="info-block">
         <span>Имя пользователя: {{ profile.fullname }}</span>
         <span>Почта: {{ profile.email }}</span>

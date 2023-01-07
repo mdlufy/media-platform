@@ -19,6 +19,18 @@ export class CoursesListComponent implements OnInit {
 
     public readonly searchForm = new FormControl();
 
+    public readonly breadcrumbItems = [
+        {
+            caption: `Главная`,
+            routerLink: `../`,
+        },
+        {
+            caption: `Курсы`,
+            routerLink: `./`,
+            // routerLinkActiveOptions: { exact: true },
+        },
+    ];
+
     private readonly createDialog = this.dialogService.open<string>(
         new PolymorpheusComponent(CreateDialogComponent, this.injector),
         {

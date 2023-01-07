@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-navbar',
@@ -8,7 +9,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class NavbarComponent implements OnInit {
     @Output() onLogout = new EventEmitter();
 
-    constructor() {}
+    constructor(private readonly router: Router) {}
 
     ngOnInit(): void {}
+
+    public navigateToMain(): void {
+        this.router.navigate(['pages']);
+    }
 }

@@ -1,3 +1,15 @@
+<tui-breadcrumbs size="l">
+  <ng-container *ngFor="let item of breadcrumbItems">
+    <a
+      *tuiItem
+      tuiLink
+      [routerLink]="item.routerLink"
+    >
+      {{ item.caption }}
+    </a>
+  </ng-container>
+</tui-breadcrumbs>
+
 <div class="courses-list">
     <div class="header">
         <span>Курсы</span>

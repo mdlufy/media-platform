@@ -1,9 +1,7 @@
 <div tuiMode="onLight" class="wrapper">
-    <div class="title">
-        <a tuiTab routerLink="./" routerLinkActive>
-            <tui-svg src="tuiIconSoundLarge" class="tui-space_right-3"></tui-svg>
-            Образовательная платформа
-        </a>
+    <div class="title" (click)="navigateToMain()">
+        <tui-svg src="tuiIconSoundLarge" class="tui-space_right-2"></tui-svg>
+        Образовательная платформа
     </div>
     <tui-tabs-with-more [itemsLimit]="2" [moreContent]="more" class="tabs">
         <a *tuiItem tuiTab routerLink="./courses" routerLinkActive>
@@ -14,9 +12,7 @@
             <tui-svg src="tuiIconUser" class="tui-space_right-2"></tui-svg>
             Мой профиль
         </a>
-        <button *tuiItem tuiTab (click)="onLogout.emit()">
-            Выход
-        </button>
+        <button *tuiItem tuiTab (click)="onLogout.emit()">Выход</button>
     </tui-tabs-with-more>
 
     <ng-template #more>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TuiButtonModule } from '@taiga-ui/core';
+import { TuiButtonModule, TuiLinkModule, TuiModeModule } from '@taiga-ui/core';
 import { CourseComponent } from './courses/course/course.component';
 import { CoursesDialogsModule } from './courses/courses-dialogs/courses-dialogs.module';
 import { CoursesListComponent } from './courses/courses-list/courses-list.component';
@@ -8,7 +8,7 @@ import { VideosModule } from './videos/videos.module';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { TuiLetModule } from '@taiga-ui/cdk';
-import { TuiInputModule } from '@taiga-ui/kit';
+import { TuiBreadcrumbsModule, TuiInputModule } from '@taiga-ui/kit';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CourseDetailComponent } from './courses/course-detail/course-detail.component';
 import { RemoveCourseDialogComponent } from './courses/courses-dialogs/remove-course-dialog/remove-course-dialog.component';
@@ -29,6 +29,9 @@ import { RemoveCourseDialogComponent } from './courses/courses-dialogs/remove-co
         TuiLetModule,
         TuiButtonModule,
         CoursesDialogsModule,
+        TuiBreadcrumbsModule,
+        TuiLinkModule,
+        TuiModeModule,
     ],
 })
 export class CoursesModule {}

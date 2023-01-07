@@ -1,4 +1,8 @@
 <ng-container *ngIf="course$ | async as course">
+    <a tuiLink icon="tuiIconArrowLeft" iconAlign="left" routerLink="../">
+        Ко всем курсам
+    </a>
+
     <div class="course">
         <div class="course-info">
             <p class="course-name">{{ course.name }}</p>

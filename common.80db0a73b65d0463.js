@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[592],{7199:(_,s,e)=>{e.d(s,{y:()=>n});var a=e(1135);class n{constructor(t){this._state$=new a.X(t),this.state$=this._state$.asObservable()}get state(){return this._state$.getValue()}setState(t){this._state$.next(t)}}}}]);

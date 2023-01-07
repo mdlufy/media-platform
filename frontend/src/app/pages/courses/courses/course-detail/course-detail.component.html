@@ -24,9 +24,17 @@
         <div class="course-content">
             <p class="header">Материалы</p>
 
-            <div class="course-videos">
-                <app-videos-list [courseId]="courseId"></app-videos-list>
-            </div>
+            <tui-accordion-item class="container">
+                Видеоуроки
+                <ng-template tuiAccordionItemContent>
+                    <div class="course-videos" #content>
+                        <app-videos-list
+                            [courseId]="courseId"
+                        ></app-videos-list>
+                    </div>
+                </ng-template>
+            </tui-accordion-item>
         </div>
+
     </div>
 </ng-container>

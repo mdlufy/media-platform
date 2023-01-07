@@ -36,14 +36,17 @@ export class VideoPlayerComponent implements OnInit {
                 console.info(`Dialog emitted data = ${data}`);
             },
             complete: () => {
-                this.goToCourses();
+                this.navigateToCourses();
 
                 console.info(`Dialog closed`);
             },
         });
     }
 
-    private goToCourses() {
-        this.router.navigate(['../../'], { relativeTo: this.route, replaceUrl: true});
+    private navigateToCourses() {
+        this.router.navigate(['../../'], {
+            relativeTo: this.route,
+            replaceUrl: true,
+        });
     }
 }

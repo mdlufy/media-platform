@@ -8,6 +8,12 @@ const routes: Routes = [
     { path: '', component: CoursesListComponent },
     { path: ':id/video/:id', component: VideoPlayerComponent },
     { path: ':id', component: CourseDetailComponent },
+    // {
+    //     path: ':id',
+    //     component: CourseDetailComponent,
+    //     loadChildren: () =>
+    //         import('./videos/videos.module').then((m) => m.VideosModule),
+    // },
 ];
 
 @NgModule({

@@ -1,3 +1,4 @@
+import { VideoPlayerComponent } from './videos/video-player/video-player.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TuiButtonModule, TuiLinkModule, TuiModeModule } from '@taiga-ui/core';
@@ -7,8 +8,13 @@ import { CoursesListComponent } from './courses/courses-list/courses-list.compon
 import { VideosModule } from './videos/videos.module';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { TuiPreviewModule } from '@taiga-ui/addon-preview';
 import { TuiLetModule } from '@taiga-ui/cdk';
-import { TuiBreadcrumbsModule, TuiInputModule } from '@taiga-ui/kit';
+import {
+    TuiAccordionModule,
+    TuiBreadcrumbsModule,
+    TuiInputModule,
+} from '@taiga-ui/kit';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CourseDetailComponent } from './courses/course-detail/course-detail.component';
 import { RemoveCourseDialogComponent } from './courses/courses-dialogs/remove-course-dialog/remove-course-dialog.component';
@@ -23,7 +29,6 @@ import { RemoveCourseDialogComponent } from './courses/courses-dialogs/remove-co
     imports: [
         CommonModule,
         CoursesRoutingModule,
-        VideosModule,
         TuiInputModule,
         ReactiveFormsModule,
         TuiLetModule,
@@ -32,6 +37,8 @@ import { RemoveCourseDialogComponent } from './courses/courses-dialogs/remove-co
         TuiBreadcrumbsModule,
         TuiLinkModule,
         TuiModeModule,
+        VideosModule,
+        TuiAccordionModule,
     ],
 })
 export class CoursesModule {}

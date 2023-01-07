@@ -3,7 +3,11 @@
         <tui-svg src="tuiIconSoundLarge" class="tui-space_right-2"></tui-svg>
         Образовательная платформа
     </div>
-    <tui-tabs-with-more [itemsLimit]="2" [moreContent]="more" class="tabs">
+    <tui-tabs-with-more [itemsLimit]="3" [moreContent]="more" class="tabs">
+        <a *tuiItem tuiTab routerLink="./overview" routerLinkActive>
+            <tui-svg src="tuiIconMenuLarge" class="tui-space_right-2"></tui-svg>
+            Главная
+        </a>
         <a *tuiItem tuiTab routerLink="./courses" routerLinkActive>
             <tui-svg src="tuiIconCheckList" class="tui-space_right-2"></tui-svg>
             Курсы
@@ -12,11 +16,14 @@
             <tui-svg src="tuiIconUser" class="tui-space_right-2"></tui-svg>
             Мой профиль
         </a>
-        <button *tuiItem tuiTab (click)="onLogout.emit()">Выход</button>
+        <button *tuiItem tuiTab (click)="onLogout.emit()">
+            <tui-svg src="tuiIconLogoutLarge" class="tui-space_right-2"></tui-svg>
+            Выход
+        </button>
     </tui-tabs-with-more>
 
     <ng-template #more>
-        Дополнительно
+        Еще
         <tui-svg src="tuiIconChevronDown" class="tui-space_left-0.5"></tui-svg>
     </ng-template>
 </div>

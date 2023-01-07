@@ -1,10 +1,12 @@
 .videos {
     .header {
-        margin: 2.5rem 0 0.5rem;
+        margin: 0.5rem 0 0.5rem;
 
         display: flex;
         align-items: center;
-        justify-content: space-between;
+
+        // justify-content: space-between;
+        justify-content: flex-end;
 
         font: var(--tui-font-text-l);
     }
@@ -20,6 +22,8 @@
     &-list {
         display: flex;
         flex-direction: row;
+
+        flex-wrap: wrap;
     }
 
     .video {

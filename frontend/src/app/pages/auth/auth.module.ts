@@ -5,6 +5,7 @@ import { TuiAutoFocusModule } from '@taiga-ui/cdk';
 import {
     TuiButtonModule,
     TuiLabelModule,
+    TuiLoaderModule,
     TuiTextfieldControllerModule,
 } from '@taiga-ui/core';
 import { TuiInputModule, TuiInputPasswordModule } from '@taiga-ui/kit';
@@ -25,6 +26,7 @@ import { RegistrationComponent } from './registration/registration.component';
         TuiButtonModule,
         TuiTextfieldControllerModule,
         TuiAutoFocusModule,
+        TuiLoaderModule
     ],
     exports: [LoginComponent],
 })

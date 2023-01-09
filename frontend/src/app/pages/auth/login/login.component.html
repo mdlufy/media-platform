@@ -1,44 +1,54 @@
-<div class="login">
-    <span class="login-title tui-space_bottom-5">Авторизация</span>
+<ng-container *ngIf="!loading; else loader">
+    <div class="login">
+        <span class="login-title tui-space_bottom-5">Авторизация</span>
 
-    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <label tuiLabel="Логин">
-            <tui-input
-                tuiTextfieldSize="s"
-                class="tui-space_bottom-5"
-                tuiAutoFocus
-                formControlName="email"
-                >Почта аккаунта
-            </tui-input>
-        </label>
+        <form
+            class="login-form"
+            [formGroup]="loginForm"
+            (ngSubmit)="onSubmit()"
+        >
+            <label tuiLabel="Логин">
+                <tui-input
+                    tuiTextfieldSize="s"
+                    class="tui-space_bottom-5"
+                    tuiAutoFocus
+                    formControlName="email"
+                    >Почта аккаунта
+                </tui-input>
+            </label>
 
-        <label tuiLabel="Пароль">
-            <tui-input-password
-                tuiTextfieldSize="s"
-                class="tui-space_bottom-5"
-                tuiAutoFocus
-                formControlName="password"
-                >Пароль
-            </tui-input-password>
-        </label>
+            <label tuiLabel="Пароль">
+                <tui-input-password
+                    tuiTextfieldSize="s"
+                    class="tui-space_bottom-5"
+                    tuiAutoFocus
+                    formControlName="password"
+                    >Пароль
+                </tui-input-password>
+            </label>
 
-        <div class="login-btns tui-space_top-3">
-            <button
-                tuiButton
-                type="button"
-                size="s"
-                routerLink="./registration"
-            >
-                Создать аккаунт
-            </button>
-            <button
-                tuiButton
-                type="submit"
-                size="s"
-                [disabled]="!loginForm.valid"
-            >
-                Войти
-            </button>
-        </div>
-    </form>
-</div>
+            <div class="login-btns tui-space_top-3">
+                <button
+                    tuiButton
+                    type="button"
+                    size="s"
+                    routerLink="./registration"
+                >
+                    Создать аккаунт
+                </button>
+                <button
+                    tuiButton
+                    type="submit"
+                    size="s"
+                    [disabled]="!loginForm.valid"
+                >
+                    Войти
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-container>
+
+<ng-template #loader>
+    <tui-loader [showLoader]="true" size="xl"></tui-loader>
+</ng-template>

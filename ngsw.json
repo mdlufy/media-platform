@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1673120344581,
+  "timestamp": 1673295895603,
   "index": "/media-platform/index.html",
   "assetGroups": [
     {
@@ -11,18 +11,18 @@
         "ignoreVary": true
       },
       "urls": [
-        "/media-platform/395.2ace9ae9fbb91f28.js",
-        "/media-platform/516.e4513ccc022a0596.js",
-        "/media-platform/589.97960595b158cda3.js",
-        "/media-platform/694.20deb58ced8eaea6.js",
-        "/media-platform/966.2e92e62564f60c67.js",
+        "/media-platform/315.ec3563fb8ef7d4f6.js",
+        "/media-platform/395.01291b41f692b5cc.js",
+        "/media-platform/516.b63a2d44708adacd.js",
+        "/media-platform/694.92774b439e6d3d7d.js",
+        "/media-platform/966.0844d236c0f3beb8.js",
         "/media-platform/common.9c6613aee62daf89.js",
         "/media-platform/favicon.ico",
         "/media-platform/index.html",
-        "/media-platform/main.23e39f2d283fcd09.js",
+        "/media-platform/main.356a47a20e01cef3.js",
         "/media-platform/manifest.webmanifest",
         "/media-platform/polyfills.5fd626fde791e8c3.js",
-        "/media-platform/runtime.243678382b0dc910.js",
+        "/media-platform/runtime.ad2de4e38710cb45.js",
         "/media-platform/styles.34a7ff06012e372f.css"
       ],
       "patterns": []
@@ -485,11 +485,11 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/media-platform/395.2ace9ae9fbb91f28.js": "0adaadfbd54f63ca9bc7ddabc413aacb879c903f",
-    "/media-platform/516.e4513ccc022a0596.js": "76c7705e6b514562b514385156071432fc5c1041",
-    "/media-platform/589.97960595b158cda3.js": "859025450a07ca079ae455cd02a48c0777715301",
-    "/media-platform/694.20deb58ced8eaea6.js": "b6385fc742d92f8a46d906ee9d6160c004f619a5",
-    "/media-platform/966.2e92e62564f60c67.js": "ec353588e79fae26a21b7d45bb93d7e6f9cc1164",
+    "/media-platform/315.ec3563fb8ef7d4f6.js": "be0b720872c14fb62c4c983a27134014ae30092b",
+    "/media-platform/395.01291b41f692b5cc.js": "b2019cf6421bd24a714362f356f80d9db87c3544",
+    "/media-platform/516.b63a2d44708adacd.js": "fb878af28b0334fcba585aab64f66558cff3a4ec",
+    "/media-platform/694.92774b439e6d3d7d.js": "971f68e95eb01a11a918790cf86ef9ce5c52fee1",
+    "/media-platform/966.0844d236c0f3beb8.js": "ae9ee12fb5477c9ff701543f7e1be0959ca71ff5",
     "/media-platform/assets/forms.css": "638cb0a5796007edb10e1066d95477c40a570e42",
     "/media-platform/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
     "/media-platform/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
@@ -936,11 +936,11 @@
     "/media-platform/assets/taiga-ui/icons/tuiIconWifiOnLarge.svg": "c6f0ddd787fa8d14b3cfc9f1fc56d8999a5d0560",
     "/media-platform/common.9c6613aee62daf89.js": "335eccbe27600121cd668a87d53f9541477ff601",
     "/media-platform/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/media-platform/index.html": "1ac720806ef6dceee8a6f0f3a9daecb07b2552c8",
-    "/media-platform/main.23e39f2d283fcd09.js": "3654df9fc974158efe01a1f484633cddb6e45f35",
+    "/media-platform/index.html": "8c7b5eaef80e41b3a4fb5839d89e4c3b05c24cfb",
+    "/media-platform/main.356a47a20e01cef3.js": "010b96506c5d04694c6b7d955f35672535f0c4f9",
     "/media-platform/manifest.webmanifest": "63b272452f7323ec09705c84044faa394ce82a79",
     "/media-platform/polyfills.5fd626fde791e8c3.js": "7ea1c1b08ac98085104cd274349643d030b7dc36",
-    "/media-platform/runtime.243678382b0dc910.js": "5df984ab4e282544f0ca1d4092c0901c483acff1",
+    "/media-platform/runtime.ad2de4e38710cb45.js": "72da2359d9f388575c51f9606fa2946f8364a242",
     "/media-platform/styles.34a7ff06012e372f.css": "3f07d73a9af519f6ad9f07df22a628dfed241396"
   },
   "navigationUrls": [

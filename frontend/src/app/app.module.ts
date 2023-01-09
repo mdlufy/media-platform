@@ -1,6 +1,7 @@
-import { TuiRootModule, TuiDialogModule, TuiAlertModule } from "@taiga-ui/core";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { TuiPreviewModule } from '@taiga-ui/addon-preview';
+import { TuiAlertModule, TuiDialogModule, TuiRootModule } from '@taiga-ui/core';
 import { httpInterceptorProviders } from './http-interceptors/index';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -25,7 +26,8 @@ import { AppComponent } from './app.component';
         }),
         TuiRootModule,
         TuiDialogModule,
-        TuiAlertModule
+        TuiAlertModule,
+        TuiPreviewModule,
     ],
     providers: [httpInterceptorProviders],
     bootstrap: [AppComponent],

@@ -17,7 +17,6 @@ import {
 } from '@taiga-ui/kit';
 import { CreateDialogComponent } from './create-dialog/create-dialog.component';
 import { RemoveDialogComponent } from './remove-dialog/remove-dialog.component';
-import { StreamVideoDialogComponent } from './stream-video-dialog/stream-video-dialog.component';
 
 @NgModule({
     imports: [
@@ -36,15 +35,7 @@ import { StreamVideoDialogComponent } from './stream-video-dialog/stream-video-d
         TuiLabelModule,
         FormsModule,
     ],
-    declarations: [
-        CreateDialogComponent,
-        RemoveDialogComponent,
-        StreamVideoDialogComponent,
-    ],
-    exports: [
-        CreateDialogComponent,
-        RemoveDialogComponent,
-        StreamVideoDialogComponent,
-    ],
+    declarations: [CreateDialogComponent, RemoveDialogComponent],
+    exports: [CreateDialogComponent, RemoveDialogComponent],
 })
 export class VideosDialogsModule {}

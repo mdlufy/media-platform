@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TuiPreviewModule } from '@taiga-ui/addon-preview';
 import { TuiMediaModule } from '@taiga-ui/cdk';
 import { TuiButtonModule } from '@taiga-ui/core';
 import { VideoPlayerComponent } from './video-player/video-player.component';
@@ -16,6 +17,7 @@ import { VideosListComponent } from './videos-list/videos-list.component';
         VideosDialogsModule,
         TuiButtonModule,
         TuiMediaModule,
+        TuiPreviewModule,
     ],
     exports: [VideosListComponent, VideoComponent, VideoPlayerComponent],
 })

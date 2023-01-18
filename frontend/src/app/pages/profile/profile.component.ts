@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Profile, ProfileStoreService } from 'src/app/profile-store.service';
+import { ProfileState } from './../../+state/profile/profile.reducer';
+import { ProfileService } from './profile.service';
 
 @Component({
     selector: 'app-profile',
@@ -8,7 +9,7 @@ import { Profile, ProfileStoreService } from 'src/app/profile-store.service';
     styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-    public profile$: Observable<Profile>;
+    public profile$: Observable<ProfileState>;
 
     public readonly breadcrumbItems = [
         {
@@ -22,11 +23,11 @@ export class ProfileComponent implements OnInit {
         },
     ];
 
-    constructor(private profileStore: ProfileStoreService) {
-        this.profile$ = profileStore.profileData.state$;
+    constructor(private readonly profileService: ProfileService) {
+        this.profile$ = this.profileService.profile$;
     }
 
     ngOnInit(): void {
-        this.profileStore.getUser();
+        this.profileService.loadProfile();
     }
 }

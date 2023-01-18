@@ -10,6 +10,22 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ActionReducerMap, StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { ProfileLoadService } from './+state/profile/profile-load/profile-load.service';
+import { ProfileEffects } from './+state/profile/profile.effects';
+import * as fromProfile from './+state/profile/profile.reducer';
+import { ProfileService } from './pages/profile/profile.service';
+
+export interface GlobalState {
+    profile: fromProfile.ProfileState;
+}
+
+export const reducers: ActionReducerMap<GlobalState> = {
+    profile: fromProfile.reducer,
+}
+
+const EFFECTS_LIST = [ProfileEffects];
 
 @NgModule({
     declarations: [AppComponent],
@@ -24,12 +40,14 @@ import { AppComponent } from './app.component';
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000',
         }),
+        StoreModule.forRoot(reducers),
+        EffectsModule.forRoot(EFFECTS_LIST),
         TuiRootModule,
         TuiDialogModule,
         TuiAlertModule,
         TuiPreviewModule,
     ],
-    providers: [httpInterceptorProviders],
+    providers: [httpInterceptorProviders, ProfileLoadService, ProfileService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

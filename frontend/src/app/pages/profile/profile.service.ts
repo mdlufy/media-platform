@@ -3,11 +3,11 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { getProfile } from 'src/app/+state/profile/profile.selectors';
 import * as ProfileActions from '../../+state/profile/profile.actions';
-import { ProfileState } from './../../+state/profile/profile.reducer';
+import { Profile } from './../../+state/profile/profile.reducer';
 
 @Injectable()
 export class ProfileService {
-    public get profile$(): Observable<ProfileState> {
+    public get profile$(): Observable<Profile> {
         return this.store$.select(getProfile);
     }
 

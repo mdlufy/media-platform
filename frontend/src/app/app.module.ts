@@ -7,25 +7,13 @@ import { httpInterceptorProviders } from './http-interceptors/index';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
+import { ProfileLoadService } from './+state/profile/profile-load/profile-load.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ActionReducerMap, StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { ProfileLoadService } from './+state/profile/profile-load/profile-load.service';
-import { ProfileEffects } from './+state/profile/profile.effects';
-import * as fromProfile from './+state/profile/profile.reducer';
 import { ProfileService } from './pages/profile/profile.service';
-
-export interface GlobalState {
-    profile: fromProfile.ProfileState;
-}
-
-export const reducers: ActionReducerMap<GlobalState> = {
-    profile: fromProfile.reducer,
-}
-
-const EFFECTS_LIST = [ProfileEffects];
 
 @NgModule({
     declarations: [AppComponent],
@@ -40,8 +28,8 @@ const EFFECTS_LIST = [ProfileEffects];
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000',
         }),
-        StoreModule.forRoot(reducers),
-        EffectsModule.forRoot(EFFECTS_LIST),
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot(),
         TuiRootModule,
         TuiDialogModule,
         TuiAlertModule,

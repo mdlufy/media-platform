@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProfileState } from './../../+state/profile/profile.reducer';
+import { Profile } from 'src/app/+state/profile/profile.reducer';
 import { ProfileService } from './profile.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ProfileService } from './profile.service';
     styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-    public profile$: Observable<ProfileState>;
+    public profile$: Observable<Profile>;
 
     public readonly breadcrumbItems = [
         {

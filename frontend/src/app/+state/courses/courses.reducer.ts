@@ -1,3 +1,4 @@
+import { LoadingState } from 'src/app/loading-state';
 import { createReducer, on } from '@ngrx/store';
 import * as CourseActions from './courses.actions';
 
@@ -7,12 +8,12 @@ export interface Course {
 }
 
 export interface CoursesState {
-    loadingState: string | null;
+    loadingState: LoadingState;
     courses: Course[];
 }
 
 export const coursesInitialState: CoursesState = {
-    loadingState: null,
+    loadingState: LoadingState.LOADING,
     courses: [],
 };
 

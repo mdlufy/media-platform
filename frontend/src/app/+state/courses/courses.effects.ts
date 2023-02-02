@@ -2,7 +2,7 @@ import { CoursesService } from './../../api/courses/courses.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, EMPTY, map, switchMap, tap } from 'rxjs';
+import { catchError, EMPTY, map, of, switchMap, tap } from 'rxjs';
 import { CourseService } from 'src/app/api/course/course.service';
 import { LoadingState } from 'src/app/loading-state';
 import { CoursesLoadService } from './courses-load/courses-load.service';
@@ -19,13 +19,13 @@ export class CoursesEffects {
                 this.coursesLoadService.getCourses$().pipe(
                     tap((courses: Course[]) => 
                         this.store$.dispatch(CoursesActions.setCoursesLoadingState({ 
-                            loadingState: courses?.length ? LoadingState.SUCCESS : LoadingState.LOADING_ERROR
+                            loadingState: courses?.length ? LoadingState.SUCCESS : LoadingState.NOT_FOUND
                         })) 
                     ),
                     map((courses: Course[]) => 
                         CoursesActions.loadCoursesSuccess({ courses })
                     ),
-                    catchError(() => EMPTY),
+                    catchError(() => of(CoursesActions.setCoursesLoadingState({ loadingState: LoadingState.LOADING_ERROR }))),
                 )
             ),
         )
@@ -39,13 +39,13 @@ export class CoursesEffects {
                 this.coursesLoadService.getCoursesByName$(courseName).pipe(
                     tap((courses: Course[]) =>
                         this.store$.dispatch(CoursesActions.setCoursesLoadingState({
-                            loadingState: courses?.length ? LoadingState.SUCCESS : LoadingState.LOADING_ERROR
+                            loadingState: courses?.length ? LoadingState.SUCCESS : LoadingState.NOT_FOUND
                         })),
                     ),
                     map((courses: Course[]) => 
                         CoursesActions.loadCoursesSuccess({ courses })
                     ),
-                    catchError(() => EMPTY),
+                    catchError(() => of(CoursesActions.setCoursesLoadingState({ loadingState: LoadingState.LOADING_ERROR }))),
                 ) 
             )
         )
@@ -63,7 +63,7 @@ export class CoursesEffects {
                         })),
                     ),
                     map(() => CoursesActions.removeCourseByIdSuccess({ courseId })),
-                    catchError(() => EMPTY),
+                    catchError(() => of(CoursesActions.setCoursesLoadingState({ loadingState: LoadingState.LOADING_ERROR }))),
                 )
             )
         ) 
@@ -81,7 +81,7 @@ export class CoursesEffects {
                         })),
                     ),
                     map(() => CoursesActions.removeCoursesSuccess()),
-                    catchError(() => EMPTY),
+                    catchError(() => of(CoursesActions.setCoursesLoadingState({ loadingState: LoadingState.LOADING_ERROR }))),
                 )
             )
         )

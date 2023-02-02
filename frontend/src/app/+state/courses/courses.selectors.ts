@@ -6,7 +6,7 @@ export const FEATURE_COURSES = 'courses';
 export const getCoursesState = createFeatureSelector<CoursesState>(FEATURE_COURSES);
 
 
-export const getCoursesLoadingState = createSelector(
+export const getLoadingState = createSelector(
     getCoursesState,
     (state: CoursesState) => state.loadingState
 );

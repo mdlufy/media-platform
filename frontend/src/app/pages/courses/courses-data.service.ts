@@ -1,8 +1,9 @@
+import { LoadingState } from 'src/app/loading-state';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Course } from 'src/app/+state/courses/courses.reducer';
-import { getCourses } from 'src/app/+state/courses/courses.selectors';
+import { getCourses, getLoadingState } from 'src/app/+state/courses/courses.selectors';
 import { CourseForm } from 'src/app/interfaces/course-form';
 import * as CoursesActions from '../../+state/courses/courses.actions';
 
@@ -10,6 +11,10 @@ import * as CoursesActions from '../../+state/courses/courses.actions';
 export class CoursesDataService {
     public get courses$(): Observable<Course[]> {
         return this.store$.select(getCourses);
+    }
+
+    public get loadingState$(): Observable<LoadingState> {
+        return this.store$.select(getLoadingState);
     }
 
     constructor(private store$: Store) {}

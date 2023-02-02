@@ -8,6 +8,7 @@ import { debounceTime, distinctUntilChanged, Observable, tap } from 'rxjs';
 import { Course } from 'src/app/+state/courses/courses.reducer';
 import { CreateDialogComponent } from '../courses-dialogs/create-dialog/create-dialog.component';
 import { RemoveDialogComponent } from '../courses-dialogs/remove-dialog/remove-dialog.component';
+import { LoadingState } from 'src/app/loading-state';
 
 @Component({
     selector: 'app-courses-list',
@@ -15,7 +16,10 @@ import { RemoveDialogComponent } from '../courses-dialogs/remove-dialog/remove-d
     styleUrls: ['./courses-list.component.scss'],
 })
 export class CoursesListComponent implements OnInit {
+    public loadingState$: Observable<LoadingState>;
     public courses$: Observable<Course[]>;
+
+    public readonly loadingState = LoadingState;
 
     public readonly searchForm = new FormControl();
 
@@ -55,6 +59,7 @@ export class CoursesListComponent implements OnInit {
         private coursesDataService: CoursesDataService,
     ) {
         this.courses$ = this.coursesDataService.courses$;
+        this.loadingState$ = this.coursesDataService.loadingState$;
     }
 
     ngOnInit(): void {

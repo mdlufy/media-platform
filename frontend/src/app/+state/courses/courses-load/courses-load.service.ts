@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, EMPTY, map, Observable } from 'rxjs';
+import { catchError, EMPTY, map, Observable, of } from 'rxjs';
 import { CoursesService } from './../../../api/courses/courses.service';
 import { CourseDto } from '../../../interfaces/course.dto';
 import { Course } from '../courses.reducer';
@@ -15,7 +15,6 @@ export class CoursesLoadService {
             .fetchCourses$()
             .pipe(
                 map((courses: CourseDto[]) => courses.map((course: CourseDto) => this.mapCourseDtoToCourse(course))),
-                catchError(() => EMPTY),
             );
     }
 
@@ -24,7 +23,6 @@ export class CoursesLoadService {
             .fetchCoursesByName$(courseName)
             .pipe(
                 map((courses: CourseDto[]) => courses.map((course: CourseDto) => this.mapCourseDtoToCourse(course))),
-                catchError(() => EMPTY),
             );
     }
 
@@ -33,7 +31,6 @@ export class CoursesLoadService {
             .createCourse$(course)
             .pipe(
                 map((course: CourseDto) => this.mapCourseDtoToCourse(course)),
-                catchError(() => EMPTY),
             )
     }
 

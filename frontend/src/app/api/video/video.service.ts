@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { apiUrl } from 'src/app/config';
-import { CreateVideoInterface } from 'src/app/interfaces/create-video.interface';
-import { Video } from '../../interfaces/video.interface';
+import { VideoForm } from 'src/app/interfaces/video-form';
+import { Video } from '../../interfaces/video';
 
 @Injectable({
     providedIn: 'root',
@@ -11,8 +11,8 @@ import { Video } from '../../interfaces/video.interface';
 export class VideoService {
     constructor(private readonly http: HttpClient) {}
 
-    public uploadVideo$(body: FormData) {
-        return this.http.post(`${apiUrl}/video`, body);
+    public uploadVideo$(video: VideoForm) {
+        return this.http.post(`${apiUrl}/video`, video);
     }
 
     public fetchVideo$(videoId: string): Observable<Video> {

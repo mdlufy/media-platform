@@ -1,7 +1,6 @@
-import { User } from '../../interfaces/user.interface';
-import { catchError, EMPTY, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, EMPTY, Observable } from 'rxjs';
 import { apiUrl } from 'src/app/config';
 import { UserDto } from './user.dto';
 

@@ -6,6 +6,7 @@
     <div class="course">
         <div class="course-info">
             <p class="course-name">{{ course.name }}</p>
+
             <span class="edit">
                 <button
                     tuiButton
@@ -26,17 +27,15 @@
 
             <tui-accordion-item class="container">
                 Видеоуроки
+
                 <ng-template tuiAccordionItemContent>
                     <div class="course-videos" #content>
-                        <app-videos-list
-                            [courseId]="courseId"
-                        ></app-videos-list>
+                        <app-videos-list [courseId]="courseId"></app-videos-list>
                     </div>
                 </ng-template>
             </tui-accordion-item>
         </div>
-
     </div>
-    
+
     <router-outlet></router-outlet>
 </ng-container>

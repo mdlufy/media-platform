@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { apiUrl } from 'src/app/config';
-import { User } from '../../interfaces/user.interface';
+import { User } from '../../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 

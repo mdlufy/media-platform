@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TuiDialogService } from '@taiga-ui/core';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { Observable } from 'rxjs';
-import { Video } from 'src/app/interfaces/video.interface';
+import { Video } from 'src/app/interfaces/video';
 import { VideoStoreService } from '../../../../video-store.service';
 import { CreateDialogComponent } from '../videos-dialogs/create-dialog/create-dialog.component';
 import { RemoveDialogComponent } from '../videos-dialogs/remove-dialog/remove-dialog.component';

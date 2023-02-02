@@ -10,10 +10,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
-import { ProfileLoadService } from './+state/profile/profile-load/profile-load.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProfileService } from './pages/profile/profile.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -35,7 +33,7 @@ import { ProfileService } from './pages/profile/profile.service';
         TuiAlertModule,
         TuiPreviewModule,
     ],
-    providers: [httpInterceptorProviders, ProfileLoadService, ProfileService],
+    providers: [httpInterceptorProviders],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

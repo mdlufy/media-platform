@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { User } from '../../../interfaces/user.interface';
+import { User } from '../../../interfaces/user';
 import { AuthStoreService } from './../../../auth-store.service';
 
 @Component({

@@ -13,6 +13,7 @@
 <div class="courses-list">
     <div class="header">
         <span>Курсы</span>
+
         <span class="edit">
             <button
                 tuiButton
@@ -51,8 +52,8 @@
         <ng-container *ngFor="let course of courses">
             <app-course
                 [course]="course"
-                (click)="openCourse(course._id)"
-                (onDeleteCourseEvent)="onDeleteCourse($event)"
+                (click)="openCourse(course.courseId)"
+                (removeCourse)="onRemoveCourse($event)"
             ></app-course>
         </ng-container>
     </ng-container>

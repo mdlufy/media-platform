@@ -2,7 +2,8 @@ import { Observable } from 'rxjs';
 import { apiUrl } from 'src/app/config';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Course } from 'src/app/interfaces/course.interface';
+import { CourseDto } from 'src/app/interfaces/course.dto';
+import { CourseForm } from 'src/app/interfaces/course-form';
 
 @Injectable({
     providedIn: 'root',
@@ -10,12 +11,12 @@ import { Course } from 'src/app/interfaces/course.interface';
 export class CourseService {
     constructor(private readonly http: HttpClient) {}
 
-    public createCourse$(body: { name: string }) {
-        return this.http.post(`${apiUrl}/course`, body);
+    public fetchCourse$(courseId: string): Observable<CourseDto> {
+        return this.http.get<CourseDto>(`${apiUrl}/course/${courseId}`);
     }
 
-    public fetchCourse$(courseId: string): Observable<Course> {
-        return this.http.get<Course>(`${apiUrl}/course/${courseId}`);
+    public createCourse$(course: CourseForm): Observable<CourseDto> {
+        return this.http.post<CourseDto>(`${apiUrl}/course`, course);
     }
 
     public deleteCourse$(courseId: string) {

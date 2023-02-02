@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 import { VideoService } from './api/video/video.service';
 import { VideosService } from './api/videos/videos.service';
-import { Video } from './interfaces/video.interface';
+import { Video } from './interfaces/video';
 import { Store } from './store-creator';
 
 @Injectable({
@@ -19,7 +19,6 @@ export class VideoStoreService {
     public getVideosByCourseId(courseId: string) {
         this.videosService
             .fetchVideosByCourseId$(courseId)
-            .pipe(tap((data) => console.log(data)))
             .subscribe((data) => this.videoData.setState(data));
     }
 

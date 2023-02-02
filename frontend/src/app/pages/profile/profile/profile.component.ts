@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Profile } from 'src/app/+state/profile/profile.reducer';
-import { ProfileService } from './profile.service';
+import { ProfileDataService } from './../profile-data.service';
 
 @Component({
     selector: 'app-profile',
@@ -23,11 +23,11 @@ export class ProfileComponent implements OnInit {
         },
     ];
 
-    constructor(private readonly profileService: ProfileService) {
-        this.profile$ = this.profileService.profile$;
+    constructor(private readonly profileDataService: ProfileDataService) {
+        this.profile$ = this.profileDataService.profile$;
     }
 
     ngOnInit(): void {
-        this.profileService.loadProfile();
+        this.profileDataService.loadProfile();
     }
 }

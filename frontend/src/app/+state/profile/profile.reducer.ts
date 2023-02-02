@@ -1,8 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as ProfileActions from './profile.actions';
 
-export const profileFeatureKey = 'profile';
-
 export interface Profile {
     fullname: string | null;
     email: string | null;

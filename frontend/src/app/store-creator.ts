@@ -1,4 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs';
+
 export class Store<T> {
     private _state$: BehaviorSubject<T>;
     public state$: Observable<T>;

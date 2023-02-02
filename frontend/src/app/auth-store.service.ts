@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './api/auth/auth.service';
-import { User } from './interfaces/user.interface';
+import { User } from './interfaces/user';
 
 const TOKEN = 'token';
 

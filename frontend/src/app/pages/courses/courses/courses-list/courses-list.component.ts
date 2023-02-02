@@ -1,11 +1,11 @@
+import { CoursesDataService } from './../../courses-data.service';
 import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TuiDialogService } from '@taiga-ui/core';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { debounceTime, distinctUntilChanged, Observable, tap } from 'rxjs';
-import { CoursesStoreService } from 'src/app/courses-store.service';
-import { Course } from 'src/app/interfaces/course.interface';
+import { Course } from 'src/app/+state/courses/courses.reducer';
 import { CreateDialogComponent } from '../courses-dialogs/create-dialog/create-dialog.component';
 import { RemoveDialogComponent } from '../courses-dialogs/remove-dialog/remove-dialog.component';
 
@@ -27,7 +27,6 @@ export class CoursesListComponent implements OnInit {
         {
             caption: `Курсы`,
             routerLink: `./`,
-            // routerLinkActiveOptions: { exact: true },
         },
     ];
 
@@ -51,15 +50,15 @@ export class CoursesListComponent implements OnInit {
         @Inject(TuiDialogService)
         private readonly dialogService: TuiDialogService,
         @Inject(Injector) private readonly injector: Injector,
-        private coursesStore: CoursesStoreService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private coursesDataService: CoursesDataService,
     ) {
-        this.courses$ = coursesStore.coursesData.state$;
+        this.courses$ = this.coursesDataService.courses$;
     }
 
     ngOnInit(): void {
-        this.getCourses();
+        this.initObservables();
         this.subscribeOnSearchForm();
     }
 
@@ -67,18 +66,20 @@ export class CoursesListComponent implements OnInit {
         this.router.navigate(['./', id], { relativeTo: this.route });
     }
 
-    public onDeleteCourse(id: string) {
-        this.coursesStore.removeCourse(id);
+    public onRemoveCourse(courseId: string) {
+        this.coursesDataService.removeCourseById(courseId);
     }
 
     public handleSearchForm(value: string): void {
         const searchValue = value ? value.trim() : value;
 
         if (searchValue?.length) {
-            this.getCoursesByName(searchValue);
-        } else {
-            this.getCourses();
+            this.coursesDataService.loadCoursesByName(searchValue);
+
+            return;
         }
+
+        this.coursesDataService.loadCourses();
     }
 
     public showCreateDialog(): void {
@@ -106,34 +107,30 @@ export class CoursesListComponent implements OnInit {
     }
 
     private handleCreateCourse(courseName: string) {
-        const form = {
+        const course = {
             name: courseName,
         };
 
-        this.coursesStore.createCourse(form);
+        this.coursesDataService.createCourse(course);
     }
 
-    private handleRemoveCourses(isRemove: boolean) {
+    private handleRemoveCourses(isRemove: boolean): void {
         if (isRemove) {
-            this.coursesStore.removeCourses();
+            this.coursesDataService.removeCourses();
         }
     }
 
     private subscribeOnSearchForm(): void {
         this.searchForm.valueChanges
             .pipe(
-                debounceTime(800),
+                debounceTime(600),
                 distinctUntilChanged(),
                 tap((data) => console.log(data))
             )
             .subscribe((value: string) => this.handleSearchForm(value));
     }
 
-    private getCoursesByName(courseName: string): void {
-        this.coursesStore.getCoursesByName(courseName);
-    }
-
-    private getCourses(): void {
-        this.coursesStore.getCourses();
+    private initObservables(): void {
+        this.coursesDataService.loadCourses();
     }
 }

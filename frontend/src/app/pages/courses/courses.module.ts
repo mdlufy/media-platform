@@ -7,15 +7,24 @@ import { CoursesListComponent } from './courses/courses-list/courses-list.compon
 import { VideosModule } from './videos/videos.module';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import {
     TuiAccordionModule,
     TuiBreadcrumbsModule,
     TuiInputModule
 } from '@taiga-ui/kit';
+import { CoursesLoadService } from 'src/app/+state/courses/courses-load/courses-load.service';
+import { CoursesEffects } from 'src/app/+state/courses/courses.effects';
+import { coursesReducer } from 'src/app/+state/courses/courses.reducer';
+import { FEATURE_COURSES } from 'src/app/+state/courses/courses.selectors';
+import { CoursesDataService } from './courses-data.service';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CourseDetailComponent } from './courses/course-detail/course-detail.component';
 import { RemoveCourseDialogComponent } from './courses/courses-dialogs/remove-course-dialog/remove-course-dialog.component';
+
+const EFFECTS_LIST = [CoursesEffects];
 
 @NgModule({
     declarations: [
@@ -37,6 +46,12 @@ import { RemoveCourseDialogComponent } from './courses/courses-dialogs/remove-co
         TuiModeModule,
         VideosModule,
         TuiAccordionModule,
+        StoreModule.forFeature(FEATURE_COURSES, coursesReducer),
+        EffectsModule.forFeature(EFFECTS_LIST),
     ],
+    providers: [
+        CoursesLoadService,
+        CoursesDataService,
+    ]
 })
 export class CoursesModule {}

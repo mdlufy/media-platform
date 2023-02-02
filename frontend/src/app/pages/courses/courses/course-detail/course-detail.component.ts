@@ -1,11 +1,10 @@
-import { VideoStoreService } from './../../../../video-store.service';
-import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
-import { TuiDialogService } from '@taiga-ui/core';
-import { Component, OnInit, Injector, Inject } from '@angular/core';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Course } from 'src/app/interfaces/course.interface';
-import { CoursesStoreService } from '../../../../courses-store.service';
+import { TuiDialogService } from '@taiga-ui/core';
+import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
+import { map, Observable } from 'rxjs';
+import { Course } from 'src/app/+state/courses/courses.reducer';
+import { CoursesDataService } from '../../courses-data.service';
 import { RemoveCourseDialogComponent } from '../courses-dialogs/remove-course-dialog/remove-course-dialog.component';
 
 @Component({
@@ -14,9 +13,10 @@ import { RemoveCourseDialogComponent } from '../courses-dialogs/remove-course-di
     styleUrls: ['./course-detail.component.scss'],
 })
 export class CourseDetailComponent implements OnInit {
-    public courseId: string;
+    // TODO: разобраться почему селектор возвращает undefined
+    public course$: Observable<Course | undefined>;
 
-    public course$!: Observable<Course>;
+    public courseId: string;
 
     private readonly removeDialog = this.dialogService.open<boolean>(
         new PolymorpheusComponent(RemoveCourseDialogComponent, this.injector),
@@ -28,7 +28,7 @@ export class CourseDetailComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private coursesStore: CoursesStoreService,
+        private courseDataService: CoursesDataService,
         private readonly router: Router,
         @Inject(TuiDialogService)
         private readonly dialogService: TuiDialogService,
@@ -38,11 +38,7 @@ export class CourseDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getCourse();
-    }
-
-    private getCourse(): void {
-        this.course$ = this.coursesStore.getCourse(this.courseId);
+        this.initObservables();
     }
 
     public showRemoveCourseDialog(): void {
@@ -59,9 +55,16 @@ export class CourseDetailComponent implements OnInit {
 
     private handleRemoveCourse(isRemove: boolean): void {
         if (isRemove) {
-            this.coursesStore.removeCourse(this.courseId);
+            this.courseDataService.removeCourseById(this.courseId);
 
             this.router.navigate(['../'], { relativeTo: this.route });
         }
+    }
+
+    private initObservables(): void {
+        this.course$ = this.courseDataService.courses$
+            .pipe(
+                map((courses: Course[]) => courses.find(course => course.courseId === this.courseId)),
+            );
     }
 }

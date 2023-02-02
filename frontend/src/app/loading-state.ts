@@ -1,5 +1,6 @@
 export enum LoadingState {
-    LOADING = 'loading',
-    LOADING_ERROR = 'loading_error',
-    SUCCESS = 'success',
+    LOADING = 'LOADING',
+    LOADING_ERROR = 'LOADING_ERROR',
+    SUCCESS = 'SUCCESS',
+    NOT_FOUND = 'NOT_FOUND',
 }

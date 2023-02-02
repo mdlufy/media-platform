@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, EMPTY, map, mergeMap, switchMap, tap } from 'rxjs';
+import { catchError, EMPTY, map, switchMap, tap } from 'rxjs';
 import { UserDto } from 'src/app/api/user/user.dto';
 import { LoadingState } from 'src/app/loading-state';
 import { ProfileLoadService } from './profile-load/profile-load.service';
@@ -20,11 +20,11 @@ export class ProfileEffects {
                             loadingState: profile && !!Object.keys(profile).length ? LoadingState.SUCCESS : LoadingState.LOADING_ERROR
                         })),
                     ),
-                    map((profile: UserDto) => 
+                    map((profile: UserDto) =>
                         ProfileActions.loadProfileSuccess({ profile })
                     ),
                     catchError(() => EMPTY),
-                ) 
+                )
             ),
         )
     );

@@ -12,7 +12,7 @@ export class UserController {
     @Get(':email')
     @ApiResponse({
         status: 200,
-        description: 'Return user by email',
+        description: 'Succes get user by email',
     })
     async getUser(@Param('email') email, @Res() res) {
         const user = await this.userService.getOne(email);

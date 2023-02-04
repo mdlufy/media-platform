@@ -3,8 +3,8 @@ import { createReducer, on } from '@ngrx/store';
 import * as CourseActions from './courses.actions';
 
 export interface Course {
-    courseId: string;
-    name: string;
+    id: string;
+    name: string | null;
 }
 
 export interface CoursesState {
@@ -33,7 +33,7 @@ export const coursesReducer = createReducer(
     })),
     on(CourseActions.removeCourseByIdSuccess, (state, { courseId }) => ({
         ...state,
-        courses: state.courses.filter((course) => course.courseId !== courseId),
+        courses: state.courses.filter((course) => course.id !== courseId),
     })),
     on(CourseActions.createCourseSuccess, (state, { course }) => ({
         ...state,

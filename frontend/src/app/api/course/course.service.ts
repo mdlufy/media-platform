@@ -11,7 +11,7 @@ import { CourseForm } from 'src/app/interfaces/course-form';
 export class CourseService {
     constructor(private readonly http: HttpClient) {}
 
-    public fetchCourse$(courseId: string): Observable<CourseDto> {
+    public fetchCourseById$(courseId: string): Observable<CourseDto> {
         return this.http.get<CourseDto>(`${apiUrl}/course/${courseId}`);
     }
 

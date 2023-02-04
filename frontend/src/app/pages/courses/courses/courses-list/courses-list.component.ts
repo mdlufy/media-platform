@@ -16,8 +16,8 @@ import { LoadingState } from 'src/app/loading-state';
     styleUrls: ['./courses-list.component.scss'],
 })
 export class CoursesListComponent implements OnInit {
-    public loadingState$: Observable<LoadingState>;
     public courses$: Observable<Course[]>;
+    public loadingState$: Observable<LoadingState>;
 
     public readonly loadingState = LoadingState;
 

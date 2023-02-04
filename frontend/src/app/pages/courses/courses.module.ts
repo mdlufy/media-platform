@@ -46,6 +46,7 @@ const EFFECTS_LIST = [CoursesEffects];
         TuiModeModule,
         VideosModule,
         TuiAccordionModule,
+        TuiLetModule,
         StoreModule.forFeature(FEATURE_COURSES, coursesReducer),
         EffectsModule.forFeature(EFFECTS_LIST),
     ],

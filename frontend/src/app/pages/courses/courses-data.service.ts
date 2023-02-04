@@ -1,10 +1,13 @@
-import { LoadingState } from 'src/app/loading-state';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Course } from 'src/app/+state/courses/courses.reducer';
-import { getCourses, getLoadingState } from 'src/app/+state/courses/courses.selectors';
+import {
+    getCourses,
+    getLoadingState,
+} from 'src/app/+state/courses/courses.selectors';
 import { CourseForm } from 'src/app/interfaces/course-form';
+import { LoadingState } from 'src/app/loading-state';
 import * as CoursesActions from '../../+state/courses/courses.actions';
 
 @Injectable()
@@ -24,22 +27,22 @@ export class CoursesDataService {
     }
 
     public loadCoursesByName(courseName: string): void {
-        this.store$.dispatch(CoursesActions.loadCoursesByName({ courseName }))
+        this.store$.dispatch(CoursesActions.loadCoursesByName({ courseName }));
     }
 
     public loadCoursesById(courseId: string): void {
-        this.store$.dispatch(CoursesActions.loadCourseById({ courseId }))
+        this.store$.dispatch(CoursesActions.loadCourseById({ courseId }));
     }
 
     public removeCourseById(courseId: string): void {
-        this.store$.dispatch(CoursesActions.removeCourseById({ courseId }))
+        this.store$.dispatch(CoursesActions.removeCourseById({ courseId }));
     }
 
     public removeCourses(): void {
-        this.store$.dispatch(CoursesActions.removeCourses())
+        this.store$.dispatch(CoursesActions.removeCourses());
     }
 
     public createCourse(course: CourseForm): void {
-        this.store$.dispatch(CoursesActions.createCourse({ course }))
+        this.store$.dispatch(CoursesActions.createCourse({ course }));
     }
 }

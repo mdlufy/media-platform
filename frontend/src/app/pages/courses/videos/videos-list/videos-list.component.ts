@@ -14,7 +14,7 @@ import { RemoveDialogComponent } from '../videos-dialogs/remove-dialog/remove-di
     styleUrls: ['./videos-list.component.scss'],
 })
 export class VideosListComponent implements OnInit {
-    @Input() public courseId = '';
+    @Input() public courseId: string;
 
     public videos$: Observable<Video[]>;
 
@@ -46,7 +46,7 @@ export class VideosListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getVideosByCourseId(this.courseId);
+        this.videosStore.getVideosByCourseId(this.courseId);
     }
 
     public openVideo(id: string) {
@@ -92,9 +92,5 @@ export class VideosListComponent implements OnInit {
         if (isRemove) {
             this.videosStore.removeVideosFromCourse(this.courseId);
         }
-    }
-
-    private getVideosByCourseId(courseId: string): void {
-        this.videosStore.getVideosByCourseId(courseId);
     }
 }

@@ -2,19 +2,25 @@ import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TuiDialogService } from '@taiga-ui/core';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Course } from 'src/app/+state/courses/courses.reducer';
+import { LoadingState } from 'src/app/loading-state';
 import { CoursesDataService } from '../../courses-data.service';
 import { RemoveCourseDialogComponent } from '../courses-dialogs/remove-course-dialog/remove-course-dialog.component';
+import { CourseStore } from './course.store';
 
 @Component({
     selector: 'app-course-detail',
     templateUrl: './course-detail.component.html',
     styleUrls: ['./course-detail.component.scss'],
+    providers: [CourseStore],
 })
 export class CourseDetailComponent implements OnInit {
-    // TODO: разобраться почему селектор возвращает undefined
-    public course$: Observable<Course | undefined>;
+    public course$: Observable<Course>;
+
+    public loadingState$: Observable<LoadingState>;
+
+    public loadingState = LoadingState;
 
     public courseId: string;
 
@@ -27,6 +33,7 @@ export class CourseDetailComponent implements OnInit {
     );
 
     constructor(
+        private readonly courseStore: CourseStore,
         private route: ActivatedRoute,
         private courseDataService: CoursesDataService,
         private readonly router: Router,
@@ -35,10 +42,14 @@ export class CourseDetailComponent implements OnInit {
         @Inject(Injector) private readonly injector: Injector
     ) {
         this.courseId = this.route.snapshot.paramMap.get('id') ?? '';
+
+        this.course$ = this.courseStore.course$;
+        this.loadingState$ = this.courseStore.loadingState$;
     }
 
     ngOnInit(): void {
-        this.initObservables();
+        this.initCourseState();
+        this.initCourseObservable();
     }
 
     public showRemoveCourseDialog(): void {
@@ -61,10 +72,17 @@ export class CourseDetailComponent implements OnInit {
         }
     }
 
-    private initObservables(): void {
-        this.course$ = this.courseDataService.courses$
-            .pipe(
-                map((courses: Course[]) => courses.find(course => course.courseId === this.courseId)),
-            );
+    private initCourseState(): void {
+        this.courseStore.setState({
+            loadingState: LoadingState.LOADING,
+            course: {
+                id: this.courseId,
+                name: null,
+            },
+        });
+    }
+
+    private initCourseObservable(): void {
+        this.courseStore.getCourse(this.courseId);
     }
 }

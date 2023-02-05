@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, Observable } from 'rxjs';
 import { apiUrl } from 'src/app/config';
-import { UserDto } from './user.dto';
+import { UserDto } from '../../interfaces/user.dto';
 
 @Injectable({
     providedIn: 'root',

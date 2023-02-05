@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, EMPTY, map, switchMap, tap } from 'rxjs';
-import { UserDto } from 'src/app/api/user/user.dto';
+import { UserDto } from 'src/app/interfaces/user.dto';
 import { LoadingState } from 'src/app/loading-state';
 import { ProfileLoadService } from './profile-load/profile-load.service';
 import * as ProfileActions from './profile.actions';

@@ -1,6 +1,6 @@
 import { CourseDto } from "./course.dto";
 
-export interface Video {
+export interface VideoDto {
     _id: string;
     title: string;
     coverImage: string;

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Video } from 'src/app/+state/videos/videos.reducer';
 import { apiUrl } from 'src/app/config';
-import { Video } from '../../../../interfaces/video';
 
 @Component({
     selector: 'app-video',
@@ -8,25 +8,17 @@ import { Video } from '../../../../interfaces/video';
     styleUrls: ['./video.component.scss'],
 })
 export class VideoComponent implements OnInit {
-    @Input() video!: Video;
+    @Input() video: Video;
 
-    @Output() onDeleteVideoEvent = new EventEmitter<string>();
+    @Output() removeVideo = new EventEmitter<string>();
 
-    public coverUrl = '';
-    // public videoUrl = '';
-
-    // public currentTime = 0;
-    // public volume = 1;
-    // public paused = true;
-
-    constructor() {}
+    public coverUrl: string;
 
     ngOnInit(): void {
         this.setVideoUrl();
     }
 
     private setVideoUrl() {
-        // this.videoUrl = `${apiUrl}/video/${this.video._id}`;
-        this.coverUrl = `${apiUrl}/video/${this.video._id}/cover`;
+        this.coverUrl = `${apiUrl}/video/${this.video.id}/cover`;
     }
 }

@@ -1,13 +1,21 @@
-<ng-container *ngIf="video">
-    <div class="video-block">
-        <div class="video-cover">
-            <img [src]="coverUrl" width="350px" height="200px" />
-        </div>
-        <div class="video-info">
-            <span class="text">{{ video.title }}</span>
-            <!-- <button class="delete-btn" (click)="this.onDeleteVideoEvent.emit(video._id)">
-                Delete video
-            </button> -->
-        </div>
+<div class="video">
+    <div class="cover">
+        <img [src]="coverUrl" width="350px" height="200px" />
     </div>
-</ng-container>
+    <div class="info">
+        <span class="text">{{ video.title }}</span>
+    </div>
+    <div class="edit tui-space_bottom-6">
+        <button
+            tuiButton
+            size="s"
+            shape="rounded"
+            appearance="flat"
+            icon="tuiIconCloseLarge"
+            type="button"
+            (click)="removeVideo.emit(video.id); $event.stopImmediatePropagation()"
+        >
+            Удалить
+        </button>
+    </div>
+</div>

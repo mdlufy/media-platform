@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Course } from 'src/app/+state/courses/courses.reducer';
 import {
     getCourses,
-    getLoadingState,
+    getCoursesLoadingState,
 } from 'src/app/+state/courses/courses.selectors';
 import { CourseForm } from 'src/app/interfaces/course-form';
 import { LoadingState } from 'src/app/loading-state';
@@ -17,7 +17,7 @@ export class CoursesDataService {
     }
 
     public get loadingState$(): Observable<LoadingState> {
-        return this.store$.select(getLoadingState);
+        return this.store$.select(getCoursesLoadingState);
     }
 
     constructor(private store$: Store) {}

@@ -1,42 +1,58 @@
-<div class="videos">
-    <div class="header">
-        <!-- <span>Видеоуроки</span> -->
-        <span class="edit">
-            <button
-                tuiButton
-                type="button"
-                icon="tuiIconPlusLarge"
-                appearance="secondary"
-                shape="rounded"
-                size="s"
-                (click)="showCreateVideoDialog()"
-            >
-                Загрузить видео
-            </button>
-            <button
-                tuiButton
-                type="button"
-                icon="tuiIconRemoveLarge"
-                appearance="accent"
-                shape="rounded"
-                size="s"
-                (click)="showRemoveVideosDialog()"
-            >
-                Удалить все видео курса
-            </button>
-        </span>
-    </div>
-
-    <ng-container *ngIf="videos$ | async as videos">
-        <div class="videos-list">
-            <ng-container *ngFor="let video of videos">
-                <app-video
-                    class="video"
-                    [video]="video"
-                    (click)="openVideo(video._id)"
-                    (onDeleteVideoEvent)="onDeleteVideo($event)"
-                ></app-video>
-            </ng-container>
-        </div>
-    </ng-container>
+<div class="header">
+    <span class="edit">
+        <button
+            tuiButton
+            type="button"
+            icon="tuiIconPlusLarge"
+            appearance="secondary"
+            shape="rounded"
+            size="s"
+            (click)="showCreateVideoDialog()"
+        >
+            Загрузить видео
+        </button>
+        <button
+            tuiButton
+            type="button"
+            icon="tuiIconRemoveLarge"
+            appearance="accent"
+            shape="rounded"
+            size="s"
+            (click)="showRemoveVideosDialog()"
+        >
+            Удалить все видео курса
+        </button>
+    </span>
 </div>
+
+<ng-container [ngSwitch]="loadingState$ | async">
+    <ng-container *ngSwitchCase="loadingState.LOADING">
+        <ng-container *ngTemplateOutlet="loading"></ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="loadingState.SUCCESS">
+        <ng-container *tuiLet="videos$ | async as videos">
+            <ng-container *ngFor="let video of videos">
+                <div class="videos-list">
+                    <app-video
+                        [video]="video"
+                        (click)="openVideo(video.id)"
+                        (removeVideo)="onDeleteVideo($event)"
+                    ></app-video>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="loadingState.LOADING_ERROR">
+        <ng-container *ngTemplateOutlet="error"></ng-container>
+    </ng-container>
+</ng-container>
+
+<ng-template #loading>
+    <h1>Loading</h1>
+</ng-template>
+
+<ng-template #error>
+    <h1>Error</h1>
+</ng-template>

@@ -1,10 +1,12 @@
+import { LoadingState } from 'src/app/loading-state';
 import { Component, Inject, Injector, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TuiDialogService } from '@taiga-ui/core';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
 import { Observable } from 'rxjs';
-import { Video } from 'src/app/interfaces/video';
-import { VideoStoreService } from '../../../../video-store.service';
+import { Video } from 'src/app/+state/videos/videos.reducer';
+import { VideoForm } from 'src/app/interfaces/video-form';
+import { VideosDataService } from '../videos-data.service';
 import { CreateDialogComponent } from '../videos-dialogs/create-dialog/create-dialog.component';
 import { RemoveDialogComponent } from '../videos-dialogs/remove-dialog/remove-dialog.component';
 
@@ -17,8 +19,11 @@ export class VideosListComponent implements OnInit {
     @Input() public courseId: string;
 
     public videos$: Observable<Video[]>;
+    public loadingState$: Observable<LoadingState>;
 
-    private readonly createDialog = this.dialogService.open<FormData>(
+    public loadingState = LoadingState;
+
+    private readonly createDialog = this.dialogService.open<VideoForm>(
         new PolymorpheusComponent(CreateDialogComponent, this.injector),
         {
             dismissible: true,
@@ -35,18 +40,18 @@ export class VideosListComponent implements OnInit {
     );
 
     constructor(
-        @Inject(TuiDialogService)
-        private readonly dialogService: TuiDialogService,
+        @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
         @Inject(Injector) private readonly injector: Injector,
-        private videosStore: VideoStoreService,
         private readonly router: Router,
-        private readonly route: ActivatedRoute
+        private readonly route: ActivatedRoute,
+        private readonly videosDataSerivce: VideosDataService
     ) {
-        this.videos$ = videosStore.videoData.state$;
+        this.videos$ = this.videosDataSerivce.videos$;
+        this.loadingState$ = this.videosDataSerivce.loadingState$;
     }
 
     ngOnInit(): void {
-        this.videosStore.getVideosByCourseId(this.courseId);
+        this.videosDataSerivce.loadVideosByCourseId(this.courseId);
     }
 
     public openVideo(id: string) {
@@ -56,8 +61,8 @@ export class VideosListComponent implements OnInit {
         });
     }
 
-    public onDeleteVideo(id: string) {
-        this.videosStore.removeVideo(id);
+    public onDeleteVideo(videoId: string) {
+        this.videosDataSerivce.removeVideoById(videoId);
     }
 
     public showCreateVideoDialog(): void {
@@ -84,13 +89,13 @@ export class VideosListComponent implements OnInit {
         });
     }
 
-    private handleCreateVideo(formData: FormData): void {
-        this.videosStore.uploadFile(formData);
+    private handleCreateVideo(videoForm: VideoForm): void {
+        this.videosDataSerivce.createVideo(videoForm);
     }
 
     private handleRemoveVideos(isRemove: boolean): void {
         if (isRemove) {
-            this.videosStore.removeVideosFromCourse(this.courseId);
+            this.videosDataSerivce.removeVideosFromCourseByCourseId(this.courseId);
         }
     }
 }

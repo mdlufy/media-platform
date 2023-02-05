@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, EMPTY, map, of, switchMap, tap } from 'rxjs';
-import { CourseService } from 'src/app/api/course/course.service';
 import { LoadingState } from 'src/app/loading-state';
 import { CoursesLoadService } from './courses-load/courses-load.service';
 import * as CoursesActions from './courses.actions';
@@ -56,7 +55,7 @@ export class CoursesEffects {
             ofType(CoursesActions.removeCourseById),
             tap(() => this.store$.dispatch(CoursesActions.setCoursesLoadingState({ loadingState: LoadingState.LOADING }))),
             switchMap(({ courseId }) => 
-                this.courseService.deleteCourse$(courseId).pipe(
+                this.coursesService.deleteCourseById$(courseId).pipe(
                     tap(() =>
                         this.store$.dispatch(CoursesActions.setCoursesLoadingState({
                             loadingState: LoadingState.SUCCESS
@@ -111,7 +110,6 @@ export class CoursesEffects {
         private actions$: Actions,
         private store$: Store,
         private coursesLoadService: CoursesLoadService,
-        private courseService: CourseService,
         private coursesService: CoursesService,
     ) {}
 }

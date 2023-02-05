@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { catchError, EMPTY, map, Observable, of } from 'rxjs';
-import { CoursesService } from './../../../api/courses/courses.service';
+import { map, Observable } from 'rxjs';
+import { CourseForm } from 'src/app/interfaces/course-form';
+import { mapCourseDtoToCourse } from '../../../helpers/course-mapping.helper';
 import { CourseDto } from '../../../interfaces/course.dto';
 import { Course } from '../courses.reducer';
-import { CourseForm } from 'src/app/interfaces/course-form';
-import { CourseService } from 'src/app/api/course/course.service';
-import { mapCourseDtoToCourse } from '../../../helpers/course-mapping.helper';
+import { CoursesService } from './../../../api/courses/courses.service';
 
 @Injectable()
 export class CoursesLoadService {
-    constructor(private coursesService: CoursesService, private courseService: CourseService) {}
+    constructor(private coursesService: CoursesService) {}
 
     public getCourses$(): Observable<Course[]> {
         return this.coursesService
@@ -28,7 +27,7 @@ export class CoursesLoadService {
     }
 
     public createCourse$(course: CourseForm): Observable<Course> {
-        return this.courseService
+        return this.coursesService
             .createCourse$(course)
             .pipe(
                 map((course: CourseDto) => mapCourseDtoToCourse(course)),

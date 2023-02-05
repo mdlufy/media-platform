@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { UserDto } from 'src/app/api/user/user.dto';
+import { UserDto } from 'src/app/interfaces/user.dto';
 import { LoadingState } from 'src/app/loading-state';
 
 export const setProfileLoadingState = createAction(

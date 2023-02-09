@@ -1,4 +1,4 @@
-export interface CreateVideoInterface {
+export interface VideoForm {
     title: string;
     coverImage: string;
     video: string;

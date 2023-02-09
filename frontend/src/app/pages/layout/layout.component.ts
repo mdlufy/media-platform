@@ -1,23 +1,23 @@
-import { Router } from '@angular/router';
-import { AuthStoreService } from './../../auth-store.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { LoadingState } from 'src/app/loading-state';
+import { AuthDataService } from '../auth/auth-data.service';
 
 @Component({
     selector: 'app-layout',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
 })
-export class LayoutComponent implements OnInit {
-    constructor(
-        private authStoreService: AuthStoreService,
-        private router: Router
-    ) {}
+export class LayoutComponent {
+    public loadingState$: Observable<LoadingState>;
 
-    ngOnInit() {}
+    public loadingState = LoadingState;
+
+    constructor(private authDataService: AuthDataService) {
+        this.loadingState$ = this.authDataService.loadingState$;
+    }
 
     public logout() {
-        this.authStoreService.logout();
-
-        this.router.navigate(['auth']);
+        this.authDataService.logout();
     }
 }

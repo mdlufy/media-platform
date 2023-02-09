@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import {
     TuiButtonModule,
     TuiLinkModule,
+    TuiLoaderModule,
     TuiModeModule,
     TuiSvgModule,
 } from '@taiga-ui/core';
@@ -21,6 +22,7 @@ import { NavbarComponent } from './navbar/navbar.component';
         TuiSvgModule,
         TuiModeModule,
         TuiLinkModule,
+        TuiLoaderModule,
     ],
 })
 export class LayoutModule {}

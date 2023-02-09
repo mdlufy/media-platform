@@ -1,42 +1,55 @@
-<ng-container *ngIf="course$ | async as course">
-    <a tuiLink icon="tuiIconArrowLeft" iconAlign="left" routerLink="../">
-        Ко всем курсам
-    </a>
+<a tuiLink icon="tuiIconArrowLeft" iconAlign="left" routerLink="../">
+    Ко всем курсам
+</a>
 
-    <div class="course">
-        <div class="course-info">
-            <p class="course-name">{{ course.name }}</p>
-            <span class="edit">
-                <button
-                    tuiButton
-                    type="button"
-                    icon="tuiIconRemoveLarge"
-                    appearance="accent"
-                    shape="rounded"
-                    size="s"
-                    (click)="showRemoveCourseDialog()"
-                >
-                    Удалить курс
-                </button>
-            </span>
-        </div>
+<div class="course">
+    <ng-container [ngSwitch]="loadingState$ | async">
+        <ng-container *tuiLet="(course$ | async)! as course">
+            <div class="course-info">
+                <ng-container *ngSwitchCase="loadingState.LOADING">
+                    <ng-container *ngTemplateOutlet="loading"></ng-container>
+                </ng-container>
 
-        <div class="course-content">
-            <p class="header">Материалы</p>
+                <ng-container *ngSwitchCase="loadingState.SUCCESS">
+                    <p class="course-name">
+                        {{ course.name }}
+                    </p>
+                </ng-container>
 
-            <tui-accordion-item class="container">
-                Видеоуроки
-                <ng-template tuiAccordionItemContent>
-                    <div class="course-videos" #content>
-                        <app-videos-list
-                            [courseId]="courseId"
-                        ></app-videos-list>
-                    </div>
-                </ng-template>
-            </tui-accordion-item>
-        </div>
+                <span class="course-edit">
+                    <button
+                        tuiButton
+                        type="button"
+                        icon="tuiIconRemoveLarge"
+                        appearance="accent"
+                        shape="rounded"
+                        size="s"
+                        (click)="showRemoveCourseDialog()"
+                    >
+                        Удалить курс
+                    </button>
+                </span>
+            </div>
+        </ng-container>
+    </ng-container>
 
+    <div class="course-content">
+        <p class="header">Материалы</p>
+
+        <tui-accordion-item class="container">
+            Видеоуроки
+
+            <ng-template tuiAccordionItemContent>
+                <div class="course-videos" #content>
+                    <app-videos-list [courseId]="courseId"></app-videos-list>
+                </div>
+            </ng-template>
+        </tui-accordion-item>
     </div>
-    
-    <router-outlet></router-outlet>
-</ng-container>
+</div>
+
+<router-outlet></router-outlet>
+
+<ng-template #loading>
+    <h1>Loading</h1>
+</ng-template>

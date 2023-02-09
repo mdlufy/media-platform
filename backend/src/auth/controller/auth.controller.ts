@@ -12,31 +12,29 @@ export class AuthController {
         private jwtService: JwtService
     ) {}
 
-    @ApiOperation({ summary: 'Create new user' })
+    @ApiOperation({ summary: 'Registration user' })
     @ApiBody({ type: User })
     @Post('/signup')
     @ApiResponse({
         status: 201,
-        description: 'Return created user',
+        description: 'Success created user',
         type: User,
     })
-    async SignUp(@Res() res, @Body() user: User) {
-        const newUser = await this.authService.signup(user);
+    async signup(@Res() res, @Body() user: User) {
+        const createdUser = await this.authService.signup(user);
 
-        return res.status(HttpStatus.CREATED).json({
-            newUser,
-        });
+        return res.status(HttpStatus.CREATED).json();
     }
 
-    @ApiOperation({ summary: 'Auth exist user' })
+    @ApiOperation({ summary: 'Auth user' })
     @ApiBody({ type: User })
     @Post('/signin')
     @ApiResponse({
         status: 200,
-        description: 'Return token',
+        description: 'Success authencation',
         type: String,
     })
-    async SignIn(@Res() res, @Body() user: User) {
+    async signin(@Res() res, @Body() user: User) {
         const token = await this.authService.signin(user, this.jwtService);
 
         return res.status(HttpStatus.OK).json(token);

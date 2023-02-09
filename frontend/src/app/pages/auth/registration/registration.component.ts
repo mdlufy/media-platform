@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { User } from '../../../interfaces/user.interface';
-import { AuthStoreService } from './../../../auth-store.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from '../../../interfaces/user';
+import { AuthDataService } from '../auth-data.service';
 
 @Component({
     selector: 'app-registration',
@@ -10,20 +10,20 @@ import { AuthStoreService } from './../../../auth-store.service';
 })
 export class RegistrationComponent {
     public registrationForm = new FormGroup({
-        fullname: new FormControl(''),
-        email: new FormControl(''),
-        password: new FormControl(''),
+        fullname: new FormControl('', Validators.required),
+        email: new FormControl('', Validators.required),
+        password: new FormControl('', Validators.required),
     });
 
-    constructor(private readonly authStore: AuthStoreService) {}
+    constructor(private readonly authDataService: AuthDataService) {}
 
     public onSubmit() {
-        const form: User = {
-            fullname: this.registrationForm.value.fullname ?? '',
-            email: this.registrationForm.value.email ?? '',
-            password: this.registrationForm.value.password ?? '',
-        };
+        const fullname = this.registrationForm.value.fullname;
+        const email = this.registrationForm.value.email;
+        const password = this.registrationForm.value.password;
 
-        this.authStore.signup(form);
+        if (fullname && email && password) {
+            this.authDataService.createUser({ fullname, email, password });
+        }
     }
 }

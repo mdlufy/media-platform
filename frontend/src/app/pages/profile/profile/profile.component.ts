@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Profile, ProfileStoreService } from 'src/app/profile-store.service';
+import { Profile } from 'src/app/+state/profile/profile.reducer';
+import { ProfileDataService } from './../profile-data.service';
 
 @Component({
     selector: 'app-profile',
@@ -22,11 +23,11 @@ export class ProfileComponent implements OnInit {
         },
     ];
 
-    constructor(private profileStore: ProfileStoreService) {
-        this.profile$ = profileStore.profileData.state$;
+    constructor(private readonly profileDataService: ProfileDataService) {
+        this.profile$ = this.profileDataService.profile$;
     }
 
     ngOnInit(): void {
-        this.profileStore.getUser();
+        this.profileDataService.loadProfile();
     }
 }

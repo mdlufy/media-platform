@@ -19,7 +19,7 @@ export class CoursesController {
     @Get()
     @ApiResponse({
         status: 200,
-        description: 'Return all courses',
+        description: 'Success get all courses',
         type: [Course],
     })
     async getCourses(): Promise<Course[]> {
@@ -30,7 +30,7 @@ export class CoursesController {
     @Get('search')
     @ApiResponse({
         status: 200,
-        description: 'Return all courses by name',
+        description: 'Success get courses by name',
         type: [Course],
     })
     async getCoursesByName(
@@ -43,14 +43,11 @@ export class CoursesController {
     @Delete()
     @ApiResponse({
         status: 200,
-        description: 'Return count of deleted courses',
-        type: Number,
+        description: 'Success removed',
     })
     async deleteCourses(@Res() res) {
         const { deletedCount } = await this.coursesService.deleteCourses();
 
-        return res.status(HttpStatus.OK).json({
-            deletedCount,
-        });
+        return res.status(HttpStatus.OK).json();
     }
 }

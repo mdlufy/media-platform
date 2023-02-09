@@ -13,18 +13,17 @@ export class AuthService {
 
     async signup(user: User): Promise<User> {
         const salt = await bcrypt.genSalt();
-
         const hash = await bcrypt.hash(user.password, salt);
 
-        const reqBody = {
+        const userModel = {
             fullname: user.fullname,
             email: user.email,
             password: hash,
         };
 
-        const newUser = new this.userModel(reqBody);
+        const createdUser = new this.userModel(userModel);
 
-        return newUser.save();
+        return createdUser.save();
     }
 
     async signin(

@@ -1,8 +1,12 @@
 import { Observable } from 'rxjs';
 import { apiUrl } from 'src/app/config';
-import { User } from '../../interfaces/user.interface';
+import { User } from '../../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthForm } from 'src/app/interfaces/auth-form';
+import { RegistrationForm } from 'src/app/interfaces/registration-form';
+import { UserDto } from 'src/app/interfaces/user.dto';
+import { AuthDto } from 'src/app/interfaces/auth.dto';
 
 @Injectable({
     providedIn: 'root',
@@ -10,14 +14,11 @@ import { Injectable } from '@angular/core';
 export class AuthService {
     constructor(private readonly http: HttpClient) {}
 
-    public signup$(body: User) {
-        return this.http.post(`${apiUrl}/auth/signup`, body);
+    public signup$(registrationForm: RegistrationForm): Observable<UserDto> {
+        return this.http.post<UserDto>(`${apiUrl}/auth/signup`, registrationForm);
     }
 
-    public signin$(body: {
-        email: string;
-        password: string;
-    }): Observable<{ token: string }> {
-        return this.http.post<{ token: string }>(`${apiUrl}/auth/signin`, body);
+    public signin$(authForm: AuthForm): Observable<AuthDto> {
+        return this.http.post<AuthDto>(`${apiUrl}/auth/signin`, authForm);
     }
 }

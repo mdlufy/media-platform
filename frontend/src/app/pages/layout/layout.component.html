@@ -1,5 +1,13 @@
-<app-navbar (onLogout)="logout()"></app-navbar>
+<ng-container [ngSwitch]="loadingState$ | async">
+    <ng-container *ngSwitchCase="loadingState.LOADING">
+        <tui-loader [showLoader]="true" size="xl"></tui-loader>
+    </ng-container>
 
-<section class="content">
-    <router-outlet></router-outlet>
-</section>
+    <ng-container *ngSwitchDefault>
+        <app-navbar (onLogout)="logout()"></app-navbar>
+
+        <section class="content">
+            <router-outlet></router-outlet>
+        </section>
+    </ng-container>
+</ng-container>

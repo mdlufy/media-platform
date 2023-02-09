@@ -128,7 +128,7 @@ export class CoursesListComponent implements OnInit {
     private subscribeOnSearchForm(): void {
         this.searchForm.valueChanges
             .pipe(
-                debounceTime(600),
+                debounceTime(2000),
                 distinctUntilChanged(),
                 tap((data) => console.log(data))
             )

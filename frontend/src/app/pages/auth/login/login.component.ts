@@ -1,54 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, DoCheck, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthStoreService } from './../../../auth-store.service';
+import { Observable, take, tap } from 'rxjs';
+import { LoadingState } from 'src/app/loading-state';
+import { AuthDataService } from './../auth-data.service';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
-    public loading = true;
+export class LoginComponent {
+    public isUserAuth$: Observable<boolean>;
+
+    public loadingState$: Observable<LoadingState>;
+
+    public loadingState = LoadingState;
 
     public loginForm = new FormGroup({
-        email: new FormControl(''),
-        password: new FormControl(''),
+        email: new FormControl('', Validators.required),
+        password: new FormControl('', Validators.required),
     });
 
-    constructor(private authStore: AuthStoreService, private router: Router) {}
-
-    ngOnInit(): void {
-        this.showLoader();
-        this.checkIsAuth();
+    constructor(private authDataService: AuthDataService) {
+        this.isUserAuth$ = this.authDataService.isUserAuth$;
+        this.loadingState$ = this.authDataService.loadingState$;
     }
 
     public onSubmit() {
-        const form = {
-            email: this.loginForm.value.email ?? '',
-            password: this.loginForm.value.password ?? '',
-        };
+        const email = this.loginForm.value.email;
+        const password = this.loginForm.value.password;
 
-        this.authStore.signin(form);
-    }
-
-    private checkIsAuth() {
-        const isAuth = this.authStore.isAuth;
-
-        if (isAuth) {
-            this.router.navigate(['pages'], { replaceUrl: true });
-
-            return;
+        if (email && password) {
+            this.authDataService.authUser({ email, password });
         }
-
-        this.hideLoader();
-    }
-
-    private showLoader(): void {
-        this.loading = true;
-    }
-
-    private hideLoader(): void {
-        this.loading = false;
     }
 }

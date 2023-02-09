@@ -1,11 +1,13 @@
+import { RegistrationComponent } from './pages/auth/registration/registration.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './auth-guard.service';
+import { LoginComponent } from './pages/auth/login/login.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/auth', pathMatch: 'full' },
+    { path: '', redirectTo: 'pages', pathMatch: 'full' },
     {
         path: 'pages',
         component: LayoutComponent,
@@ -15,8 +17,16 @@ const routes: Routes = [
     },
     {
         path: 'auth',
-        loadChildren: () =>
-            import('./pages/auth/auth.module').then((m) => m.AuthModule),
+        children: [
+            {
+                path: '',
+                component: LoginComponent, 
+            },
+            {
+                path: 'registration',
+                component: RegistrationComponent,
+            }
+        ],
     },
     { path: '**', component: PageNotFoundComponent },
 ];

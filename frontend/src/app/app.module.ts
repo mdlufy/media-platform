@@ -12,6 +12,9 @@ import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthGuard } from './auth-guard.service';
+import { AuthDataService } from './pages/auth/auth-data.service';
+import { AuthModule } from './pages/auth/auth.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -32,8 +35,9 @@ import { AppComponent } from './app.component';
         TuiDialogModule,
         TuiAlertModule,
         TuiPreviewModule,
+        AuthModule,
     ],
-    providers: [httpInterceptorProviders],
+    providers: [httpInterceptorProviders, AuthGuard, AuthDataService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -3,4 +3,5 @@ export enum LoadingState {
     LOADING_ERROR = 'LOADING_ERROR',
     SUCCESS = 'SUCCESS',
     NOT_FOUND = 'NOT_FOUND',
+    DEFAULT = 'DEFAULT',
 }

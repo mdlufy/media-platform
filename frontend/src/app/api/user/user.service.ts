@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, EMPTY, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { apiUrl } from 'src/app/config';
 import { UserDto } from '../../interfaces/user.dto';
 
@@ -11,8 +11,6 @@ export class UserService {
     constructor(private readonly http: HttpClient) {}
 
     public fecthUser$(userEmail: string): Observable<UserDto> {
-        return this.http
-            .get<UserDto>(`${apiUrl}/user/${userEmail}`)
-            .pipe(catchError(() => EMPTY));
+        return this.http.get<UserDto>(`${apiUrl}/user/${userEmail}`);
     }
 }

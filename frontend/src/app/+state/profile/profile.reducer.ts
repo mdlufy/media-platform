@@ -1,3 +1,4 @@
+import { LoadingState } from 'src/app/loading-state';
 import { createReducer, on } from '@ngrx/store';
 import * as ProfileActions from './profile.actions';
 
@@ -7,26 +8,37 @@ export interface Profile {
     password: string | null;
 }
 
-export const profileInitialState: Profile = {
-    fullname: null,
-    email: null,
-    password: null,
+export interface ProfileState {
+    loadingState: LoadingState,
+    profile: Profile,
+}
+
+export const profileInitialState: ProfileState = {
+    loadingState: LoadingState.LOADING,
+    profile: {
+        fullname: null,
+        email: null,
+        password: null,
+    }
 };
 
 export const profileReducer = createReducer(
     profileInitialState,
     on(
         ProfileActions.setProfileLoadingState,
-        (state: Profile, { loadingState }) => ({
+        (state: ProfileState, { loadingState }) => ({
             ...state,
             loadingState,
         })
     ),
     on(
         ProfileActions.loadProfileSuccess,
-        (state: Profile, { profile }) => ({
+        (state: ProfileState, { profile }) => ({
             ...state,
-            ...profile,
+            profile: {
+                ...state.profile,
+                ...profile,
+            },
         })
     )
 );

@@ -1,3 +1,4 @@
+import { LoadingState } from 'src/app/loading-state';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Profile } from 'src/app/+state/profile/profile.reducer';
@@ -11,6 +12,12 @@ import { ProfileDataService } from './../profile-data.service';
 export class ProfileComponent implements OnInit {
     public profile$: Observable<Profile>;
 
+    public loadingState$: Observable<LoadingState>;
+
+    public loadingState = LoadingState;
+
+    public readonly defaultValue = '—';
+
     public readonly breadcrumbItems = [
         {
             caption: `Главная`,
@@ -19,12 +26,12 @@ export class ProfileComponent implements OnInit {
         {
             caption: `Профиль`,
             routerLink: `./`,
-            // routerLinkActiveOptions: { exact: true },
         },
     ];
 
     constructor(private readonly profileDataService: ProfileDataService) {
         this.profile$ = this.profileDataService.profile$;
+        this.loadingState$ = this.profileDataService.loadingState$;
     }
 
     ngOnInit(): void {

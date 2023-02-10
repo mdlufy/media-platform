@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, EMPTY, map, switchMap, tap } from 'rxjs';
+import { catchError, EMPTY, map, of, switchMap, tap } from 'rxjs';
 import { UserDto } from 'src/app/interfaces/user.dto';
 import { LoadingState } from 'src/app/loading-state';
 import { ProfileLoadService } from './profile-load/profile-load.service';
@@ -15,19 +15,20 @@ export class ProfileEffects {
             tap(() => this.store$.dispatch(ProfileActions.setProfileLoadingState({ loadingState: LoadingState.LOADING }))),
             switchMap(() => 
                 this.profileLoadService.getProfileInfo$().pipe(
-                    tap((profile: UserDto) =>
-                        this.store$.dispatch(ProfileActions.setProfileLoadingState({
-                            loadingState: profile && !!Object.keys(profile).length ? LoadingState.SUCCESS : LoadingState.LOADING_ERROR
-                        })),
-                    ),
-                    map((profile: UserDto) =>
-                        ProfileActions.loadProfileSuccess({ profile })
-                    ),
-                    catchError(() => EMPTY),
+                    map((profile: UserDto) => ProfileActions.loadProfileSuccess({ profile })),
+                    catchError(() => of(ProfileActions.setProfileLoadingState({ loadingState: LoadingState.LOADING_ERROR }))),
                 )
             ),
         )
     );
+
+    loadProfileSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ProfileActions.loadProfileSuccess),
+            tap(() => this.store$.dispatch(ProfileActions.setProfileLoadingState({ loadingState: LoadingState.SUCCESS }))),
+        ),
+        { dispatch: false }
+    )
 
     constructor(
         private actions$: Actions,

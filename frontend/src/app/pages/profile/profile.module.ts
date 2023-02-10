@@ -1,8 +1,9 @@
+import { TuiLetModule } from '@taiga-ui/cdk';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TuiLinkModule } from '@taiga-ui/core';
+import { TuiLinkModule, TuiLoaderModule } from '@taiga-ui/core';
 import { TuiBreadcrumbsModule } from '@taiga-ui/kit';
 import { ProfileLoadService } from 'src/app/+state/profile/profile-load/profile-load.service';
 import { ProfileEffects } from 'src/app/+state/profile/profile.effects';
@@ -21,6 +22,8 @@ const EFFECTS_LIST = [ProfileEffects];
         ProfileRoutingModule,
         TuiBreadcrumbsModule,
         TuiLinkModule,
+        TuiLetModule,
+        TuiLoaderModule,
         StoreModule.forFeature(FEATURE_PROFILE, profileReducer),
         EffectsModule.forFeature(EFFECTS_LIST),
     ],

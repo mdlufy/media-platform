@@ -45,7 +45,7 @@
     </form>
 
     <ng-container [ngSwitch]="loadingState$ | async">
-        <ng-container *tuiLet="(courses$ | async)! as courses">
+        <ng-container *tuiLet="(courses$ | async) as courses">
             <ng-container *ngSwitchCase="loadingState.LOADING">
                 <ng-container *ngTemplateOutlet="loading"></ng-container>
             </ng-container>

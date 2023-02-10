@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, EMPTY, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserDto } from 'src/app/interfaces/user.dto';
 import { UserService } from './../../../api/user/user.service';
 
@@ -12,8 +12,6 @@ export class ProfileLoadService {
 
         const payload = JSON.parse(atob(token.split('.')[1]));
 
-        return this.userService
-            .fecthUser$(payload.email)
-            .pipe(catchError(() => EMPTY));
+        return this.userService.fecthUser$(payload.email);
     }
 }

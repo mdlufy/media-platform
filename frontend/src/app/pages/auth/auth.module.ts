@@ -14,6 +14,7 @@ import { TuiInputModule, TuiInputPasswordModule } from '@taiga-ui/kit';
 import { AuthLoadService } from 'src/app/+state/auth/auth-load/auth-load.service';
 import { AuthEffects } from 'src/app/+state/auth/auth.effects';
 import { authReducer } from 'src/app/+state/auth/auth.reducer';
+import { AuthGuard } from 'src/app/auth-guard.service';
 import { FEATURE_AUTH } from './../../+state/auth/auth.selectors';
 import { AuthDataService } from './auth-data.service';
 import { LoginComponent } from './login/login.component';
@@ -37,7 +38,7 @@ const EFFECTS_LIST = [AuthEffects];
         EffectsModule.forFeature(EFFECTS_LIST),
         StoreModule.forFeature(FEATURE_AUTH, authReducer),
     ],
-    providers: [AuthDataService, AuthLoadService],
-    exports: [LoginComponent],
+    providers: [AuthDataService, AuthLoadService, AuthGuard],
+    exports: [LoginComponent, RegistrationComponent],
 })
 export class AuthModule {}

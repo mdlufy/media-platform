@@ -4,7 +4,7 @@
     </ng-container>
 
     <ng-container *ngSwitchDefault>
-        <app-navbar (onLogout)="logout()"></app-navbar>
+        <app-navbar (logout)="logout()"></app-navbar>
 
         <section class="content">
             <router-outlet></router-outlet>

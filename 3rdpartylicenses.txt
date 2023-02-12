@@ -93,6 +93,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+@ngrx/component-store
+MIT
+
+@ngrx/effects
+MIT
+
+@ngrx/store
+MIT
+
 @taiga-ui/addon-preview
 Apache-2.0
                                  Apache License

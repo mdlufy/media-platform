@@ -45,7 +45,7 @@
     </form>
 
     <ng-container [ngSwitch]="loadingState$ | async">
-        <ng-container *tuiLet="(courses$ | async) as courses">
+        <ng-container *tuiLet="courses$ | async as courses">
             <ng-container *ngSwitchCase="loadingState.LOADING">
                 <ng-container *ngTemplateOutlet="loading"></ng-container>
             </ng-container>
@@ -64,6 +64,10 @@
         <ng-container *ngSwitchCase="loadingState.LOADING_ERROR">
             <ng-container *ngTemplateOutlet="error"></ng-container>
         </ng-container>
+
+        <ng-container *ngSwitchCase="loadingState.NOT_FOUND">
+            <ng-container *ngTemplateOutlet="empty"></ng-container>
+        </ng-container>
     </ng-container>
 </div>
 
@@ -73,4 +77,8 @@
 
 <ng-template #error>
     <h1>Error</h1>
+</ng-template>
+
+<ng-template #empty>
+    <h1>Empty</h1>
 </ng-template>

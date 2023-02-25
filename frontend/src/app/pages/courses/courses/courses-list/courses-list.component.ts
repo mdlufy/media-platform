@@ -4,16 +4,18 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TuiDialogService } from '@taiga-ui/core';
 import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
-import { debounceTime, distinctUntilChanged, Observable, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, Observable, takeUntil, tap } from 'rxjs';
 import { Course } from 'src/app/+state/courses/courses.reducer';
 import { CreateDialogComponent } from '../courses-dialogs/create-dialog/create-dialog.component';
 import { RemoveDialogComponent } from '../courses-dialogs/remove-dialog/remove-dialog.component';
 import { LoadingState } from 'src/app/loading-state';
+import { TuiDestroyService } from '@taiga-ui/cdk';
 
 @Component({
     selector: 'app-courses-list',
     templateUrl: './courses-list.component.html',
     styleUrls: ['./courses-list.component.scss'],
+    providers: [TuiDestroyService],
 })
 export class CoursesListComponent implements OnInit {
     public courses$: Observable<Course[]>;
@@ -57,13 +59,14 @@ export class CoursesListComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private coursesDataService: CoursesDataService,
+        private readonly destroy$: TuiDestroyService,
     ) {
         this.courses$ = this.coursesDataService.courses$;
         this.loadingState$ = this.coursesDataService.loadingState$;
     }
 
     ngOnInit(): void {
-        this.initObservables();
+        this.coursesDataService.loadCourses();
         this.subscribeOnSearchForm();
     }
 
@@ -128,14 +131,12 @@ export class CoursesListComponent implements OnInit {
     private subscribeOnSearchForm(): void {
         this.searchForm.valueChanges
             .pipe(
+                filter((value: string) => value.length > 2),
                 debounceTime(2000),
                 distinctUntilChanged(),
-                tap((data) => console.log(data))
+                tap((value: string) => this.handleSearchForm(value)),
+                takeUntil(this.destroy$),
             )
-            .subscribe((value: string) => this.handleSearchForm(value));
-    }
-
-    private initObservables(): void {
-        this.coursesDataService.loadCourses();
+            .subscribe();
     }
 }

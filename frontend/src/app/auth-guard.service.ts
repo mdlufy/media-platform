@@ -1,3 +1,4 @@
+import { Observable, of, Subscription, take, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
     ActivatedRouteSnapshot,
@@ -15,17 +16,14 @@ export class AuthGuard implements CanActivate {
         private router: Router,
     ) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         // return this.authDataService.isUserAuth$.pipe(
-        //     map((isAuth: boolean) => {
+        //     tap((isAuth: boolean) => {
         //         if (!isAuth) {
-        //             this.router.navigate(['auth']);
-
-        //             return false;
+        //             this.router.navigate(['auth']); 
         //         }
-
-        //         return true;
-        //     })
+        //     }), 
+        //     take(1),
         // );
 
         const isAuth = this.authDataService.isAuth();
@@ -33,9 +31,9 @@ export class AuthGuard implements CanActivate {
         if (!isAuth) {
             this.router.navigate(['auth']);
             
-            return false;
+            return of(false);
         }
 
-        return true;
+        return of(true);
     }
 }

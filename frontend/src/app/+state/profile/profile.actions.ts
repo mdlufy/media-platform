@@ -13,5 +13,5 @@ export const loadProfileByUserEmail = createAction(
 
 export const loadProfileSuccess = createAction(
     '[Profile Page] Load Profile Sucess',
-    props<{ profile: UserDto }>()
+    props<{ profile: UserDto | null }>()
 );

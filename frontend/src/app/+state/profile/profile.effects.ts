@@ -14,21 +14,14 @@ export class ProfileEffects {
             ofType(ProfileActions.loadProfileByUserEmail),
             tap(() => this.store$.dispatch(ProfileActions.setProfileLoadingState({ loadingState: LoadingState.LOADING }))),
             switchMap(() => 
-                this.profileLoadService.getProfileInfo$().pipe(
-                    map((profile: UserDto) => ProfileActions.loadProfileSuccess({ profile })),
+                this.profileLoadService.getProfile$().pipe(
+                    tap(() => this.store$.dispatch(ProfileActions.setProfileLoadingState({ loadingState: LoadingState.SUCCESS }))),
+                    map((profile: UserDto | null) => ProfileActions.loadProfileSuccess({ profile })),
                     catchError(() => of(ProfileActions.setProfileLoadingState({ loadingState: LoadingState.LOADING_ERROR }))),
                 )
             ),
         )
     );
-
-    loadProfileSuccess$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(ProfileActions.loadProfileSuccess),
-            tap(() => this.store$.dispatch(ProfileActions.setProfileLoadingState({ loadingState: LoadingState.SUCCESS }))),
-        ),
-        { dispatch: false }
-    )
 
     constructor(
         private actions$: Actions,

@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './pages/auth/auth.module';
+import { LocalStorageService } from './local-storage.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -35,7 +36,7 @@ import { AuthModule } from './pages/auth/auth.module';
         TuiPreviewModule,
         AuthModule,
     ],
-    providers: [httpInterceptorProviders],
+    providers: [httpInterceptorProviders, LocalStorageService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

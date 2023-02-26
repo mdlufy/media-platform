@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../../local-storage.service';
 import { Router } from '@angular/router';
 import { AuthLoadService } from './auth-load/auth-load.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -28,7 +29,7 @@ export class AuthEffects {
         this.actions$.pipe(
             ofType(AuthActions.authUserSuccess),
             tap(({ authInfo }) => {
-                localStorage.setItem('token', authInfo.token ?? '');
+                this.localStorageService.setToken(authInfo.token);
 
                 this.router.navigate(['pages'], { replaceUrl: true })
             })
@@ -40,9 +41,9 @@ export class AuthEffects {
         this.actions$.pipe(
             ofType(AuthActions.authRedirect, AuthActions.logout),
             tap(() => this.store$.dispatch(AuthActions.setAuthLoadingState({ loadingState: LoadingState.LOADING }))),
-            delay(300),
+            delay(200),
             tap(() => {
-                localStorage.removeItem('token');
+                this.localStorageService.removeToken();
 
                 this.store$.dispatch(AuthActions.setAuthLoadingState({ loadingState: LoadingState.DEFAULT }));
 
@@ -83,5 +84,6 @@ export class AuthEffects {
         private store$: Store,
         private router: Router,
         private authLoadService: AuthLoadService,
+        private localStorageService: LocalStorageService,
     ) {}
 }

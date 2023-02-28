@@ -5,7 +5,7 @@ import { LocalStorageService } from '../local-storage.service';
 
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class JwtInterceptor implements HttpInterceptor {
 
     constructor(private localStorageService: LocalStorageService) {}
 

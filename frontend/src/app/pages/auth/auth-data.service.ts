@@ -16,7 +16,7 @@ export class AuthDataService {
         return this.store$.select(getAuthLoadingState);
     }
 
-    public get isUserAuth$(): Observable<boolean> {
+    public get isUserAuthenticated$(): Observable<boolean> {
         return this.store$.select(isUserAuth);
     }
 
@@ -32,11 +32,5 @@ export class AuthDataService {
 
     public logout(): void {
         this.store$.dispatch(AuthActions.logout());
-    }
-
-    public isAuth(): boolean {
-        const token = localStorage.getItem('token');
-
-        return token ? true : false;
     }
 }

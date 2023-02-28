@@ -5,7 +5,6 @@ import * as AuthActions from './auth.actions';
 export interface AuthInfo {
     isAuth: boolean;
     token: string | null;
-    role: string | null;
 }
 
 export interface AuthState {
@@ -18,7 +17,6 @@ export const authInitialState: AuthState = {
     authInfo: {
         isAuth: false,
         token: null,
-        role: null,
     },
 };
 
@@ -37,7 +35,6 @@ export const authReducer = createReducer(
         authInfo: {
             isAuth: false,
             token: null,
-            role: null,
         },
-    }))
+    })),
 );

@@ -1,4 +1,3 @@
-import { LocalStorageService } from './../../local-storage.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,13 +14,13 @@ import { TuiInputModule, TuiInputPasswordModule } from '@taiga-ui/kit';
 import { AuthLoadService } from 'src/app/+state/auth/auth-load/auth-load.service';
 import { AuthEffects } from 'src/app/+state/auth/auth.effects';
 import { AuthInfo, authReducer } from 'src/app/+state/auth/auth.reducer';
-import { AuthGuard } from 'src/app/auth-guard.service';
+import { ACCESS_TOKEN } from 'src/app/jwt.interceptor';
+import { SessionStorageService } from 'src/app/session-storage.service';
+import * as AuthActions from '../../+state/auth/auth.actions';
 import { FEATURE_AUTH } from './../../+state/auth/auth.selectors';
 import { AuthDataService } from './auth-data.service';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import * as AuthActions from '../../+state/auth/auth.actions';
-import { ACCESS_TOKEN } from 'src/app/jwt.interceptor';
 
 const EFFECTS_LIST = [AuthEffects];
 
@@ -45,8 +44,11 @@ const EFFECTS_LIST = [AuthEffects];
     exports: [LoginComponent, RegistrationComponent],
 })
 export class AuthModule {
-    constructor(private store$: Store, private localStorageService: LocalStorageService) {
-        const accessToken = this.localStorageService.getItem(ACCESS_TOKEN);
+    constructor(
+        private store$: Store,
+        private sessionStorageService: SessionStorageService
+    ) {
+        const accessToken = this.sessionStorageService.getItem(ACCESS_TOKEN);
 
         if (accessToken) {
             const authInfo: AuthInfo = {

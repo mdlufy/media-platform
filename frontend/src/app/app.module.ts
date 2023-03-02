@@ -12,8 +12,8 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './pages/auth/auth.module';
-import { LocalStorageService } from './local-storage.service';
 import { JwtInterceptor } from './jwt.interceptor';
+import { SessionStorageService } from './session-storage.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -37,7 +37,7 @@ import { JwtInterceptor } from './jwt.interceptor';
         AuthModule,
     ],
     providers: [
-        LocalStorageService,
+        SessionStorageService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     ],
     bootstrap: [AppComponent],

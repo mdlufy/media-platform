@@ -41,17 +41,17 @@ const EFFECTS_LIST = [AuthEffects];
         EffectsModule.forFeature(EFFECTS_LIST),
         StoreModule.forFeature(FEATURE_AUTH, authReducer),
     ],
-    providers: [AuthDataService, AuthLoadService, AuthGuard],
+    providers: [AuthDataService, AuthLoadService],
     exports: [LoginComponent, RegistrationComponent],
 })
 export class AuthModule {
     constructor(private store$: Store, private localStorageService: LocalStorageService) {
-        const token = this.localStorageService.getItem(ACCESS_TOKEN);
+        const accessToken = this.localStorageService.getItem(ACCESS_TOKEN);
 
-        if (token) {
+        if (accessToken) {
             const authInfo: AuthInfo = {
                 isAuth: true,
-                token: token,
+                token: accessToken,
             };
 
             this.store$.dispatch(AuthActions.authUserSuccess({ authInfo }));

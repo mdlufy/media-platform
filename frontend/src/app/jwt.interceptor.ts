@@ -3,14 +3,14 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Injectable } from "@angular/core";
 import { LocalStorageService } from './local-storage.service';
 
-const ACCESS_TOKEN = 'access_token';
+export const ACCESS_TOKEN = 'access_token';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
     constructor(private localStorageService: LocalStorageService) {}
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         const accessToken = this.localStorageService.getItem(ACCESS_TOKEN);
 
         if (accessToken) {

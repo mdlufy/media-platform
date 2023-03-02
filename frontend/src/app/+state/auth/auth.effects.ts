@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { catchError, delay, map, of, switchMap, tap } from 'rxjs';
 import { LoadingState } from 'src/app/loading-state';
 import { AuthInfo } from './auth.reducer';
+import { ACCESS_TOKEN } from 'src/app/jwt.interceptor';
 
 @Injectable()
 export class AuthEffects {
@@ -29,7 +30,7 @@ export class AuthEffects {
         this.actions$.pipe(
             ofType(AuthActions.authUserSuccess),
             tap(({ authInfo }) => {
-                this.localStorageService.setToken(authInfo.token);
+                this.localStorageService.setItem(ACCESS_TOKEN, authInfo.token);
 
                 this.router.navigate(['pages'], { replaceUrl: true })
             })
@@ -43,7 +44,7 @@ export class AuthEffects {
             tap(() => this.store$.dispatch(AuthActions.setAuthLoadingState({ loadingState: LoadingState.LOADING }))),
             delay(200),
             tap(() => {
-                this.localStorageService.removeToken();
+                this.localStorageService.removeItem(ACCESS_TOKEN);
 
                 this.store$.dispatch(AuthActions.setAuthLoadingState({ loadingState: LoadingState.DEFAULT }));
 

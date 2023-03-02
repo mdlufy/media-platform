@@ -21,6 +21,7 @@ import { AuthDataService } from './auth-data.service';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import * as AuthActions from '../../+state/auth/auth.actions';
+import { ACCESS_TOKEN } from 'src/app/jwt.interceptor';
 
 const EFFECTS_LIST = [AuthEffects];
 
@@ -45,12 +46,9 @@ const EFFECTS_LIST = [AuthEffects];
 })
 export class AuthModule {
     constructor(private store$: Store, private localStorageService: LocalStorageService) {
-        const token = this.localStorageService.getToken();
-
-        console.log(token);
+        const token = this.localStorageService.getItem(ACCESS_TOKEN);
 
         if (token) {
-
             const authInfo: AuthInfo = {
                 isAuth: true,
                 token: token,

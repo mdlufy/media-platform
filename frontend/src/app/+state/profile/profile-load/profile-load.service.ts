@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { UserDto } from 'src/app/interfaces/user.dto';
+import { ACCESS_TOKEN } from 'src/app/jwt.interceptor';
 import { UserService } from './../../../api/user/user.service';
 import { LocalStorageService } from './../../../local-storage.service';
 
@@ -12,13 +13,13 @@ export class ProfileLoadService {
     ) {}
 
     public getProfile$(): Observable<UserDto | null> {
-        const token = this.localStorageService.getToken();
+        const accessToken = this.localStorageService.getItem(ACCESS_TOKEN);
 
-        if (!token) {
+        if (!accessToken) {
             return of(null);
         }
 
-        const { email } = JSON.parse(atob(token.split('.')[1])) as UserDto;
+        const { email } = JSON.parse(atob(accessToken.split('.')[1])) as UserDto;
 
         return this.userService.fecthUser$(email);
     }

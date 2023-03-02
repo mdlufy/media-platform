@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 
-export const TOKEN = 'access_token';
-
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class LocalStorageService {
     constructor() {}
 
-    public getToken(): string | null {
-        return localStorage.getItem(TOKEN);
+    public getItem(key: string): string | null {
+        return localStorage.getItem(key);
     }
 
-    public setToken(token: string | null): void {
-        if (!token) {
+    public setItem(key: string, value: string | null): void {
+        if (!value) {
             return;
         }
 
-        localStorage.setItem(TOKEN, token);
+        localStorage.setItem(key, value);
     }
 
-    public removeToken(): void {
-        localStorage.removeItem(TOKEN);
+    public removeItem(key: string): void {
+        localStorage.removeItem(key);
     }
 }

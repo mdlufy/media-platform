@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { LocalStorageService } from '../local-storage.service';
+import { LocalStorageService } from './local-storage.service';
 
+const ACCESS_TOKEN = 'access_token';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -10,12 +11,12 @@ export class JwtInterceptor implements HttpInterceptor {
     constructor(private localStorageService: LocalStorageService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token = this.localStorageService.getToken();
+        const accessToken = this.localStorageService.getItem(ACCESS_TOKEN);
 
-        if (token) {
+        if (accessToken) {
             req = req.clone({
                 setHeaders: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${accessToken}`
                 }
             }) 
         }

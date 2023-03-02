@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TuiPreviewModule } from '@taiga-ui/addon-preview';
 import { TuiAlertModule, TuiDialogModule, TuiRootModule } from '@taiga-ui/core';
-import { httpInterceptorProviders } from './http-interceptors/index';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { EffectsModule } from '@ngrx/effects';
@@ -14,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './pages/auth/auth.module';
 import { LocalStorageService } from './local-storage.service';
+import { JwtInterceptor } from './jwt.interceptor';
 
 @NgModule({
     declarations: [AppComponent],
@@ -36,7 +36,10 @@ import { LocalStorageService } from './local-storage.service';
         TuiPreviewModule,
         AuthModule,
     ],
-    providers: [httpInterceptorProviders, LocalStorageService],
+    providers: [
+        LocalStorageService,
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

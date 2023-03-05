@@ -1,4 +1,4 @@
 export interface AuthDto {
-    token: string;
+    access_token: string;
     role?: string;
 }

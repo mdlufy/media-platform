@@ -4,7 +4,7 @@ import * as AuthActions from './auth.actions';
 
 export interface AuthInfo {
     isAuth: boolean;
-    token: string | null;
+    accessToken: string | null;
 }
 
 export interface AuthState {
@@ -16,7 +16,7 @@ export const authInitialState: AuthState = {
     loadingState: LoadingState.DEFAULT,
     authInfo: {
         isAuth: false,
-        token: null,
+        accessToken: null,
     },
 };
 
@@ -34,7 +34,7 @@ export const authReducer = createReducer(
         ...state,
         authInfo: {
             isAuth: false,
-            token: null,
+            accessToken: null,
         },
     })),
 );

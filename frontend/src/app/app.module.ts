@@ -11,9 +11,8 @@ import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './pages/auth/auth.module';
 import { JwtInterceptor } from './jwt.interceptor';
-import { SessionStorageService } from './session-storage.service';
+import { AuthModule } from './pages/auth/auth.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -37,7 +36,6 @@ import { SessionStorageService } from './session-storage.service';
         AuthModule,
     ],
     providers: [
-        SessionStorageService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     ],
     bootstrap: [AppComponent],

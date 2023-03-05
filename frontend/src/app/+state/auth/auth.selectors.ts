@@ -15,7 +15,7 @@ export const isUserAuth = createSelector(
     (state: AuthState) => state.authInfo.isAuth
 );
 
-export const getAuthToken = createSelector(
+export const getAccessToken = createSelector(
     getAuthState,
-    (state: AuthState) => state.authInfo.token
+    (state: AuthState) => state.authInfo.accessToken
 );

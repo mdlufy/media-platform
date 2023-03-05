@@ -1,5 +1,6 @@
+import { LOCAL_STORAGE } from '@ng-web-apis/common';
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { Inject, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
@@ -15,7 +16,6 @@ import { AuthLoadService } from 'src/app/+state/auth/auth-load/auth-load.service
 import { AuthEffects } from 'src/app/+state/auth/auth.effects';
 import { AuthInfo, authReducer } from 'src/app/+state/auth/auth.reducer';
 import { ACCESS_TOKEN } from 'src/app/jwt.interceptor';
-import { SessionStorageService } from 'src/app/session-storage.service';
 import * as AuthActions from '../../+state/auth/auth.actions';
 import { FEATURE_AUTH } from './../../+state/auth/auth.selectors';
 import { AuthDataService } from './auth-data.service';
@@ -45,15 +45,15 @@ const EFFECTS_LIST = [AuthEffects];
 })
 export class AuthModule {
     constructor(
+        @Inject(LOCAL_STORAGE) private readonly localStorageService: Storage,
         private store$: Store,
-        private sessionStorageService: SessionStorageService
     ) {
-        const accessToken = this.sessionStorageService.getItem(ACCESS_TOKEN);
+        const accessToken = this.localStorageService.getItem(ACCESS_TOKEN);
 
         if (accessToken) {
             const authInfo: AuthInfo = {
                 isAuth: true,
-                token: accessToken,
+                accessToken,
             };
 
             this.store$.dispatch(AuthActions.authUserSuccess({ authInfo }));

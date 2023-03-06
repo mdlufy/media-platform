@@ -3,9 +3,9 @@ import { createReducer, on } from '@ngrx/store';
 import * as ProfileActions from './profile.actions';
 
 export interface Profile {
-    fullname: string | null;
     email: string | null;
-    password: string | null;
+    fullname: string | null;
+    role: string | null;
 }
 
 export interface ProfileState {
@@ -18,7 +18,7 @@ export const profileInitialState: ProfileState = {
     profile: {
         fullname: null,
         email: null,
-        password: null,
+        role: null,
     }
 };
 

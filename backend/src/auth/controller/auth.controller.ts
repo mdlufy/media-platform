@@ -35,8 +35,8 @@ export class AuthController {
         type: String,
     })
     async signin(@Res() res, @Body() user: User) {
-        const token = await this.authService.signin(user, this.jwtService);
+        const authResponse = await this.authService.signin(user, this.jwtService);
 
-        return res.status(HttpStatus.OK).json(token);
+        return res.status(HttpStatus.OK).json(authResponse);
     }
 }

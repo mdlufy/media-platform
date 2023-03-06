@@ -30,27 +30,31 @@ export class AuthService {
         user: { email: string; password: string },
         jwtService: JwtService
     ): Promise<any> {
-        const dbUser = await this.userModel
-            .findOne({ email: user.email })
-            .exec();
+        try {
+            const dbUser = await this.userModel
+                .findOne({ email: user.email })
+                .exec();
 
-        if (dbUser) {
-            const match = await bcrypt.compare(user.password, dbUser.password);
+            const matchResult = await bcrypt.compare(user.password, dbUser.password);
 
-            if (match) {
-                const payload = { email: user.email };
-
-                return {
-                    token: jwtService.sign(payload),
-                };
+            if (!matchResult) {
+                throw new Error();
             }
 
-            return new HttpException(
-                'Incorrect username or password',
+            const jwtPayload = { 
+                email: user.email,
+            };
+
+            const responseModel = {
+                access_token: jwtService.sign(jwtPayload),
+            }
+
+            return responseModel;
+        } catch (e) {
+            throw new HttpException(
+                'Incorrect login or password',
                 HttpStatus.UNAUTHORIZED
             );
         }
-
-        return new HttpException('Email not found', HttpStatus.UNAUTHORIZED);
     }
 }

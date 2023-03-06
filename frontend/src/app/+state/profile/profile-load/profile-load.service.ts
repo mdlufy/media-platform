@@ -1,17 +1,28 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { LOCAL_STORAGE } from '@ng-web-apis/common';
+import { Observable, of } from 'rxjs';
+import { JwtHelper } from 'src/app/helpers/jwt.helper';
+import { AccessTokenPayload } from 'src/app/interfaces/access-token';
 import { UserDto } from 'src/app/interfaces/user.dto';
+import { ACCESS_TOKEN } from 'src/app/jwt.interceptor';
 import { UserService } from './../../../api/user/user.service';
 
 @Injectable()
 export class ProfileLoadService {
-    constructor(private userService: UserService) {}
+    constructor(
+        @Inject(LOCAL_STORAGE) private readonly localStorageService: Storage,
+        private userService: UserService,
+    ) {}
 
-    public getProfileInfo$(): Observable<UserDto> {
-        const token = localStorage.getItem('token') ?? '';
+    public getProfile$(): Observable<UserDto | null> {
+        const accessToken = this.localStorageService.getItem(ACCESS_TOKEN);
 
-        const payload = JSON.parse(atob(token.split('.')[1]));
+        if (!accessToken) {
+            return of(null);
+        }
 
-        return this.userService.fecthUser$(payload.email);
+        const { email } = JwtHelper.getFromAccessToken<AccessTokenPayload>(accessToken);
+
+        return this.userService.fetchUser$(email);
     }
 }

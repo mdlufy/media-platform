@@ -1,7 +1,6 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable, take, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LoadingState } from 'src/app/loading-state';
 import { AuthDataService } from './../auth-data.service';
 
@@ -23,7 +22,7 @@ export class LoginComponent {
     });
 
     constructor(private authDataService: AuthDataService) {
-        this.isUserAuth$ = this.authDataService.isUserAuth$;
+        this.isUserAuth$ = this.authDataService.isUserAuthenticated$;
         this.loadingState$ = this.authDataService.loadingState$;
     }
 

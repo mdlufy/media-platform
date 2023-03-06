@@ -2,12 +2,10 @@ import { AuthInfo } from '../+state/auth/auth.reducer';
 import { AuthDto } from '../interfaces/auth.dto';
 
 export function mapAuthDtoToAuthInfo(authDto: AuthDto): AuthInfo {
-    const isAuth = authDto.token ? true : false;
-    const role = authDto?.role ?? null;
+    const isAuth = authDto.access_token ? true : false;
 
     return {
         isAuth,
-        token: authDto.token,
-        role,
+        accessToken: authDto.access_token,
     };
 }

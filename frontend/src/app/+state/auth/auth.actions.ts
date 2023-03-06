@@ -2,7 +2,6 @@ import { LoadingState } from 'src/app/loading-state';
 import { createAction, props } from '@ngrx/store';
 import { AuthForm } from 'src/app/interfaces/auth-form';
 import { RegistrationForm } from 'src/app/interfaces/registration-form';
-import { User } from 'src/app/interfaces/user';
 import { AuthInfo } from './auth.reducer';
 
 export const getAuthLoadingState = createAction(

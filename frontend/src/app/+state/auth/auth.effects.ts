@@ -1,11 +1,13 @@
+import { LOCAL_STORAGE } from '@ng-web-apis/common';
+import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthLoadService } from './auth-load/auth-load.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Injectable } from '@angular/core';
-import * as AuthActions from './auth.actions';
 import { Store } from '@ngrx/store';
 import { catchError, delay, map, of, switchMap, tap } from 'rxjs';
+import { ACCESS_TOKEN } from 'src/app/jwt.interceptor';
 import { LoadingState } from 'src/app/loading-state';
+import { AuthLoadService } from './auth-load/auth-load.service';
+import * as AuthActions from './auth.actions';
 import { AuthInfo } from './auth.reducer';
 
 @Injectable()
@@ -28,9 +30,11 @@ export class AuthEffects {
         this.actions$.pipe(
             ofType(AuthActions.authUserSuccess),
             tap(({ authInfo }) => {
-                localStorage.setItem('token', authInfo.token ?? '');
+                if (authInfo.accessToken) {
+                    this.localStorageService.setItem(ACCESS_TOKEN, authInfo.accessToken);
 
-                this.router.navigate(['pages'], { replaceUrl: true })
+                    this.router.navigate(['pages'], { replaceUrl: true })
+                }
             })
         ),
         { dispatch: false }
@@ -40,13 +44,13 @@ export class AuthEffects {
         this.actions$.pipe(
             ofType(AuthActions.authRedirect, AuthActions.logout),
             tap(() => this.store$.dispatch(AuthActions.setAuthLoadingState({ loadingState: LoadingState.LOADING }))),
-            delay(300),
+            delay(200),
             tap(() => {
-                localStorage.removeItem('token');
+                this.localStorageService.removeItem(ACCESS_TOKEN);
 
                 this.store$.dispatch(AuthActions.setAuthLoadingState({ loadingState: LoadingState.DEFAULT }));
 
-                this.router.navigate(['/auth']);
+                this.router.navigate(['auth']);
             }),
         ),
         { dispatch: false }
@@ -79,6 +83,7 @@ export class AuthEffects {
 
 
     constructor(
+        @Inject(LOCAL_STORAGE) private readonly localStorageService: Storage,
         private actions$: Actions,
         private store$: Store,
         private router: Router,

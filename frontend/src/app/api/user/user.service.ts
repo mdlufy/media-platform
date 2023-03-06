@@ -10,7 +10,7 @@ import { UserDto } from '../../interfaces/user.dto';
 export class UserService {
     constructor(private readonly http: HttpClient) {}
 
-    public fecthUser$(userEmail: string): Observable<UserDto> {
+    public fetchUser$(userEmail: string): Observable<UserDto> {
         return this.http.get<UserDto>(`${apiUrl}/user/${userEmail}`);
     }
 }
